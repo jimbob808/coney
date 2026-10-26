@@ -11,19 +11,19 @@
 // The follow camera's rays against the level's collision mesh: the main ray from the look-at point toward the camera,
 // with its recast that ignores a disabled triangle close to the look-at point, and the side probes turned about the
 // look-at point's vertical. Pure functions, so each rule can be tested on its own.
-// Research: docs/research/camera.md#collision
+// Research: docs/research/camera/collision.md#collision
 
 namespace coney::camera {
 
 /// The main ray's collision mask: type bit 9 (`0x200`) skipped, disabled triangles tested (bit 0) and those flagged
-/// testable while disabled (`0x800`) too (docs/research/camera.md#collision).
+/// testable while disabled (`0x800`) too (docs/research/camera/collision.md#collision).
 inline constexpr std::uint32_t kViewRayMask = 0x200U | 0x800U | 0x1U;
 /// The recast's mask: the main ray's without bit 0, so a disabled triangle is ignored.
 inline constexpr std::uint32_t kViewRecastMask = 0x200U | 0x800U;
 /// The recast is made when the look-at point is less than this in front of the disabled triangle's plane.
 inline constexpr float kRecastNearPlane = 0.5F;
 /// Materials every ray of the collision step skips: 30 `LOW_FENCE`, 122 `RAILING` and 107 `CHAINLINK_NOCLIMB`
-/// (docs/research/camera.md#collision).
+/// (docs/research/camera/collision.md#collision).
 inline constexpr std::array<std::uint8_t, 3> kSeeThroughMaterials{30, 122, 107};
 
 /// The probe angle, radians: 7° at the near edge of the distance band down to 4° at its far edge, `7° − 3° × t` with

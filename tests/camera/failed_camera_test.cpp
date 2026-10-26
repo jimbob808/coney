@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// The death camera (docs/research/camera.md#death-camera): its top-down placement under whatever is overhead, its turn
-// and sink, and the manager's one-time cut to it.
+// The death camera (docs/research/camera/special.md#death-camera): its top-down placement under whatever is overhead,
+// its turn and sink, and the manager's one-time cut to it.
 #include "camera/failed_camera.h"
 
 #include <cmath>

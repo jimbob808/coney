@@ -479,4 +479,4 @@ TODO for research, found while implementing:
 - The memory system's page (answered): [Memory](memory.md).
 - What `0x001cae58(0x00619570)` is (answered): "a kind-2 caption is showing" ([Timers](#timers)). Still open: who
   sets the single-step request `GameTimer + 0x58` (no writer found; a debug feature, speculative). The camera
-  types (answered): [Camera: types](camera.md#types); type 2 is the follow camera.
+  types (answered): [Camera: types](camera/index.md#types); type 2 is the follow camera.

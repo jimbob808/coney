@@ -14,7 +14,7 @@ an animation player and a brain. The player is a human whose controller is a pad
 what the first playable milestone needs: how a level script creates the player, which files make a character, the
 object's layout as far as it is known, how pad input becomes movement, how a speed picks idle, walk or run, and the
 player's sprint, stamina, jump and climbs. The animation format is on [Animation](formats/animation.md); the camera
-that follows the player on [Camera](camera.md).
+that follows the player on [Camera](camera/index.md).
 
 In one paragraph: a level script calls `HuCreate(name, type, position, heading, ..., player, gang)`. The game takes a
 free slot among **60 static humans**, remaps the type to a behaviour class, finds the character's model by name in
@@ -778,7 +778,7 @@ the AI flags back. The human stays in the world as an AI member of its gang.
 
 1. When player 1 already belongs to `gang`, return at once.
 2. Every listed player of **player 1's gang** is released (`Human_ReleasePlayer(h, 0, 1)`), its pad remembered, and
-   taken off the camera target list ([Camera](camera.md)). Their count is the number of players to hand over (at
+   taken off the camera target list ([Camera](camera/index.md)). Their count is the number of players to hand over (at
    least 1).
 3. A listed player already in `gang` is released and made a player again with a remembered pad, and put on the
    camera target list.
@@ -1032,7 +1032,7 @@ agree to 0.003 m/s; the stored gait `+0x1a8` in brackets). Confirmed (runtime):
 The 35 % and 60 % runs were identical update for update. There is no ramp on the first moving update of any of
 the three clips: it is the clip's own root speed (times 0.97). A walk released stops at once (the idle on the next
 update, 0 m/s). The gaits matter to the camera, whose auto-follow runs only at gait 2, 4 or 5
-([Camera](camera.md#heading)).
+([Camera](camera/follow.md#heading)).
 
 #### The run stop at a run {#run-stop}
 
@@ -1305,7 +1305,7 @@ after a random 0-124 ms.
 [`HuSetWheelchairControl`](../references/bindings/character.md#husetwheelchaircontrol) (`0x00234188`), confirmed
 (code):
 
-- **On**: look-behind switch 11 (`0x0050b23c`) = 0 ([Camera](camera.md)); unless the human already runs it: state
+- **On**: look-behind switch 11 (`0x0050b23c`) = 0 ([Camera](camera/index.md)); unless the human already runs it: state
   flag `0x80000000000`, the current control saved (`0x00221038`: `+0x1bc` copied to `+0x1c4`), the control set to
   `wheelchairControl` (`0x002427e8`, `0x00244620`), every player command off for the human, and commands 46 and 47
   added (kind 7, pad bits `0x4` L1 and `0x8` R1).
@@ -2206,7 +2206,7 @@ copied to `+0xc8` at the next update; `0xRRGGBBAA`), which multiplies the model'
   ([World objects: the tint](objects.md#tint)).
 - **Removal**: when the human is beaten (`Human_CreditDefeat`, `0x00230740`) or destroyed ([Destroying a
   human](#destroy), message `0x15` to `+0x360`), by the death sequence's camera (which removes the players' icons,
-  [Camera](camera.md)), and by the goals that made it.
+  [Camera](camera/index.md)), and by the goals that made it.
 
 **Drawing**: as any world object (`ObjectRender_Draw` `0x0017fd78`, [World objects: the tint](objects.md#tint)):
 the model with its own materials, lit and Z-tested like the other world objects, the tint multiplying it, alpha
@@ -2875,7 +2875,7 @@ statistics, flags, configuration workers) that belong to this page, by address.
 ## Coney's implementation
 
 Coney loads a character's three resources, plays its clips, and plays Rembrandt as player 1 with the human's
-locomotion and the follow camera ([Camera](camera.md#coneys-implementation)):
+locomotion and the follow camera ([Camera](../engine/camera.md#coneys-implementation)):
 
 - `src/characters/character_list.*` reads the Character List from `warriors.glr` and finds a record by model name;
   `character_assets.*` loads the three resources by the records' hashes (`"%u"` file names).
@@ -3114,7 +3114,7 @@ reference images' pose, camera and lights, are Coney's own. For the human:
   lean about its forward axis through the feet.
 - **Context and object actions** (triangle's second and fourth tries) are hooks that never succeed yet, so triangle
   goes on from a refused climb to the jump.
-- **Camera through a fence**: the follow camera's ray passes through material 30 ([Camera](camera.md#coneys-implementation)),
+- **Camera through a fence**: the follow camera's ray passes through material 30 ([Camera](../engine/camera.md#coneys-implementation)),
   so it keeps its distance through a fence climb as the original's does.
 - **Out of the world** (20 m below the mesh's lowest point): the human is put back at the start instead of failing
   the mission.
@@ -3172,7 +3172,7 @@ reference images' pose, camera and lights, are Coney's own. For the human:
 
 - **Make the player first.** For `level99`, checkpoint 1: one human named `Rembrandt`, model `warr_re_cv` (found
   through the Character List), at `(-284.4, 120.4, 0.3)` heading 0°, snapped to the ground with a 2.5 m ray from 1 m
-  above; pad 0; the follow camera targeting it ([Camera](camera.md)). Any other level: its entry for the checkpoint
+  above; pad 0; the follow camera targeting it ([Camera](camera/index.md)). Any other level: its entry for the checkpoint
   in [Level starts](../references/level-starts.md) (checkpoint 1 by default, the first mode's flag in a Rumble arena,
   `fWchiefStart_1` in the hub), with that entry's character type.
 - **Step at 30 Hz.** Movement, turning and the animation step all use dt = 1/30 and per-update limits; a PC build
@@ -3273,7 +3273,7 @@ default ids are known, [Anim slots](#anim-slots)), and the
   fade, [Climbing](#climb)): when record `+0x08` `0x40` is cleared; whether the re-probe needs a climbable triangle;
   how a fence climb's second clip moves the body (Coney: its root motion).
 - **The camera during a fence climb** (answered: the camera's rays exclude materials 30, 122 and 107,
-  [Camera](camera.md#collision)).
+  [Camera](camera/collision.md#collision)).
 - **Triangle flags `0x4` and `0x80`**: why two climbable flags (one for players only), and which surfaces carry them.
 - **The sprint's other clear** (answered: the block, [Combat](combat/index.md#dispatch)). Still open: what `0x00230140`,
   called when the sprint is set, does, and the fight test `0x00224f28`.

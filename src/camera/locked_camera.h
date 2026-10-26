@@ -11,7 +11,7 @@
 
 // The locked camera (type 1, `CameraCreateLocked`): it stays where it was put, looking along its heading and pitch,
 // and keeps the humans `CamLockLocked` lists inside the frame's sides. level99's tutorial cuts to nine of them.
-// Research: docs/research/camera.md#locked-cameras
+// Research: docs/research/camera/scripted.md#locked-cameras
 
 namespace coney::camera {
 
@@ -45,7 +45,7 @@ struct LockedCamera {
 /// `q = qz(heading) * qx(pitch) * qy(roll)`, each about its axis by the right-hand rule, so the pitch turns about the
 /// camera's own right axis after the heading and the roll about its own forward axis. Its forward (+y) is
 /// `(-sin h cos p, cos h cos p, sin p)`: heading 0 looks along +y and 90 along -x, a positive pitch looks up.
-/// Research: docs/research/camera.md#scripted-angles
+/// Research: docs/research/camera/scripted.md#scripted-angles
 /// @orig 0x001353e0 CamLocked_BuildOrientation (unknown)
 /// @orig 0x00142ac8 CamSpline_AddPointAngles (unknown)
 [[nodiscard]] anim::Quat scriptedOrientation(float headingDegrees, float pitchDegrees, float rollDegrees);

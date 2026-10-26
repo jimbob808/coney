@@ -414,7 +414,7 @@ state's handle at `+0x264` (restarted when it is still playing, `0x004194b8`); w
 4. Human flag `0x80000` set, `+0x648` (the hold timer) = 0, `+0x64c` = now.
 5. **The screen look**: `ScreenFx_StartLook(manager of the player's view, 2)` (`0x0018b7d0`): the rage tint and the
    wobbling ghost of the last frame ([Graphics: the rage look](graphics.md#rage-look)).
-6. **The camera** shakes at level 1 (its vtable `+0x15c`, [Camera](camera.md)), with the pad's rumble.
+6. **The camera** shakes at level 1 (its vtable `+0x15c`, [Camera](camera/index.md)), with the pad's rumble.
 7. `RageSound_AddRager` (`0x00419718`): the count of raging humans at game state `+0x268` goes up by one.
 
 **While raging**:

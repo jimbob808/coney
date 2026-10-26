@@ -82,7 +82,7 @@ name = "phase"                            # record +0x08, the combat phase flags
 address = "rec(player) + 0x08"
 type = "u32"
 
-# The player's follow camera, *(0x005d9158): docs/research/camera.md.
+# The player's follow camera, *(0x005d9158): docs/research/camera/index.md.
 [[camera]]
 name = "cam_x"
 address = "camera + 0x10"
@@ -474,7 +474,7 @@ name = "body_44"                          # body +0x44
 address = "u32(player + 0x1a0) + 0x44"
 type = "u32"
 
-# More of the follow camera's state (docs/research/camera.md#the-follow-camera-object): the lag, the bands, the
+# More of the follow camera's state (docs/research/camera/follow.md#the-follow-camera-object): the lag, the bands, the
 # collision latches and the pitch offsets, for the climb, ledge and level95 camera passes.
 [[camera_state]]
 name = "lag"                              # +0x388, the share of the wanted move covered
@@ -691,7 +691,7 @@ type = "u32"
 # The follow camera on a fall: the aim point the view faces (+0x240) and its lag (+0x418), the view's pitch (camera to
 # the aim point), the hard band (+0x33c/+0x340), and the player's state word (record +0x00; the long fall is
 # `0x1000000000`, state_hi & 0x10), held flags (+0x08; falling `0x400000`) and state code (+0x14; 26 the fall).
-# Research: docs/research/camera.md#long-fall.
+# Research: docs/research/camera/follow.md#long-fall.
 [[fall]]
 name = "aim_x"
 address = "camera + 0x240"
@@ -752,7 +752,7 @@ type = "u8"
 
 # What the player sees between gameplay and a script's cut: player 1's current camera (0x005d9150, a pointer that
 # changes on CameraMakeActive) and view 1's screen effects (*0x005fdeb8: the fade's level +0x1d8, the letterbox's
-# level +0x1ec). docs/research/camera.md, docs/research/graphics.md#screen-effects.
+# level +0x1ec). docs/research/camera/index.md, docs/research/graphics.md#screen-effects.
 [[screen]]
 name = "cur_cam"
 address = "0x005d9150"

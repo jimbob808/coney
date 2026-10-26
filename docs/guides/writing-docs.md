@@ -477,7 +477,7 @@ There is no front matter and no fixed list of sections.
 
 ```sh
 uv run --project python coney-tools docs check                      # the pages changed since origin/main
-uv run --project python coney-tools docs check docs/research/camera.md docs/guides   # named pages, or a folder's pages
+uv run --project python coney-tools docs check docs/research/camera/index.md docs/guides   # named pages, or a folder's pages
 uv run --project python coney-tools docs check --summary docs       # the whole tree: pages that pass, per kind and rule
 ```
 

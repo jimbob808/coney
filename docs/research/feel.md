@@ -12,7 +12,7 @@ a material 30 fence 19.04 m ahead of the fence save) are exactly where `level99`
 What it takes for Coney's player to *feel* like the original's: the same scripted analog inputs were played in the
 original and in Coney, from the same spot, and the per-update traces of position, speed, heading, clip and camera were
 compared. This page lists every difference beyond noise with the original's value and its evidence, and which Coney
-value or rule to change. The mechanics themselves are on [Characters](characters.md) and [Camera](camera.md), which
+value or rule to change. The mechanics themselves are on [Characters](characters.md) and [Camera](camera/index.md), which
 were corrected in place where the runs contradicted them.
 
 ## Method
@@ -71,7 +71,7 @@ were corrected in place where the runs contradicted them.
 | Camera leash band (wanted distance) | **4.8-5.3 m** (the configured default distance and + 0.5) | 3.0-3.5 m | Coney 1.8 m closer | `FollowSettings::leashNear` / `leashFar` from the default distance, not 3.0 |
 | Camera distance walking / running | 5.49 m / 5.65 m | 3.68 m / 3.85 m | (band) | (above) |
 | Camera pitch walking / running | 12.6° / 11.1° | 12.3° / 10.3° | follows from the band | |
-| **Auto-follow** (camera swings toward the facing) | **runs** whenever the player walks, runs, sprints or is in the air: the auto-centre rule, within about 5°/s for angles of 30-90° | none | missing | add the auto-centre rule (`0x00129f88`), [Camera](camera.md#heading) |
+| **Auto-follow** (camera swings toward the facing) | **runs** whenever the player walks, runs, sprints or is in the air: the auto-centre rule, within about 5°/s for angles of 30-90° | none | missing | add the auto-centre rule (`0x00129f88`), [Camera](camera/follow.md#heading) |
 | Stick held 90° to the side | the player **runs in a circle**: camera and facing turn together at about **191°/s** running and **143°/s** walking (35-80 % stick); the auto-centre rule gives 122 and 127°/s of it, the leash's drag the rest | a wide arc, turned only by the leash (about 35°/s) | (auto-follow) | (above) |
 | **Sprint camera** | from the first update at the sprint gait the band moves 4.8-5.3 → **3.0-3.5** and the target pitch 13° → **7°**, both over **14 updates**; back over 14 updates once the run stop slows the body | none | missing | add the sprint zoom (values below) |
 | Camera in a sprint | 4.70 m, pitch 5.2° | 3.85 m, 9.7° | (sprint camera) | |
@@ -79,7 +79,7 @@ were corrected in place where the runs contradicted them.
 | Right-stick pitch upper limit | **40°** | 30° | 10° | `FollowSettings::upperPitchDegrees` 40 at the default zoom |
 | Look-at height after a climb's rise | eases **20 % of the way per update** while more than 0.8 m is left, then in 2 updates (the look-at point's distance limit, `0x00127d88`); pitch stays at 3.6° or more | snaps with the feet; pitch falls to −22° (roof) and −8° (trash can) | Coney looks up from below | ease the look-at height |
 | Camera during a fence climb | 4.9-5.3 m throughout, the fence (material 30) between camera and player | collapses to **0.5 m** while the body passes through | Coney's ray hits the fence | the camera's ray skips material 30 (and, inferred, the other see-through fences) |
-| Camera passing a face just behind the player (slot 7, 0.19 m behind) | unaffected: the face is a 2.65 m panel the game has **disabled**, and the camera's ray ignores a disabled triangle within 0.5 m of the look-at point | pulled in to 0.5 m for about 1 s | Coney pulls in | keep the triangles' enabled bits as the game sets them, and the ray's disabled-triangle rule ([Camera](camera.md#collision)) |
+| Camera passing a face just behind the player (slot 7, 0.19 m behind) | unaffected: the face is a 2.65 m panel the game has **disabled**, and the camera's ray ignores a disabled triangle within 0.5 m of the look-at point | pulled in to 0.5 m for about 1 s | Coney pulls in | keep the triangles' enabled bits as the game sets them, and the ray's disabled-triangle rule ([Camera](camera/collision.md#collision)) |
 
 Evidence: confirmed (runtime) for every "Original" value, PCSX2 2.9.94, the saves named in [Method](#method), each
 run read per update; the turn values are also confirmed (code), below.
@@ -106,7 +106,7 @@ run read per update; the turn values are also confirmed (code), below.
   updates; the other definitions tried were 8-30°/s worse). It turned nothing while standing, during the walk and
   run start clips and during the landing clip 436, and turned at walk, run, sprint and in the air: the rule runs
   only at the gaits 2, 4 and 5 (walk, run, sprint), confirmed (code) at `0x00129c78`, and those clips move the body
-  at gait 0, 1 or 3 ([Camera](camera.md#heading)). The save has the
+  at gait 0, 1 or 3 ([Camera](camera/follow.md#heading)). The save has the
   per-pad option bytes `0x0050b240` and `0x0050b248` at 1 (the auto-centre rule). Confirmed (runtime) in slot 1.
   Both are 1 by **default**: their bytes in the executable's `.data` are 1 for both pads; `0x0050b248` (and `+1`)
   is set to 1 again by every camera reset (`0x00122b80`); `0x0050b240` is changed only by the options menu (its first
@@ -119,7 +119,7 @@ run read per update; the turn values are also confirmed (code), below.
   3.216, then 3.000; the target pitch falls 0.4286° per update (6° in 14 updates, 12.9°/s). On the way back the same
   14 values in reverse, starting 8 updates after the run stop began (when the body had slowed to about 2.5 m/s).
   The view's pitch follows its target at the usual rate. Confirmed (runtime), slot 1, stick 100 % and L2. The code
-  (`0x00128cf0` and the band's ease `0x0012aae0`, [Camera](camera.md#sprint-zoom)): a 0.5 s timer; the band's near
+  (`0x00128cf0` and the band's ease `0x0012aae0`, [Camera](camera/follow.md#sprint-zoom)): a 0.5 s timer; the band's near
   edge moves by `d × |d| / T × dt` toward the minimum distance (`d` left, `T` the timer), the target pitch in a
   straight line to 7°; it starts on the first update at gait 5 and goes back 250 ms after the gait leaves 5 (8
   updates). Confirmed (code) and, for the fields, confirmed (runtime).
@@ -141,7 +141,7 @@ run read per update; the turn values are also confirmed (code), below.
 ## Coney's implementation
 
 The fixes below are in Coney ([Characters](characters.md#coneys-implementation),
-[Camera](camera.md#coneys-implementation)); the values are from Coney's own trace (`--trace`,
+[Camera](../engine/camera.md#coneys-implementation)); the values are from Coney's own trace (`--trace`,
 [Running Coney](../guides/running.md#tracing)) on the sandbox's parkour lane with the same kind of scripted stick:
 
 | Quantity | Original | Coney now |
@@ -186,15 +186,15 @@ The fixes in order of how much they change the feel:
 
 1. **Turn rates**: player limits 20° (walk, standing), 18° (jog, run), 16° (sprint) per update, 24° in a combat stance;
    ease full at 2.0 rad; carry 0.8 as now. The air turn stays at 4°.
-2. **Camera auto-follow**: the auto-centre rule of [Camera](camera.md#heading), with `a` measured from the camera's
+2. **Camera auto-follow**: the auto-centre rule of [Camera](camera/follow.md#heading), with `a` measured from the camera's
    position at the start of the update; only at the walk, run and sprint gaits (2, 4, 5), which leaves out standing,
    the start clips and the landing clip without testing the clip; not from an update on which the camera's main ray
-   was blocked until the player stops (the `+0x45d` latch, [Camera](camera.md#runtime-checks)); held off 0.334 s
+   was blocked until the player stops (the `+0x45d` latch, [Camera](camera/follow.md#runtime-checks)); held off 0.334 s
    after right-stick input. Holding the stick sideways must make the player circle at about
    190°/s running and 143°/s walking, which Coney's rule plus the leash's drag already gives.
 3. **Camera distance**: leash band = default distance and default + 0.5 (4.8-5.3 m with `CfgFollowCamera`'s 4.8),
    hard band as now; the sprint zoom (3.0-3.5 m and 7° over 14 updates, back over 14, by the timer rule of
-   [Camera](camera.md#sprint-zoom), starting at gait 5 and going back 250 ms after it); upper pitch limit 40°.
+   [Camera](camera/follow.md#sprint-zoom), starting at gait 5 and going back 250 ms after it); upper pitch limit 40°.
 4. **Run stop after a run**: the skid at gait 4 plays 417 with its root motion, as after a sprint; a reversal skids
    too.
 5. **Walls**: the player's walking sphere 0.4705 m (0.5 × scale²); keep the slid velocity, so running into a wall
@@ -221,18 +221,19 @@ The fixes in order of how much they change the feel:
   ([Details](#details-behind-the-table)); the default rule (`0x0012a400`) runs only after the options menu turns it
   off. Still open: what a new profile saves. The "not seen" reading at `level99` checkpoint 1 is the blocked-view
   latch `+0x45d`, set by the walls at the start spot and held until the player stops (confirmed (runtime),
-  [Camera](camera.md#runtime-checks)).
+  [Camera](camera/follow.md#runtime-checks)).
 - **The sprint camera's code** (answered): `0x00128cf0` with the band's ease `0x0012aae0`, started by gait 5 and
-  ended 250 ms after it ([Camera](camera.md#sprint-zoom)).
+  ended 250 ms after it ([Camera](camera/follow.md#sprint-zoom)).
 - **The look-at height's ease** (answered): the 20 % is the look-at point's distance limit (`0x00127d88`); the 30 %
-  read before is the camera's height hold, a different ease ([Camera](camera.md#update)).
+  read before is the camera's height hold, a different ease ([Camera](camera/follow.md#update)).
 - **The camera's collision** (answered): the face that pulled Coney's camera in is a disabled panel, which the
-  original's ray skips near the look-at point ([Camera](camera.md#street)), and the fence is skipped by material: the
-  camera's rays exclude 30, 122 and 107 ([Camera](camera.md#collision)).
+  original's ray skips near the look-at point ([Camera](camera/follow.md#street)), and the fence is skipped by
+  material: the
+  camera's rays exclude 30, 122 and 107 ([Camera](camera/collision.md#collision)).
 - **The landing update** (answered at runtime): the feet go on below the floor until an update starts 0.17 m or more
   under it, so the 0.19 m dip is real ([Characters](characters.md#falling)); why 0.17 m in the code is open.
 - **The circling rate** (answered): about 191°/s running and 143°/s walking in the original, the rule's turn plus the
-  leash's drag ([Camera](camera.md#street)); Coney's 190°/s matches. The 122°/s compared before was the rule's share.
+  leash's drag ([Camera](camera/follow.md#street)); Coney's 190°/s matches. The 122°/s compared before was the rule's share.
 - **The slow first updates** (answered): the original's start clips and run stop move the body at the clip's root
   speed from their first moving update, with no ramp ([Characters](characters.md#locomotion)). Coney's were slow
   because it lerped from a clip's frame 0, whose root speed is 0; the original's cursor already stands on the key of

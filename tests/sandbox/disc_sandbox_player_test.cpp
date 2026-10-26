@@ -194,9 +194,9 @@ TEST_CASE("with the stick held to the side Rembrandt circles at the original's r
     REQUIRE(engine.has_value());
     const Course course = loadCourse(discPath);
 
-    // The player's turn averaged over updates 100-158, as the original's was measured (docs/research/camera.md#street):
-    // about 191°/s at a run and 143°/s at a walk (35 % to 80 % sticks), the auto-centre rule's turn plus the leash's
-    // drag. Open ground west of the start.
+    // The player's turn averaged over updates 100-158, as the original's was measured
+    // (docs/research/camera/follow.md#street): about 191°/s at a run and 143°/s at a walk (35 % to 80 % sticks), the
+    // auto-centre rule's turn plus the leash's drag. Open ground west of the start.
     const auto rate = [](const Run& run) {
         float turned = 0.0F;
         for (std::size_t i = 100; i < 158; ++i) {

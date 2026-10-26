@@ -552,7 +552,8 @@ What happens between choosing STORY and controlling Rembrandt, in order. The fro
     - `preLoadFile("level99_combat", "Checkpoint1")`: an asynchronous read; the file manager delivers it later, and
       then the chunk runs and `Checkpoint1` is called ([Scripts](scripting.md#bindings-the-front-end-and-the-script-system-depend-on));
     - **the camera**: `AddCameras` makes the follow camera on `player` and activates it
-      ([Camera](camera.md)); `SetStartGameCallback("StartAmbient")`; demigod mode for both, mugging off, commands 37
+      ([Camera](camera/index.md)); `SetStartGameCallback("StartAmbient")`; demigod mode for both, mugging off,
+      commands 37
       and 38 off for the tutorial.
 4. **Objects and resources** (steps 7-8): `level99_objs.txt` into the task manager, `CrimeScene` and `GangCall`, then
    the dependency list of `level99`, blocking.
@@ -644,7 +645,7 @@ for the order; the roles of callees not named elsewhere are inferred from what t
 **Leaving.** `W_GameState + 0x14c` drives the way out, confirmed (code):
 
 - **1 or 2** (a level end): the countdown `+0x28` is capped at 90 frames, except for a failure outside an Armies
-  level, which plays the [game-over shot](camera.md#death-camera); it drops to 10 when cross (`0x40`) is
+  level, which plays the [game-over shot](camera/special.md#death-camera); it drops to 10 when cross (`0x40`) is
   pressed; a type-`0xc` camera gets a 6.5 s fade (`0x0018c988`). When it reaches 0, 1 leads to `0x00155408` or
   `0x001557f8` (chosen by `0x0041d110`) and 2 to `0x0015d420(0)`. **1 is a failure**: a player who falls more than
   20 m below the collision mesh sets it, with `+0x152` = 2, when the game-state flags `+0x150` have bit 1

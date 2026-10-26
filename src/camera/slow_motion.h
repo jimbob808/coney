@@ -5,7 +5,7 @@
 
 // Slow motion: an animation event on a player's clip shortens the characters' step to the slow-motion factor of
 // 1/30 s, so humans, animation and the cameras' character-step logic run slower while frames keep their rate.
-// Research: docs/research/camera.md#slow-motion
+// Research: docs/research/camera/effects.md#slow-motion
 
 namespace coney::camera {
 

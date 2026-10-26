@@ -2,9 +2,16 @@
 # The fields: docs/guides/research-function-database.md; `research render --check`.
 
 [[function]]
+address = 0x0011b770
+name = "Camera_MakeActiveByHandle"
+page = "camera/index.md#fn-script"
+role = "[`CameraMakeActive`](../references/bindings/camera.md#cameramakeactive) binding helper: resolves the camera handle (must be a camera object), reads the player index (`+0x1b0`) of up to two optional humans and calls Camera_MakeActive (`0x0011ee08`) with the blend time. See [blends](camera/index.md#blends)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0011b838
 name = "Camera_GetActiveHandle"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CameraGetActive`](../references/bindings/camera.md#cameragetactive): handle (vtable `+0x2c`) of the player's current camera, or the null handle `0x006ebd30`."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::activeHandle"
@@ -13,7 +20,7 @@ status = "legacy"
 [[function]]
 address = 0x0011b888
 name = "Camera_DeleteScripted"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CamDelete`](../references/bindings/camera.md#camdelete): releases (Camera_Release `0x0011e440`) a camera by handle, but only a fixed (type 0) or locked (type 1) camera; shared kinds are kept."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::deleteCamera"
@@ -22,16 +29,30 @@ status = "legacy"
 [[function]]
 address = 0x0011b920
 name = "Camera_GetPositionByHandle"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CamGetPos`](../references/bindings/camera.md#camgetpos): a camera's position (vtable `+0x21c`) by handle, or the zero vector `0x005116c0`."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::positionOf"
 status = "legacy"
 
 [[function]]
+address = 0x0011b970
+name = "Camera_TransformPoint"
+page = "camera/index.md#fn-script"
+role = "[`CameraTransformPoint`](../references/bindings/camera.md#cameratransformpoint): transforms a point (w=1) by the camera's matrix (vtable `+0xac`, `0x00335a78`) and writes it back. No script calls it."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011ba20
+name = "Camera_AttachObjectToView"
+page = "camera/index.md#fn-script"
+role = "[`CameraTransform`](../references/bindings/camera.md#cameratransform): object matrix = camera matrix × object matrix (`0x003359b0`), set back on the object (vtable `+0xb4`). No script calls it."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0011bad8
 name = "Camera_ResetByHandle"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CameraReset`](../references/bindings/camera.md#camerareset): vtable `+0x13c` reset; for a follow camera the other player's follow camera (if made) is reset too."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::reset"
@@ -40,16 +61,23 @@ status = "legacy"
 [[function]]
 address = 0x0011bb98
 name = "Camera_SetClipping"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CameraSetClipping`](../references/bindings/camera.md#camerasetclipping): near plane (not for a follow camera) and far clip capped at 150."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::setClipping"
 status = "legacy"
 
 [[function]]
+address = 0x0011bc48
+name = "Camera_CreateLocked"
+page = "camera/index.md#fn-script"
+role = "[`CameraCreateLocked`](../references/bindings/camera.md#cameracreatelocked): factory type 1; position at `+0x1e0` and `+0x10`; fov (vtable `+0x194`); aim from three values (`0x001353b8`); near; far capped at 150; lens to default (vtable `+0x20c` -> `+0x1b4`); returns the handle."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0011bdc0
 name = "Camera_LockLocked"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CamLockLocked`](../references/bindings/camera.md#camlocklocked): adds/removes a human in a locked camera's kept-in-view list (`0x001358d0`)."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::lockLocked"
@@ -58,7 +86,7 @@ status = "legacy"
 [[function]]
 address = 0x0011be18
 name = "Camera_CreateThird"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CameraCreateThird`](../references/bindings/camera.md#cameracreatethird): factory type 0x10 on a target object (`+0x1e0`); fov (vtable `+0x194`); distance/height at `+0x210`/`+0x214`, angle (`0x001207b0`), offset `+0x220`; near; far capped at 150; returns the handle."
 level = "confirmed-code"
 coney = "src/scripting/camera_bindings.cpp:makeCameraCreateThird"
@@ -67,8 +95,8 @@ status = "legacy"
 [[function]]
 address = 0x0011bfa8
 name = "Camera_SetupFollow"
-page = "camera.md#fn-script"
-role = "[`CamSetupFollow`](../references/bindings/camera.md#camsetupfollow): puts the player's Cam_Follow on a target (vtable `+0x1bc`), places it at the target plus the offset `+0x200`, Cam_Follow_PlaceBehind(180, -1), returns its handle. [setting up](camera.md#setting-up)."
+page = "camera/index.md#fn-script"
+role = "[`CamSetupFollow`](../references/bindings/camera.md#camsetupfollow): puts the player's Cam_Follow on a target (vtable `+0x1bc`), places it at the target plus the offset `+0x200`, Cam_Follow_PlaceBehind(180, -1), returns its handle. [setting up](camera/index.md#setting-up)."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::setupFollow"
 status = "legacy"
@@ -76,8 +104,8 @@ status = "legacy"
 [[function]]
 address = 0x0011c0b8
 name = "Cam_ConfigureFollow"
-page = "camera.md#fn-script"
-role = "CfgFollowCamera (player 1's follow camera): distances, pitch, fov, near plane, offset, slow-motion factor `0x005148a0`; band to the minimum with one player camera. [setting up](camera.md#setting-up)."
+page = "camera/index.md#fn-script"
+role = "CfgFollowCamera (player 1's follow camera): distances, pitch, fov, near plane, offset, slow-motion factor `0x005148a0`; band to the minimum with one player camera. [setting up](camera/index.md#setting-up)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::configure"
 status = "legacy"
@@ -85,8 +113,8 @@ status = "legacy"
 [[function]]
 address = 0x0011c270
 name = "Camera_TargetList"
-page = "camera.md#fn-script"
-role = "[`CamTarget`](../references/bindings/camera.md#camtarget): adds or removes a human in the shared target list `0x005d91a8`. [script calls](camera.md#script-calls)."
+page = "camera/index.md#fn-script"
+role = "[`CamTarget`](../references/bindings/camera.md#camtarget): adds or removes a human in the shared target list `0x005d91a8`. [script calls](camera/scripted.md#script-calls)."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::target"
 status = "legacy"
@@ -94,7 +122,7 @@ status = "legacy"
 [[function]]
 address = 0x0011c2f0
 name = "Camera_SetFollowHeading"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CamSetFollowHeading`](../references/bindings/camera.md#camsetfollowheading): snaps every player's follow camera to a heading round its target (Cam_Follow_SetHeading), no blend."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::setFollowHeading"
@@ -103,8 +131,8 @@ status = "legacy"
 [[function]]
 address = 0x0011c3b8
 name = "Camera_SetFollowPitch"
-page = "camera.md#fn-script"
-role = "[`CamSetFollowAngle`](../references/bindings/camera.md#camsetfollowangle): every follow camera's target pitch, clamped, reached at once (Cam_Follow_SetTargetPitch). [script calls](camera.md#script-calls)."
+page = "camera/index.md#fn-script"
+role = "[`CamSetFollowAngle`](../references/bindings/camera.md#camsetfollowangle): every follow camera's target pitch, clamped, reached at once (Cam_Follow_SetTargetPitch). [script calls](camera/scripted.md#script-calls)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::setPitch"
 status = "legacy"
@@ -112,8 +140,8 @@ status = "legacy"
 [[function]]
 address = 0x0011c470
 name = "Camera_SetFollowZoom"
-page = "camera.md#fn-script"
-role = "[`CamSetFollowZoom`](../references/bindings/camera.md#camsetfollowzoom): band to the minimum, default or maximum, zoom step and upper pitch limit. [script calls](camera.md#script-calls)."
+page = "camera/index.md#fn-script"
+role = "[`CamSetFollowZoom`](../references/bindings/camera.md#camsetfollowzoom): band to the minimum, default or maximum, zoom step and upper pitch limit. [script calls](camera/scripted.md#script-calls)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::setZoom"
 status = "legacy"
@@ -121,7 +149,7 @@ status = "legacy"
 [[function]]
 address = 0x0011c638
 name = "Camera_SetFollowPosition"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CamSetFollowPos`](../references/bindings/camera.md#camsetfollowpos): puts a player's follow camera at a world position at once (Cam_Follow_SetPosition)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::placeAt"
@@ -130,7 +158,7 @@ status = "legacy"
 [[function]]
 address = 0x0011c6b8
 name = "Camera_CreateFixed"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CameraCreateFixed`](../references/bindings/camera.md#cameracreatefixed): factory type 0 at a position, target put on the shared target list (CameraTargets_Add), offset, lens; returns the handle."
 level = "confirmed-code"
 coney = "src/scripting/camera_bindings.cpp:makeCameraCreateFixed"
@@ -139,7 +167,7 @@ status = "legacy"
 [[function]]
 address = 0x0011c858
 name = "Camera_CreateWin"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CameraCreateWin`](../references/bindings/camera.md#cameracreatewin): sets up the shared Cam_Win (`0x00120188`): name (vtable `+0x18c`), target human `+0x1e0`, fov (vtable `+0x194`), distance, angle, height and speed (`+0x1e4`..`+0x1f0`), direction (`0x00143c58`); near 0.1; far capped at 150; returns the handle."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::createWin"
@@ -148,8 +176,8 @@ status = "legacy"
 [[function]]
 address = 0x0011c9e0
 name = "Camera_SetupPoizo"
-page = "camera.md#fn-script"
-role = "[`CamSetupPoizo`](../references/bindings/camera.md#camsetuppoizo): starts the path camera from an existing camera's view, clearing its points; time to the first point, end callback, fov, far. [path cameras](camera.md#path-cameras)."
+page = "camera/index.md#fn-script"
+role = "[`CamSetupPoizo`](../references/bindings/camera.md#camsetuppoizo): starts the path camera from an existing camera's view, clearing its points; time to the first point, end callback, fov, far. [path cameras](camera/scripted.md#path-cameras)."
 level = "confirmed-code"
 coney = "src/camera/path_camera.h:PathCamera::setup"
 status = "legacy"
@@ -157,7 +185,7 @@ status = "legacy"
 [[function]]
 address = 0x0011cb70
 name = "Camera_ReversePoizo"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CamReversePoizo`](../references/bindings/camera.md#camreversepoizo): reverses the path camera (PoizoCam_Reverse `0x00142578`) if it exists; returns whether it does."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::reversePath"
@@ -166,7 +194,7 @@ status = "legacy"
 [[function]]
 address = 0x0011cbb0
 name = "Camera_AddPoizoPoint"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CamAddPoizoPoint`](../references/bindings/camera.md#camaddpoizopoint): appends a path point (position; orientation from heading, pitch, roll) with its time and callback."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::addPathPoint"
@@ -175,7 +203,7 @@ status = "legacy"
 [[function]]
 address = 0x0011cc68
 name = "Camera_AddPoizoPointCam"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CamAddPoizoPointCam`](../references/bindings/camera.md#camaddpoizopointcam): appends a path point taken from another camera's view."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::addPathPointFrom"
@@ -184,8 +212,8 @@ status = "legacy"
 [[function]]
 address = 0x0011cce8
 name = "Camera_SetupRail"
-page = "camera.md#fn-script"
-role = "[`CamSetupRail`](../references/bindings/camera.md#camsetuprail): a player's rail camera: name, target on the target list, fov, offset, near, far; CamRail_Reset. [rail](camera.md#rail)."
+page = "camera/index.md#fn-script"
+role = "[`CamSetupRail`](../references/bindings/camera.md#camsetuprail): a player's rail camera: name, target on the target list, fov, offset, near, far; CamRail_Reset. [rail](camera/scripted.md#rail)."
 level = "confirmed-code"
 coney = "src/camera/rail_camera.h:RailCamera::setup"
 status = "legacy"
@@ -193,8 +221,8 @@ status = "legacy"
 [[function]]
 address = 0x0011cf70
 name = "Camera_SetRailLead"
-page = "camera.md#fn-script"
-role = "[`CamLeadRail`](../references/bindings/camera.md#camleadrail): puts a player's rail camera into leading mode 1 or 2 with a lead distance. [rail](camera.md#rail)."
+page = "camera/index.md#fn-script"
+role = "[`CamLeadRail`](../references/bindings/camera.md#camleadrail): puts a player's rail camera into leading mode 1 or 2 with a lead distance. [rail](camera/scripted.md#rail)."
 level = "confirmed-code"
 coney = "src/camera/rail_camera.h:RailCamera::setLead"
 status = "legacy"
@@ -202,25 +230,46 @@ status = "legacy"
 [[function]]
 address = 0x0011d098
 name = "Camera_AddRailPoint"
-page = "camera.md#fn-script"
-role = "[`CamAddRailPoint`](../references/bindings/camera.md#camaddrailpoint): appends a rail point (CamRail_AppendPoint). [rail](camera.md#rail)."
+page = "camera/index.md#fn-script"
+role = "[`CamAddRailPoint`](../references/bindings/camera.md#camaddrailpoint): appends a rail point (CamRail_AppendPoint). [rail](camera/scripted.md#rail)."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::addRailPoint"
 status = "legacy"
 
 [[function]]
+address = 0x0011d180
+name = "Camera_LockRail"
+page = "camera/index.md#fn-script"
+role = "[`CamLockRail`](../references/bindings/camera.md#camlockrail): holds or releases a player's rail camera (`+0x3e4`). [rail](camera/scripted.md#rail)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0011d228
 name = "Camera_ModifyRail"
-page = "camera.md#fn-script"
-role = "[`CamModifyRail`](../references/bindings/camera.md#cammodifyrail): a rail setting's target and ease time. [rail](camera.md#rail)."
+page = "camera/index.md#fn-script"
+role = "[`CamModifyRail`](../references/bindings/camera.md#cammodifyrail): a rail setting's target and ease time. [rail](camera/scripted.md#rail)."
 level = "confirmed-code"
 coney = "src/camera/rail_camera.h:RailCamera::modify"
 status = "legacy"
 
 [[function]]
+address = 0x0011d808
+name = "HoodCam_Setup"
+page = "camera/index.md#fn-script"
+role = "[`CamSetupHood`](../references/bindings/camera.md#camsetuphood): every player's hood camera mounted on a vehicle with mount offset and lens values."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011daa8
+name = "Camera_UseDeathCamera"
+page = "camera/index.md#fn-script"
+role = "[`CamUseDeathCamera`](../references/bindings/camera.md#camusedeathcamera): makes player 1's Cam_Failed (`0x001200e0`) current with no blend on a human; saves the previous camera (`+0x1e4`), sets flags `0x0050b1e8`=1/`0x0050b1ec`=0, fades the screen over ms (`0x0018c988`/`0x0018d058`), hides the HUD (`0x001b1f38`) and removes the overhead icons of every player and the human (`Human_RemoveOverheadIcon`, `0x00227388`); it stops no one. [Death camera](camera/special.md#death-camera)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0011dcf0
 name = "Camera_SetFollowSecondary"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CamSetSecondary`](../references/bindings/camera.md#camsetsecondary): a human/object for a player's follow camera to keep in view (`+0x320`) and its range (`+0x3fc`)."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::setSecondary"
@@ -229,7 +278,7 @@ status = "legacy"
 [[function]]
 address = 0x0011dd78
 name = "Camera_CanSeeObject"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CamCanSee`](../references/bindings/camera.md#camcansee): is a point 0.3 m (1 m for class flag 0x40) above the object seen by any player's camera within range (Camera_AnyPlayerCanSeePoint)."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::canSee"
@@ -238,7 +287,7 @@ status = "legacy"
 [[function]]
 address = 0x0011de58
 name = "Camera_EnableFeature"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "CamEnable(switch, on, player): writes one of the 14 camera switches ([switches](../references/cameras.md#switch))."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::enable"
@@ -247,71 +296,337 @@ status = "legacy"
 [[function]]
 address = 0x0011e0a8
 name = "Camera_SetSplitMode"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CamSetSplitMode`](../references/bindings/camera.md#camsetsplitmode): split layout 0 or 1 into `0x0050b1a0`; when it changes, re-lays out the views (`0x00122ed0`)."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::setSplitMode"
 status = "legacy"
 
 [[function]]
+address = 0x0011e0e0
+name = "Camera_SetGameAspect"
+page = "camera/index.md#fn-script"
+role = "[`CamSetGameAspect`](../references/bindings/camera.md#camsetgameaspect): Cameras_SetAspectAll (`0x00122ca0`). No script calls it."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011e100
+name = "Camera_SetHudAspect"
+page = "camera/index.md#fn-script"
+role = "[`CamSetHUDAspect`](../references/bindings/camera.md#camsethudaspect): stores the overlay camera aspect `0x0050b208` (`0x00122d38`). No script calls it."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011e120
+name = "Camera_SetHudScale"
+page = "camera/index.md#fn-script"
+role = "[`CamSetHUDScale`](../references/bindings/camera.md#camsethudscale): overlay view-window scale `0x0050b20c`. No script calls it."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011e130
+name = "Camera_RegisterObject"
+page = "camera/index.md#fn-script"
+role = "CamRegisterObject(handle, on): adds (`0x001233c0`) or removes (`0x001233e8`) an object handle in the 4-entry list `0x005d9198`. No script calls it."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011e188
+name = "Camera_GetLastTarget"
+page = "camera/index.md#fn-script"
+role = "[`CamGetLastTarget`](../references/bindings/camera.md#camgetlasttarget): returns the word `0x005d91b8`. No script calls it."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0011e198
 name = "Camera_AssignReverseButton"
-page = "camera.md#fn-script"
+page = "camera/index.md#fn-script"
 role = "[`CamAssignRevCamButton`](../references/bindings/camera.md#camassignrevcambutton): the reverse-camera button `0x0050b230`."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::setReverseButton"
 status = "legacy"
 
 [[function]]
+address = 0x0011e1b0
+name = "Camera_Create"
+page = "camera/index.md#fn-manager"
+role = "Camera factory (type, name, player): allocates types 0 Cam_Fixed, 1 Cam_Locked, 4 Cam_Scene, 0x10 Cam_3rdPerson; the per-player getters for 2,3,5,7,8 (made on first use); only existing ones for 0xc/0xd. Sets the name (vtable `+0x18c`) and, if it has no player yet, player 0 (vtable `+0x274`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011e440
+name = "Camera_Release"
+page = "camera/index.md#fn-manager"
+role = "Deletes a camera: clears it from a blend (`+0x210` from / `+0x214` to; a scene camera is replaced by the top of the camera stack), from its singleton slot, from the players' base and current slots (a player whose current camera it was falls back to his base follow/rail camera, which is reset), then frees it. param 2 = 1 at level end."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0011e878
 name = "Cameras_Update"
-page = "camera.md#fn-manager"
+page = "camera/index.md#fn-manager"
 role = "Cameras' update (dt): counts the target list `0x005d91a8` into `0x0050b194`; if player 1 has no current and no base camera but a follow camera, makes it both; runs each player's current camera update (vtable `+0x134`)."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::update"
 status = "legacy"
 
 [[function]]
+address = 0x0011e978
+name = "Camera_FromObject"
+page = "camera/index.md#fn-manager"
+role = "Returns the object if its class flags (vtable `+0x24`) have 0x200 (a camera), else null. Every handle-taking camera binding uses it."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011e9c0
+name = "Cameras_ClearSlots"
+page = "camera/index.md#fn-manager"
+role = "Clears every per-player camera slot (`0x005d9148`-`0x005d918c`) and the single ones (`0x0050b16c` path, `0x0050b170` death, `0x0050b174` win), then re-lays out the views (`0x00122ed0`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011ea80
+name = "Cameras_ReleaseAll"
+page = "camera/index.md#fn-manager"
+role = "Releases every camera in handle slots 0x3c-0x6b (Camera_Release(cam,1)), then Cameras_ClearSlots."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011eae0
+name = "Cameras_GetViewCount"
+page = "camera/index.md#fn-manager"
+role = "Returns the number of views/players `0x0050b198`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011eaf0
+name = "Cameras_AddPlayer"
+page = "camera/index.md#fn-manager"
+role = "Gives a new player (index) the kinds of game camera player 1 has (follow, rail, hood), copying their settings (`0x00124c28`, `0x0013b358`, `0x00134ca8`); his base and current camera become the same kind as player 1's base (for a blend, its destination's), activated (vtable `+0x144`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011ed60
+name = "Cameras_RemovePlayer"
+page = "camera/index.md#fn-manager"
+role = "Releases a player's follow, rail and hood cameras and clears his base and current camera."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0011ee08
 name = "Camera_MakeActive"
-page = "camera.md#fn-manager"
-role = "Makes a camera current for a player, optionally blending (Cam_Transition `0x0011fac8`) over the given time; while a scene camera is current it replaces the camera the scene returns to instead. [blends](camera.md#blends)."
+page = "camera/index.md#fn-manager"
+role = "Makes a camera current for a player, optionally blending (Cam_Transition `0x0011fac8`) over the given time; while a scene camera is current it replaces the camera the scene returns to instead. [blends](camera/index.md#blends)."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::makeActive"
 status = "legacy"
 
 [[function]]
+address = 0x0011f9b0
+name = "Camera_GetPlayerCamera"
+page = "camera/index.md#fn-manager"
+role = "A player's current camera (`0x005d9150`[player])."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011f9c8
+name = "Camera_GetPlayerBase"
+page = "camera/index.md#fn-manager"
+role = "A player's base camera, the one returned to (`0x005d9148`[player])."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011f9e0
+name = "Cam_GetFollow"
+page = "camera/index.md#fn-manager"
+role = "A player's Cam_Follow (`0x005d9158`[player]), made on first use when asked (0x480 bytes)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011fac8
+name = "Cam_GetTransition"
+page = "camera/index.md#fn-manager"
+role = "A player's blend camera Cam_Transition (`0x005d9180`[player], 0x240 bytes), made on first use when asked."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0011fbb0
 name = "Camera_GetPlayerRail"
-page = "camera.md#fn-manager"
+page = "camera/index.md#fn-manager"
 role = "A player's Cam_Rail (`0x005d9160`[player], 0x3f0 bytes), made on first use when asked."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::setupRail"
 status = "legacy"
 
 [[function]]
+address = 0x0011fc98
+name = "Cam_GetPower"
+page = "camera/index.md#fn-manager"
+role = "A player's power-move camera Cam_Power (`0x005d9188`[player], 0x340 bytes), made on first use when asked (only the begin event `0x39` asks; the animation events always pass player 0)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011fd80
+name = "Cam_GetMug"
+page = "camera/index.md#fn-manager"
+role = "A player's mugging camera Cam_Mug (`0x005d9170`[player], 0x250 bytes), made on first use when asked."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011fe68
+name = "Cam_GetMini"
+page = "camera/index.md#fn-manager"
+role = "A player's mini-game camera Cam_Mini (`0x005d9178`[player], 0x260 bytes), made on first use when asked."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0011ff50
+name = "HoodCam_GetForPlayer"
+page = "camera/index.md#fn-manager"
+role = "A player's hood camera Cam_Hood (`0x005d9168`[player]), made on first use when asked."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00120038
+name = "Cam_GetPoizo"
+page = "camera/index.md#fn-manager"
+role = "The one path camera Cam_Spline (`0x0050b16c`), made on first use when asked."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001200e0
+name = "Cam_GetFailed"
+page = "camera/index.md#fn-manager"
+role = "The one death camera Cam_Failed (`0x0050b170`, 0x200 bytes), made on first use when asked."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00120188
+name = "Cam_GetWin"
+page = "camera/index.md#fn-manager"
+role = "The one win camera Cam_Win (`0x0050b174`, 0x200 bytes), made on first use when asked."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00120230
+name = "Cameras_MinDistanceSq"
+page = "camera/index.md#fn-manager"
+role = "Smallest squared distance from a point to any player's current camera (FLT_MAX with no views)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x001202e8
 name = "Camera_AnyPlayerCanSeePoint"
-page = "camera.md#fn-manager"
+page = "camera/index.md#fn-manager"
 role = "Is a point within range of and seen by any player's current camera (Camera_CanSeePoint)."
 level = "confirmed-code"
 coney = "src/gamemodes/gameplay_mode.cpp:ScriptSpawnerWorld::seen"
 status = "legacy"
 
 [[function]]
+address = 0x00120380
+name = "Cameras_CanSeePointExcept"
+page = "camera/index.md#fn-manager"
+role = "As Camera_AnyPlayerCanSeePoint, but a player whose human has `+0x1d8` == 1.0 does not count."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00120450
+name = "CameraStack_Push"
+page = "camera/index.md#fn-manager"
+role = "Pushes a camera on the 2-deep stack `0x005d9190` (index `0x0050b180`): the camera to return to after a scene."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00120488
+name = "CameraStack_Pop"
+page = "camera/index.md#fn-manager"
+role = "Pops the camera stack `0x005d9190` (null when empty)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001204c0
+name = "CameraStack_Top"
+page = "camera/index.md#fn-manager"
+role = "Top of the camera stack `0x005d9190` without popping (null when empty)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001204f0
+name = "Cam3rdPerson_Construct"
+page = "camera/special.md#hood-third"
+role = "Cam_3rdPerson constructor (0x230 bytes, vtable `0x00535250`): no target, distance 5.1 (`+0x210`), height 1.8 (`+0x214`), fov 50, offset (0,0,1.5), near 0.5, far 75."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001205c0
+name = "Cam3rdPerson_Destroy"
+page = "camera/special.md#hood-third"
+role = "Cam_3rdPerson destructor (vtable `+0xc`): restores the vtable and runs the base destructor `0x001209d0`."
+level = "confirmed-code"
+
+[[function]]
 address = 0x001205e8
 name = "Cam3rdPerson_Update"
-page = "camera.md#fn-3rdperson"
+page = "camera/special.md#hood-third"
 role = "Cam_3rdPerson update (vtable `+0x134`): look-at = target position + offset (`+0x220`); orientation (`+0x200`) slerps 10% to the target's; camera = look-at + orientation × (0,-distance(`+0x210`),0), height (`+0x214`) added, swung by the angle quaternion (`+0x1f0`); shake; look-at matrix (`0x00337028`) to `+0x20`/`+0x10`; base finish `0x00120a30`."
 level = "confirmed-code"
 coney = "src/camera/third_camera.h:ThirdCamera::update"
 status = "legacy"
 
 [[function]]
+address = 0x001207b0
+name = "Cam3rdPerson_SetAngle"
+page = "camera/special.md#hood-third"
+role = "Cam_3rdPerson: angle in°rees -> quaternion about z at `+0x1f0`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00120868
+name = "ICamera_Construct"
+page = "camera/index.md#fn-base"
+role = "Cam_ICamera base constructor (vtable `0x00535510`): fov 60 (`+0x44`), aspect `0x0050b204` (`+0x4c`), far 60 (`+0x54`), near 0.3 (`+0x50`), draw distance 60 (`0x00122128`), identity orientation/position, shake cleared, flags `+0x1d6`/`+0x1d7` = 1, player byte `+0x1d8` = -1; registers a handle (`+0x40`, `0x0038ffd0`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001209d0
+name = "ICamera_Destroy"
+page = "camera/index.md#fn-base"
+role = "Cam_ICamera destructor: frees the handle (`+0x40`, `0x00390038`); deletes when flag bit 1."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00120a30
+name = "ICamera_FinishUpdate"
+page = "camera/index.md#fn-base"
+role = "Base update tail (vtable `+0x134` of the base and called by every class's update): stores dt (`+0x1a0`), rebuilds the frustum (`0x00120c50`), probes the ground under the view (`0x00121720`) and decides the views (`0x00121888`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00120a68
+name = "Camera_UpdateViewState"
+page = "camera/index.md#fn-base"
+role = "Runs the ground probe `0x00121720` and the view decision `0x00121888`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00120a98
+name = "Camera_UpdateViewWindow"
+page = "camera/index.md#fn-base"
+role = "View window from the field of view: `+0x48` fov used, `+0x5c`/`+0x60` tan(half) × aspect × 0.75 / tan(half) × 0.75, copies at `+0x64`/`+0x68`; split screen (`0x0050b1a0`) halves or doubles them. [The streamed world](world.md#player-camera)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00120c50
+name = "Camera_BuildFrustum"
+page = "camera/index.md#fn-base"
+role = "Builds the 6 frustum planes (`+0x70`..`+0xc0`) from the near and far corner points (`+0xd0`..`+0x14c`, in world space by the camera matrix or the given one) and, unless asked not to, a bounding sphere (`+0x150` centre, `+0x17c` radius)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x001210f8
 name = "Cam_StartShake"
-page = "camera.md#fn-base"
-role = "Base shake start (vtable `+0x15c` entry, call slot `+0x15c`): level 1-3 sets amplitude 0.5/0.75/1.0, time 0.10/0.15/0.18 s, rumble base 0/0x30/0x60; 0 stops. [shake](camera.md#shake)."
+page = "camera/effects.md#shake"
+role = "Base shake start (vtable `+0x15c` entry, call slot `+0x15c`): level 1-3 sets amplitude 0.5/0.75/1.0, time 0.10/0.15/0.18 s, rumble base 0/0x30/0x60; 0 stops. [shake](camera/effects.md#shake)."
 level = "confirmed-code"
 coney = "src/camera/camera_shake.h:CameraShake::start"
 status = "legacy"
@@ -319,89 +634,341 @@ status = "legacy"
 [[function]]
 address = 0x00121298
 name = "Cam_UpdateShake"
-page = "camera.md#fn-base"
-role = "Shake and rumble update (every camera kind): eases the amplitude 65% toward the level's, counts the time down, drives the pad rumble byte (`+0x41`) and adds a random view offset while switch 6 is on. [shake](camera.md#shake)."
+page = "camera/effects.md#shake"
+role = "Shake and rumble update (every camera kind): eases the amplitude 65% toward the level's, counts the time down, drives the pad rumble byte (`+0x41`) and adds a random view offset while switch 6 is on. [shake](camera/effects.md#shake)."
 level = "confirmed-code"
 coney = "src/camera/camera_shake.h:CameraShake::update"
 status = "legacy"
 
 [[function]]
+address = 0x00121720
+name = "Camera_ProbeGroundFlags"
+page = "camera/index.md#fn-base"
+role = "Casts a 25 m ray straight down from 1.5 m along the camera's direction; the triangle hit sets `+0x1d4` (type bit 0x20) and `+0x1d5` (bit 0x10); for a player's current camera the 0x20 flag goes to his colour controller (`0x0018bdd0`, `0x005fdeb8`[player])."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00121888
+name = "Cameras_DecideViews"
+page = "camera/index.md#fn-base"
+role = "Each update: decides which view each player shows (switches 3/13, Camera_HumanCounts) and sets the last target `0x005d91b8`. [switches](camera/index.md#switches)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00121e30
+name = "ICamera_IsViewEnabled"
+page = "camera/index.md#fn-base"
+role = "Vtable `+0x28c`: a camera's view counts when its byte `+0x1d6` is set and its player's flag `0x0050b1e8`[player] is set (a locked camera shared by both players uses player 1's)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00121f50
+name = "ICamera_TestObjectVisible"
+page = "camera/index.md#fn-base"
+role = "Vtable `+0x164`: frustum test (`+0x16c`) of an object's bounding sphere (object vtables `+0x64` centre, `+0x5c` radius)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00121fd8
+name = "Camera_FrustumTestSphere"
+page = "camera/index.md#fn-base"
+role = "Vtable `+0x16c`: sphere vs the 6 frustum planes; 0 inside, 1 crossing a plane, 2 outside."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00122060
+name = "Camera_FrustumTestBox"
+page = "camera/index.md#fn-base"
+role = "Vtable `+0x184`: a box's 8 corners (`0x00338178`) vs the frustum planes; 0 outside, else 1 when partly inside."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00122128
+name = "Camera_SetDrawDistance"
+page = "camera/index.md#fn-base"
+role = "Vtable `+0x1b4`: draw distance `+0x58`; also the device camera's far clip while `0x0050c698` is set."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001221a0
+name = "Camera_StoreScriptRef"
+page = "camera/index.md#fn-base"
+role = "Vtable `+0x1e4`: stores a value from the script system (`0x00512b04` slot `+0xcc`) at `+0x1cc` (inferred: the Lua callback to run at the end)."
+level = "inferred"
+
+[[function]]
+address = 0x001221e0
+name = "Camera_CallScriptRef"
+page = "camera/index.md#fn-base"
+role = "Vtable `+0x14c`: when `+0x1cc` is set and the script system is ready (slot `+0x4c`), calls it (slot `+0x8c`) (inferred)."
+level = "inferred"
+
+[[function]]
 address = 0x00122248
 name = "CameraTargets_Contains"
-page = "camera.md#fn-base"
+page = "camera/index.md#fn-base"
 role = "Is an object's handle in the shared target list `0x005d91a8`."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::switchTarget"
 status = "legacy"
 
 [[function]]
+address = 0x001222b0
+name = "CameraTargets_Add"
+page = "camera/index.md#fn-base"
+role = "Adds an object's handle to the shared target list `0x005d91a8` (once)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00122438
+name = "CameraTargets_Remove"
+page = "camera/index.md#fn-base"
+role = "Removes an object from the target list `0x005d91a8`; optionally recounts `0x0050b194`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001224c0
+name = "CameraTargets_Swap"
+page = "camera/index.md#fn-base"
+role = "Swaps two entries of the target list `0x005d91a8`."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00122548
 name = "Camera_CanSeePoint"
-page = "camera.md#fn-base"
+page = "camera/index.md#fn-base"
 role = "Is a point within range (capped at the camera's far clip) of a camera, inside its frustum and with no collision hit on the ray from the camera."
 level = "confirmed-code"
 coney = "src/camera/camera_view.h:canSeePoint"
 status = "legacy"
 
 [[function]]
+address = 0x00122728
+name = "Camera_PushOutOfHumans"
+page = "camera/index.md#fn-base"
+role = "Moves a camera point out of nearby humans (handles 0-0x3b, two may be skipped): a human whose radius (`0x00219860`, scale × 0.065 more) plus the near plane reaches the point and whose height span holds it pushes the point out along the view's side axis (inferred)."
+level = "inferred"
+
+[[function]]
+address = 0x00122b80
+name = "Cameras_ResetLevel"
+page = "camera/index.md#fn-base"
+role = "Level camera reset: clears the target and object lists, sets the switches to their defaults ([switches](../references/cameras.md#switch)), split mode 0, re-lays out the views."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00122ca0
+name = "Cameras_SetAspectAll"
+page = "camera/index.md#fn-base"
+role = "Stores the game aspect `0x0050b204` and applies it (vtable `+0x19c`) to every camera in handle slots 0x3c-0x6b except blends (type 5)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00122d38
+name = "Camera_StoreHudAspect"
+page = "camera/index.md#fn-base"
+role = "Stores the overlay camera aspect `0x0050b208`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00122d48
+name = "Camera_AdjustScreenPoint"
+page = "camera/index.md#fn-base"
+role = "Moves a normalised screen point (0..1) for the view: × away from the centre by half of (player 1's camera aspect × 0.75 - 1), y by half of (the device's vertical scale - 1). HUD, captions, prompts and arrows use it to stay on screen."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00122ed0
+name = "Cameras_LayoutViews"
+page = "camera/index.md#fn-base"
+role = "Counts the views: a player's base camera shows when it counts (vtable `+0x28c`) and switch 3 is on; two players on the same locked camera at the same place share one view. Sets `0x0050b198` views, `0x0050b19c` players, fov scaled by `0x0050b200` (at least 40) when going to two views, and the view grid `0x0050b1a8`/`0x0050b1aa` from split mode (0: 2 × 1, 1: 1 × 2, 2: 2 × 2)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001233c0
+name = "CameraObjects_Add"
+page = "camera/index.md#fn-base"
+role = "Appends a handle to the registered-object list `0x005d9198`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001233e8
+name = "CameraObjects_Remove"
+page = "camera/index.md#fn-base"
+role = "Removes a handle from the registered-object list `0x005d9198` if present."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00123428
+name = "CameraObjects_SendMessage12"
+page = "camera/index.md#fn-base"
+role = "Sends task message 0x12 to the task of each of the 4 registered objects (`0x005d9198`) that is set."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001234e0
+name = "CameraObjects_Clear"
+page = "camera/index.md#fn-base"
+role = "Clears the registered-object list `0x005d9198`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00123500
+name = "Camera_HumanCounts"
+page = "camera/index.md#fn-base"
+role = "Does a human still count for the cameras: 0 while down or dead, or in state `0x00223b70` unless unlock 6/15 or a `0x0041e420` count is set. [switches](camera/index.md#switches)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00123588
+name = "Cam_ICamera_StaticInit"
+page = "camera/index.md#fn-base"
+role = "Static init/exit of Cam_ICamera.cpp: clears the object list `0x005d9198` and target list `0x005d91a8` to -1 and the last target."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00123610
+name = "Cam_ICamera_StaticInitStub"
+page = "camera/index.md#fn-base"
+role = "Static-init stub of Cam_ICamera.cpp: `0x00123588`(1, 0xffff)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00123630
 name = "CamFailed_Construct"
-page = "camera.md#fn-failed"
+page = "camera/special.md#death-camera"
 role = "Cam_Failed (death camera, type 12) constructor, 0x200 bytes, vtable `0x005357d0`: no human (`+0x1e0`), height 5 (`+0x1e8`), turn rate 1 (`+0x1ec`), `+0x1f0`/`+0x1f4` 1, rotating flag `+0x1fe` = 1."
 level = "confirmed-code"
 coney = "src/camera/failed_camera.h:FailedCamera::FailedCamera"
 status = "legacy"
 
 [[function]]
+address = 0x001236b8
+name = "CamFailed_Destroy"
+page = "camera/special.md#death-camera"
+role = "Cam_Failed destructor."
+level = "confirmed-code"
+
+[[function]]
 address = 0x001236e0
 name = "CamFailed_Activate"
-page = "camera.md#fn-failed"
+page = "camera/special.md#death-camera"
 role = "Death camera activation (vtable `+0x144`): looks at the last target `0x005d91b8` if it is a player human, else at whichever player is nearer the previous camera (`+0x1e4`); then places itself (`0x001238a8`)."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::startFailed"
 status = "legacy"
 
 [[function]]
+address = 0x00123888
+name = "CamFailed_SetTarget"
+page = "camera/special.md#death-camera"
+role = "Death camera: sets the human it looks at (`+0x1e0`) and places the camera (`0x001238a8`)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x001238a8
 name = "CamFailed_Place"
-page = "camera.md#fn-failed"
+page = "camera/special.md#death-camera"
 role = "Death camera placement: look-at = the human's position (`+0x180`); height (`+0x1e8`) = an upward ray of near + 5 m (mask 0x200) less the near plane; camera straight above, looking down (pitch about -88°) at a random yaw (Random_Int(36) × 10° - 180°); rotating flag set."
 level = "confirmed-code"
 coney = "src/camera/failed_camera.h:FailedCamera::FailedCamera"
 status = "legacy"
 
 [[function]]
+address = 0x00123ba0
+name = "CamFailed_Deactivate"
+page = "camera/special.md#death-camera"
+role = "Death camera vtable `+0x154`: releases itself when it is no longer its player's current camera."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00123bf0
 name = "CamFailed_Update"
-page = "camera.md#fn-failed"
+page = "camera/special.md#death-camera"
 role = "Death camera update: while rotating, yaws by turn rate × 15°/s and closes in on the body at 0.18 m/s down to 2.5 m; when player 1's screen-effects manager's fade out has fully covered the screen (fade level `+0x1d8` >= 1, rate `+0x1dc` > 0) ends the blur pulse at once (`0x0018d058`, 0 s, reverse) and stops rotating ([Graphics](graphics.md#fade))."
 level = "confirmed-code"
 coney = "src/camera/failed_camera.h:FailedCamera::update"
 status = "legacy"
 
 [[function]]
+address = 0x00123ea0
+name = "CamFixed_Construct"
+page = "camera/scripted.md#fixed-third"
+role = "Cam_Fixed (type 0) constructor, 0x210 bytes, vtable `0x00535a90`: no target (`+0x200`), snap flag (`+0x204`) 0, aim point (`+0x1f0`) zero; the offset `+0x1e0` is set only by `CameraCreateFixed` (`0x0011c6b8`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00123f08
+name = "CamFixed_Destroy"
+page = "camera/scripted.md#fixed-third"
+role = "Cam_Fixed destructor."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00123f30
+name = "CamFixed_Activate"
+page = "camera/scripted.md#fixed-third"
+role = "Fixed camera activation (vtable `+0x144`): target = the player's entry of the target list; computes the look-at (CamFixed_ComputeLookAt), finishes an update, then resets (vtable `+0x13c`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00123fb8
+name = "CamFixed_Reset"
+page = "camera/scripted.md#fixed-third"
+role = "Fixed camera reset (vtable `+0x13c`, CameraReset): runs one update of 1/60 s and sets the snap flag `+0x204` so the next update does not smooth."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00124000
 name = "CamFixed_ComputeLookAt"
-page = "camera.md#fn-fixed"
+page = "camera/scripted.md#fixed-third"
 role = "Fixed camera: look-at point = the average position of the listed targets that still count, plus the offset."
 level = "confirmed-code"
 coney = "src/camera/fixed_camera.h:FixedCamera::update"
 status = "legacy"
 
 [[function]]
+address = 0x00124248
+name = "CamFixed_SmoothLookAt"
+page = "camera/scripted.md#fixed-third"
+role = "Fixed camera: damps the new look-at point (`+0x180`) and aim point (`+0x1f0`) against last update's: a rise over 0.5 m halves then quarters, a jump over 1 m quarters, a rise of 0.1-0.5 m eases by 1 - 1.875(dz - 0.1), a move of 0.4-1 m by 1 - 1.25(h - 0.4) (the rail camera's damping, [rail](camera/scripted.md#rail))."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00124690
 name = "CamFixed_Update"
-page = "camera.md#fn-fixed"
+page = "camera/scripted.md#fixed-third"
 role = "Fixed camera update: with targets, recomputes and (unless snapped) smooths the look-at, shakes, and faces it (`0x00337028`); base finish; clears the snap flag."
 level = "confirmed-code"
 coney = "src/camera/fixed_camera.h:FixedCamera::update"
 status = "legacy"
 
 [[function]]
+address = 0x00124778
+name = "Cam_Follow_Construct"
+page = "camera/follow.md#update"
+role = "Cam_Follow constructor (0x480 bytes, vtable `0x00535d50`): distances 4/9/6, pitch 15°, fov 65, offset (0,0,1.4), lag 0.22, pitch limits -20..50°, near 0.1, far `0x005d91c0` (115); clears the latches and the camera-obstacle list. [the follow camera object](camera/follow.md#the-follow-camera-object)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00124be0
+name = "Cam_Follow_Destroy"
+page = "camera/follow.md#update"
+role = "Cam_Follow destructor."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00124c28
+name = "Cam_Follow_CopySettings"
+page = "camera/follow.md#update"
+role = "Copies another follow camera's distances, pitch, fov, near plane and offset into this one, then applies them (`0x00125888`). Used when a second player joins."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00124d00
 name = "Cam_Follow_Reset"
-page = "camera.md#fn-follow"
-role = "Follow camera reset (vtable `+0x13c`, CameraReset): place behind the target (`0x00124f38`(180,-1)), target pitch and fov back to the configured ones, line-of-sight pull-in. [setting up](camera.md#setting-up)."
+page = "camera/follow.md#update"
+role = "Follow camera reset (vtable `+0x13c`, CameraReset): place behind the target (`0x00124f38`(180,-1)), target pitch and fov back to the configured ones, then the orientation turned to the look-at point; casts no ray. [setting up](camera/index.md#setting-up)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::reset"
 status = "legacy"
@@ -409,8 +976,8 @@ status = "legacy"
 [[function]]
 address = 0x00124f38
 name = "Cam_Follow_PlaceBehind"
-page = "camera.md#fn-follow"
-role = "Places the camera at a heading from the target's facing (180 = behind) at a distance picked from the band presets (min/default/max-0.5) and sets the zoom step. [setting up](camera.md#setting-up)."
+page = "camera/follow.md#update"
+role = "Places the camera at a heading from the target's facing (180 = behind) at a distance picked from the band presets (min/default/max-0.5) and sets the zoom step. [setting up](camera/index.md#setting-up)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::placeBehind"
 status = "legacy"
@@ -418,7 +985,7 @@ status = "legacy"
 [[function]]
 address = 0x001250a8
 name = "Cam_Follow_PlaceAtHeading"
-page = "camera.md#fn-follow"
+page = "camera/follow.md#update"
 role = "Puts the camera at a heading relative to the target's facing and a distance about the look-at point, pitch to the target pitch; optionally sets the band to that distance (+0.5 deep) and the zoom step from it."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::placeBehind"
@@ -427,62 +994,279 @@ status = "legacy"
 [[function]]
 address = 0x001254f0
 name = "Cam_Follow_StepZoom"
-page = "camera.md#fn-follow"
-role = "Sets the zoom step `+0x400` and the upper pitch limit `+0x3ac` from a distance (50/40/30°). [pitch](camera.md#pitch)."
+page = "camera/follow.md#update"
+role = "Sets the zoom step `+0x400` and the upper pitch limit `+0x3ac` from a distance (50/40/30°). [pitch](camera/follow.md#pitch)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::stepZoom"
 status = "legacy"
 
 [[function]]
+address = 0x00125588
+name = "Cam_Follow_GetZoomLevel"
+page = "camera/follow.md#update"
+role = "Zoom level from the zoom step `+0x400`: 2 far, 1 default, 0 close (one player); 1 or 2 with two. [update step 12](camera/follow.md#update)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001255f8
+name = "Cam_Follow_SetHeading"
+page = "camera/follow.md#update"
+role = "[`CamSetFollowHeading`](../references/bindings/camera.md#camsetfollowheading) core: snaps the look-at point, turns the camera to the given orientation's horizontal forward, stands it at the band's near edge, sets the wanted and previous positions and runs one 1/60 s update."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00125870
+name = "Cam_Follow_Nop"
+page = "camera/follow.md#update"
+role = "Empty method called by the follow destructor and deactivation."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00125888
 name = "Cam_Follow_ApplyConfig"
-page = "camera.md#fn-follow"
-role = "Turns the view to the configured pitch at once and eases the fov to its new value over 1 s (`+0x39c`); height-hold ease scale `+0x398` = 0.25. [setting up](camera.md#setting-up)."
+page = "camera/follow.md#update"
+role = "Turns the view to the configured pitch at once and eases the fov to its new value over 1 s (`+0x39c`); height-hold ease scale `+0x398` = 0.25. [setting up](camera/index.md#setting-up)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::configure"
 status = "legacy"
 
 [[function]]
+address = 0x001259e8
+name = "Cam_Follow_SetMinDistance"
+page = "camera/follow.md#update"
+role = "Sets the minimum distance `+0x300` (clamped against the others)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00125a40
+name = "Cam_Follow_SetMaxDistance"
+page = "camera/follow.md#update"
+role = "Sets the maximum distance `+0x304` and recomputes the lower pitch limit `+0x3b0`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00125ac8
+name = "Cam_Follow_SetDefaultDistance"
+page = "camera/follow.md#update"
+role = "Sets the default distance `+0x308` and the band default .. default + min(0.5, max - min)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00125b60
+name = "Cam_Follow_SetTargetPitch"
+page = "camera/follow.md#update"
+role = "[`CamSetFollowAngle`](../references/bindings/camera.md#camsetfollowangle) core: target pitch (degrees) clamped to [`+0x3b0`, `+0x3ac`]; with snap, turns the view to it at once and sets the wanted/previous positions; clears the sprint latch `+0x466`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00125c50
+name = "Cam_Follow_SetPosition"
+page = "camera/follow.md#update"
+role = "[`CamSetFollowPos`](../references/bindings/camera.md#camsetfollowpos) core: snaps the look-at point, places the camera at a world position and sets its wanted and lag copies to it."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00125cc0
 name = "Cam_Follow_Activate"
-page = "camera.md#fn-follow"
-role = "Follow activation (vtable `+0x144`): recount targets, snap look-at, distance clamped to the band, hard band = band, wanted near edge cleared, recovered distance = near edge. [setting up](camera.md#setting-up)."
+page = "camera/follow.md#update"
+role = "Follow activation (vtable `+0x144`): the glass tasks and the views' layout, then the activation step (`0x00125e50`); with fewer than two player cameras, a camera whose player index (inferred) is not below their count is reset and its hard band set from `+0x334`/`+0x338`; with two, the lost test resets it; last, recovered distance = near edge. [setting up](camera/index.md#setting-up)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::activate"
 status = "legacy"
 
 [[function]]
+address = 0x00125e50
+name = "Cam_Follow_ActivateStep"
+page = "camera/follow.md#update"
+role = "Follow activation step: snaps the look-at point onto where the target stands now (`0x00127d48`), sets the field of view to the wanted one at once (slot `+0x194` with `+0x394`), clears the wanted near edge, keeps the camera's direction at its distance clamped to the band; arms the split timers."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001260e8
+name = "Cam_Follow_Deactivate"
+page = "camera/follow.md#update"
+role = "Follow vtable `+0x154` (another camera taking over): ends a target takeover whose player left, re-lays out split views, clears the close-up flash (`0x00126370`), applies a pending heading target at once."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00126370
+name = "Cam_Follow_ClearFlash"
+page = "camera/follow.md#update"
+role = "For both players' follow cameras clears the flash alpha `+0x478` and timer `+0x424`, and the colour controllers' alpha byte `+0x1b4`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001263e8
+name = "Cam_Follow_StartShake"
+page = "camera/effects.md#shake"
+role = "Follow camera shake start (vtable call slot `+0x15c`): in the combat camera shakes are 0.66 as strong and the rumble thresholds lowered. [shake](camera/effects.md#shake)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00126450
+name = "CameraObstacles_Add"
+page = "camera/follow.md#update"
+role = "Adds a world object to the camera-obstacle list `0x00715280` (31 entries, count `0x0050b238`; a full list ignores the add); `WorldObject_Init` calls it only for kind 29 `TYPE_MOVINGVEHICLE` while player 1's follow camera exists. [tilt](camera/collision.md#collision-helpers)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00126488
+name = "CameraObstacles_Remove"
+page = "camera/follow.md#update"
+role = "Removes a world object from the camera-obstacle list `0x00715280` (the last entry fills its slot); `WorldObject_Delete` calls it."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00126520
+name = "CameraObstacles_Clear"
+page = "camera/follow.md#update"
+role = "Clears the camera-obstacle list `0x00715280` (the follow constructor calls it)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00126558
+name = "Cam_Follow_TakeOverTarget"
+page = "camera/follow.md#update"
+role = "One player: an AI goal (`0x002b8ad8`) hands the follow camera another human as its target, 2.5-30 m from player 1: target swapped in the target list, placed behind, target pitch -5°, fov 70, minimum distance 2 m less, band at the minimum, `+0x465` set; the old values are saved for `0x00126878`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00126878
+name = "Cam_Follow_EndTakeOver"
+page = "camera/follow.md#update"
+role = "Ends Cam_Follow_TakeOverTarget: player 1 back in the target list, fov, target pitch, minimum distance and band restored, `+0x465` cleared."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00126a30
 name = "Cam_Follow_EnableSprintZoom"
-page = "camera.md#fn-follow"
-role = "CamEnable(5): the sprint zoom switch `+0x468`; off also clears its state. [sprint zoom](camera.md#sprint-zoom)."
+page = "camera/follow.md#update"
+role = "CamEnable(5): the sprint zoom switch `+0x468`; off also clears its state. [sprint zoom](camera/follow.md#sprint-zoom)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::enableSprintZoom"
 status = "legacy"
 
 [[function]]
+address = 0x00126a68
+name = "Cam_Follow_ArmSplitTimers"
+page = "camera/follow.md#update"
+role = "Sets the two co-op split/merge timers `+0x41c`/`+0x420` to 0.72 s so the next decision acts at once."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00126a88
+name = "Cam_Follow_CountdownFlash"
+page = "camera/follow.md#update"
+role = "Counts `+0x476` up to `+0x477`; then, on a player's current camera with a player target, a small shake and (unless his colour controller is fading) a flash: alpha 225 (`+0x478`) on the colour controller, timer `+0x424` = 0.2 s. Used when co-op views split or merge."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00126c40
+name = "Cam_Follow_DecideSplit"
+page = "camera/follow.md#update"
+role = "Co-op (2 players): decides whether the players share one view or split the screen. Merge needs both in view, within 11 m and no colour controller busy; split/merge waits for `+0x41c`/`+0x420` to pass 0.72 s; toggles the follow cameras' views (vtable `+0x294`) and re-lays out (Cameras_LayoutViews)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001276a0
+name = "Cam_Follow_OnViewCountChange"
+page = "camera/follow.md#update"
+role = "Co-op: when the view count changed, re-snaps the look-at points, re-applies band and zoom step for the new count, resets the target pitch to 25° for a player target and schedules the flash (`0x00126a88`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00127ac8
+name = "Cam_Follow_UpdateSplitScreen"
+page = "camera/follow.md#update"
+role = "Co-op step of the follow update: with one listed target merges to player 1's view, else DecideSplit; then OnViewCountChange."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00127c10
+name = "Cam_Follow_Prime"
+page = "camera/follow.md#update"
+role = "Run when a follow camera is made current (Camera_MakeActive, the view decision, GameState_SyncPlayers): one 1/60 s update (or the view decision the first time), arms the split timers, gathers targets, split-screen step, another update when the player has a base camera."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00127cd8
+name = "Cam_Follow_GetFocusPoint"
+page = "camera/follow.md#update"
+role = "Follow vtable `+0x24c`: the point it frames: the look-at point `+0x180`, or `+0x2d0` while a watched player (`+0x320`) is kept in view of a non-player target."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00127d48
+name = "Cam_Follow_RefreshLookAt"
+page = "camera/follow.md#update"
+role = "Gathers the targets (`0x001282a0`) and recomputes the look-at point (`0x00127d88`, with snap)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00127d88
 name = "Cam_Follow_LookAt"
-page = "camera.md#fn-follow"
-role = "Look-at point = target + offset, its move limited by length (20% above 0.8 m); hidden-in-shadow height 1.65 m. [update step 5](camera.md#update)."
+page = "camera/follow.md#update"
+role = "Look-at point = target + offset, its move limited by length (20% above 0.8 m); hidden-in-shadow height 1.65 m. [update step 5](camera/follow.md#update)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::followLookAt"
 status = "legacy"
 
 [[function]]
+address = 0x00128298
+name = "Cam_Follow_Nop2"
+page = "camera/follow.md#update"
+role = "Empty function."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001282a0
+name = "Cam_Follow_GatherTargets"
+page = "camera/follow.md#update"
+role = "Takes the follow camera's targets from the first two entries of the target list (`+0x314`/`+0x318`, count `+0x444`), falling back to the last target `+0x31c`. [script calls](camera/scripted.md#script-calls)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00128678
+name = "Cam_Follow_AimView"
+page = "camera/follow.md#update"
+role = "One player target with `+0x454` set: heading target 15° off the player's per-player aim vector (record `+0x5750`), upper pitch limit 50°, lower limit from (0.075 - offset z) / max distance (at least -20°), and a pitch override; raises the turn rate up to 4x while the view is far off (inferred: an aiming view)."
+level = "inferred"
+
+[[function]]
+address = 0x00128b20
+name = "Cam_Follow_HeadLook"
+page = "camera/look-controls.md#head-look"
+role = "Turns the player's head toward the camera heading while the right stick turns the camera (within 150° of the facing). [Head look](camera/look-controls.md#head-look)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00128cf0
 name = "Cam_Follow_SprintZoom"
-page = "camera.md#fn-follow"
-role = "Sprint zoom: pulls the band in to the minimum and the target pitch to 7° while sprinting, back 250 ms after. [sprint zoom](camera.md#sprint-zoom)."
+page = "camera/follow.md#update"
+role = "Sprint zoom: pulls the band in to the minimum and the target pitch to 7° while sprinting, back 250 ms after. [sprint zoom](camera/follow.md#sprint-zoom)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::sprintZoom"
 status = "legacy"
 
 [[function]]
+address = 0x00129050
+name = "Cam_Follow_RightStick"
+page = "camera/look-controls.md#right-stick"
+role = "Right stick yaw/pitch rates, zoom and centre buttons, look-behind (reverse) button into `+0x458`. 2,160 bytes (`0x00129050`-`0x001298bf`, 540 instructions, one `jr ra` at the end); the next function is `Cam_Follow_LookBehind` at `0x001298c0`. [right stick](camera/look-controls.md#right-stick)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001298c0
+name = "Cam_Follow_LookBehind"
+page = "camera/look-controls.md#reverse"
+role = "Look-behind while the reverse button is held (`+0x458` = pad): compares the target's facing with the view; past 75° pulls the band out to 8.5 m (`+0x455`, band saved in `+0x35c`), back within 45° restores it, and swings the view to face the player."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00129c78
 name = "Cam_Follow_AutoFollow"
-page = "camera.md#fn-follow"
-role = "Auto-follow gate: picks the default (`0x0012a400`) or auto-centre (`0x00129f88`) rule. [heading](camera.md#heading)."
+page = "camera/follow.md#update"
+role = "Auto-follow gate: picks the default (`0x0012a400`) or auto-centre (`0x00129f88`) rule. [heading](camera/follow.md#heading)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::autoFollow"
 status = "legacy"
@@ -490,8 +1274,8 @@ status = "legacy"
 [[function]]
 address = 0x00129f88
 name = "Cam_Follow_AutoCentre"
-page = "camera.md#fn-follow"
-role = "Auto-centre rule: rate from the angle between the facing and the view. [heading](camera.md#heading)."
+page = "camera/follow.md#update"
+role = "Auto-centre rule: rate from the angle between the facing and the view. [heading](camera/follow.md#heading)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:autoCentreRate"
 status = "legacy"
@@ -499,35 +1283,63 @@ status = "legacy"
 [[function]]
 address = 0x0012a400
 name = "Cam_Follow_AutoFollowDefault"
-page = "camera.md#fn-follow"
-role = "Default auto-follow rule (22.5-157.5°). [heading](camera.md#heading)."
+page = "camera/follow.md#update"
+role = "Default auto-follow rule (22.5-157.5°). [heading](camera/follow.md#heading)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:defaultFollowRate"
 status = "legacy"
 
 [[function]]
+address = 0x0012a7d8
+name = "Cam_Follow_HeightProbe"
+page = "camera/follow.md#update"
+role = "Height probe: short ray (flag 0x200) setting the height-hold state `+0x453`. [height hold](camera/follow.md#height-hold)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0012aae0
 name = "Cam_Follow_EaseBand"
-page = "camera.md#fn-follow"
-role = "Eases the band's near edge to the wanted `+0x34c` and steps the zoom. [sprint zoom step 4](camera.md#sprint-zoom)."
+page = "camera/follow.md#update"
+role = "Eases the band's near edge to the wanted `+0x34c` and steps the zoom. [sprint zoom step 4](camera/follow.md#sprint-zoom)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::easeBand"
 status = "legacy"
 
 [[function]]
+address = 0x0012ac58
+name = "Cam_Follow_EaseRoll"
+page = "camera/follow.md#update"
+role = "Eases the roll `+0x408` toward `+0x404` over the timer `+0x40c` (else 60°/s) and rolls the view by it (inferred: roll about the view axis)."
+level = "inferred"
+
+[[function]]
+address = 0x0012adf0
+name = "Cam_Follow_UpdateEntry"
+page = "camera/follow.md#update"
+role = "Follow update (vtable `+0x134`): clears the yaw rate `+0x360`, runs the flash countdown when armed, then Cam_Follow_Update when dt > 0."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0012ae58
 name = "Cam_Follow_Update"
-page = "camera.md#fn-follow"
-role = "The follow camera's update: look-at, fov, stick, auto-follow, leash, pitch, height hold, heading target, lag, hard band, collision. [update](camera.md#update)."
+page = "camera/follow.md#update"
+role = "The follow camera's update: look-at, fov, stick, auto-follow, leash, pitch, height hold, heading target, lag, hard band, collision. [update](camera/follow.md#update)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::update"
 status = "legacy"
 
 [[function]]
+address = 0x0012d3b8
+name = "Cam_Follow_YawAtRate"
+page = "camera/follow.md#update"
+role = "Yaws the camera about the look-at point by rate × dt and stores the rate `+0x360`."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0012d4e8
 name = "Cam_Follow_Pitch"
-page = "camera.md#fn-follow"
-role = "Pitch about the look-at point, clamped to [`+0x3b0`, `+0x3ac`]. [pitch](camera.md#pitch)."
+page = "camera/follow.md#update"
+role = "Pitch about the look-at point, clamped to [`+0x3b0`, `+0x3ac`]. [pitch](camera/follow.md#pitch)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::pitchToward"
 status = "legacy"
@@ -535,8 +1347,8 @@ status = "legacy"
 [[function]]
 address = 0x0012d688
 name = "Cam_Follow_Yaw"
-page = "camera.md#fn-follow"
-role = "Yaw about the look-at point. [heading](camera.md#heading)."
+page = "camera/follow.md#update"
+role = "Yaw about the look-at point. [heading](camera/follow.md#heading)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::yaw"
 status = "legacy"
@@ -544,17 +1356,45 @@ status = "legacy"
 [[function]]
 address = 0x0012d7a8
 name = "Cam_Follow_MoveBand"
-page = "camera.md#fn-follow"
-role = "Moves the distance band and recomputes the lower pitch limit. [pitch](camera.md#pitch)."
+page = "camera/follow.md#update"
+role = "Moves the distance band and recomputes the lower pitch limit. [pitch](camera/follow.md#pitch)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::updateLowerPitch"
 status = "legacy"
 
 [[function]]
+address = 0x0012d908
+name = "Cam_Follow_GetViewPitch"
+page = "camera/follow.md#update"
+role = "The pitch of a point about the look-at point, from the unit direction to it; negative below. Update step 11 measures the wanted position with it. [update](camera/follow.md#update)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0012da20
+name = "Cam_Follow_ReactToLedge"
+page = "camera/follow.md#update"
+role = "Called by human code (`0x0023dc58`) at a ledge: heading target the given heading +-92°, target pitch the upper limit - 5° (old saved in `+0x3d4`), sprint zoom cancelled, over the given time (0.35 s for 0)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0012de48
+name = "Cam_Follow_TurnToQuat"
+page = "camera/follow.md#update"
+role = "Converts an orientation quaternion to a matrix and calls Cam_Follow_TurnToMatrix (Cam_Mug, `0x00137e08` / `0x00138b90`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0012ded8
+name = "Cam_Follow_TurnToMatrix"
+page = "camera/follow.md#update"
+role = "Sets a timed heading target (`+0x350`, the matrix's heading turned 180°) and pitch override (`+0x354`) over the given times, `+0x475` set; optionally merges co-op views; with a camera passed, queues it as the hand-over (`+0x47c`, blend `+0x3c0`) and sets the pitch override. Used when mug and mini-game cameras cut in and hand back."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0012e170
 name = "Cam_Follow_KeepInView"
-page = "camera.md#fn-follow"
-role = "Keeps a watched target in view, yaw at most 270°/s. [heading](camera.md#heading)."
+page = "camera/follow.md#update"
+role = "Keeps a watched target in view, yaw at most 270°/s. [heading](camera/follow.md#heading)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::keepInView"
 status = "legacy"
@@ -562,35 +1402,168 @@ status = "legacy"
 [[function]]
 address = 0x0012e9a8
 name = "Cam_Follow_FrameEnemy"
-page = "camera.md#fn-follow"
-role = "Combat camera: holds the enemy 27° off centre. [combat camera](camera.md#combat-camera)."
+page = "camera/follow.md#update"
+role = "Combat camera: holds the enemy 27° off centre. [combat camera](camera/follow.md#combat-camera)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::combat"
 status = "legacy"
 
 [[function]]
+address = 0x0012ec50
+name = "Cam_Follow_TiltOverObstacles"
+page = "camera/follow.md#update"
+role = "Sweeps a sphere from the look-at point to the camera against the camera-obstacle boxes (`0x00715280`); tilts the view over a box it looks along (`+0x3a8`, eased 90%, decays 10%) or pulls the camera in front of it. [Helpers](camera/collision.md#collision-helpers)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0012f3e0
+name = "Cam_Follow_SlopePitch"
+page = "camera/follow.md#update"
+role = "From the height ray's ground normal, eases a pitch offset `+0x3a4` 10% per update toward the slope's angle (sets `+0x460`); 0 on flat ground. [Helpers](camera/collision.md#collision-helpers)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0012f858
+name = "Cam_Follow_RaiseWhenBlocked"
+page = "camera/follow.md#update"
+role = "When the collision step pulls the camera in, raises the wanted position toward a height over the look-at, chooses a clear heading (`0x0012fd20`) for one target, and sphere-pushes the aim point (1.0 m) again. [Helpers](camera/collision.md#collision-helpers)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0012fd20
+name = "Cam_Follow_ChooseClearHeading"
+page = "camera/follow.md#update"
+role = "Blocked view, one target: casts 11 rays round the face's normal (0, ±30°, ±45°, ±60°, ±77°, ±82°), scores 9 windows of 3 and stores the best as the swing heading `+0x43c`; latches `+0x462`..`+0x464`. [Helpers](camera/collision.md#collision-helpers)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001303c8
+name = "Cam_Follow_SphereTest"
+page = "camera/follow.md#update"
+role = "Switch 1: a physics bound sphere (radius = near plane) at the camera collided with the physics world, ignoring object kinds 0xc-0xe, 0x10 and 0x1c; keeps the camera off what it hits (`+0x410` timer 0.15 s). [Helpers](camera/collision.md#collision-helpers)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00130990
 name = "Cam_Follow_Collide"
-page = "camera.md#fn-follow"
-role = "Follow world collision: rays, side probes, swing away, sphere pushes, next update's lag. [collision](camera.md#collision)."
+page = "camera/collision.md#collision"
+role = "Follow world collision: rays, side probes, swing away, sphere pushes, next update's lag. [collision](camera/collision.md#collision)."
 level = "confirmed-code"
 coney = "src/camera/follow_camera.h:FollowCamera::collide"
 status = "legacy"
 
 [[function]]
+address = 0x00134ab0
+name = "Cam_Follow_StaticInit"
+page = "camera/follow.md#update"
+role = "Static init of Cam_Follow.cpp: far clip 115 (`0x005d91c0`) and cosines of 75, 45, 53.13 and 10° (`0x005d91c4`..`0x005d91d0`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00134b70
+name = "Cam_Follow_StaticInitStub"
+page = "camera/follow.md#update"
+role = "Static-init stub of Cam_Follow.cpp."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00134b90
+name = "CamHood_Construct"
+page = "camera/special.md#hood-third"
+role = "Cam_Hood (type 11) constructor, 0x220 bytes, vtable `0x00536010`: no vehicle (`+0x1e0`), look offset `+0x1f0` (0, 0, 1.53), mount offset `+0x200` (0, 0.3, 1.7), fov 60 (also the wanted fov `+0x214`), near 0.1, far 115."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00134c80
+name = "CamHood_Destroy"
+page = "camera/special.md#hood-third"
+role = "Cam_Hood destructor."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00134ca8
+name = "CamHood_CopySettings"
+page = "camera/special.md#hood-third"
+role = "Copies another hood camera's vehicle, mount and look offsets, wanted fov and fov (Cameras_AddPlayer)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00134d28
+name = "CamHood_Activate"
+page = "camera/special.md#hood-third"
+role = "Hood camera activation (vtable `+0x144`): placed on its vehicle's mount at once, then a base update."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00134d78
+name = "HoodCam_PlaceOnMount"
+page = "camera/special.md#hood-third"
+role = "Hood camera: position = the vehicle's position (an object with class flag 0x40: its transform-table entry) plus the mount offset in the vehicle's frame; orientation from the vehicle."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00134f08
+name = "HoodCam_AimAtTargets"
+page = "camera/special.md#hood-third"
+role = "Hood camera: look-at point = the mean position of the counted targets plus the look offset's height."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00135028
+name = "CamHood_GatherTargets"
+page = "camera/special.md#hood-third"
+role = "Hood camera: the counted players among the target list's first two entries (count `+0x218`), else the last target kept in `+0x210`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00135138
+name = "HoodCam_Update"
+page = "camera/special.md#hood-third"
+role = "Hood camera update: on the mount, the fov stepped toward `+0x214` by at most dt°rees, aimed at the targets, base finish."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001352f0
+name = "CamLocked_Construct"
+page = "camera/scripted.md#locked-cameras"
+role = "Cam_Locked (type 1) constructor, 0x220 bytes, vtable `0x005362d0`: heading, pitch, roll 0 (`+0x200`..`+0x208`), kept-in-view list (`+0x20c`, two handles) cleared."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00135390
+name = "CamLocked_Destroy"
+page = "camera/scripted.md#locked-cameras"
+role = "Cam_Locked destructor."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001353b8
+name = "CamLocked_SetAngles"
+page = "camera/scripted.md#locked-cameras"
+role = "Locked camera: heading, pitch and roll in°rees (`+0x200`/`+0x204`/`+0x208`), then the orientation (`0x001353e0`)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x001353e0
 name = "CamLocked_BuildOrientation"
-page = "camera.md#fn-locked"
+page = "camera/scripted.md#locked-cameras"
 role = "Locked camera orientation = rotation about z by the heading × about × by the pitch × about y by the roll."
 level = "confirmed-code"
 coney = "src/camera/locked_camera.h:scriptedOrientation"
 status = "legacy"
 
 [[function]]
+address = 0x001355f8
+name = "CamLocked_Activate"
+page = "camera/scripted.md#locked-cameras"
+role = "Locked camera activation (vtable `+0x144`): one base update of 1/60 s."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00135680
 name = "CamLocked_Update"
-page = "camera.md#fn-locked"
-role = "Locked camera update: placed, aimed 3 m ahead, kept out of walls, keeps its listed humans inside the view's sides, shake. [locked cameras](camera.md#locked-cameras)."
+page = "camera/scripted.md#locked-cameras"
+role = "Locked camera update: placed, aimed 3 m ahead, kept out of walls, keeps its listed humans inside the view's sides, shake. [locked cameras](camera/scripted.md#locked-cameras)."
 level = "confirmed-code"
 coney = "src/camera/locked_camera.h:LockedCamera::view"
 status = "legacy"
@@ -598,7 +1571,7 @@ status = "legacy"
 [[function]]
 address = 0x001358d0
 name = "CamLocked_SetKeptHuman"
-page = "camera.md#fn-locked"
+page = "camera/scripted.md#locked-cameras"
 role = "[`CamLockLocked`](../references/bindings/camera.md#camlocklocked) core: adds or removes a human in the locked camera's kept-in-view list (two entries)."
 level = "confirmed-code"
 coney = "src/camera/cameras.h:Cameras::lockLocked"
@@ -607,8 +1580,8 @@ status = "legacy"
 [[function]]
 address = 0x00135960
 name = "CamLocked_PushHumanIntoView"
-page = "camera.md#fn-locked"
-role = "Pushes a listed human back inside the view when within 0.3 m of the left or right frustum plane, with a world ray and a ground snap. [locked cameras](camera.md#locked-cameras)."
+page = "camera/scripted.md#locked-cameras"
+role = "Pushes a listed human back inside the view when within 0.3 m of the left or right frustum plane, with a world ray and a ground snap. [locked cameras](camera/scripted.md#locked-cameras)."
 level = "confirmed-code"
 coney = "src/camera/locked_camera.h:keepInView"
 status = "legacy"
@@ -616,62 +1589,550 @@ status = "legacy"
 [[function]]
 address = 0x00135ca8
 name = "LockedCam_KeepHumansInView"
-page = "camera.md#fn-locked"
-role = "Runs the push for each human of the locked camera's list. [locked cameras](camera.md#locked-cameras)."
+page = "camera/scripted.md#locked-cameras"
+role = "Runs the push for each human of the locked camera's list. [locked cameras](camera/scripted.md#locked-cameras)."
 level = "confirmed-code"
 coney = "src/camera/locked_camera.h:keepInView"
 status = "legacy"
 
 [[function]]
+address = 0x00136068
+name = "CamMini_Construct"
+page = "camera/special.md#mini-mug"
+role = "Cam_Mini (type 8, Minigame) constructor, 0x260 bytes, vtable `0x00536590`: two humans (`+0x1e0`/`+0x1e4`), the kind (`+0x25c`), the camera to return to (`+0x240`), shot distance `+0x254` (20, set to 3 by the set-ups), done flag `+0x258`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00136160
+name = "CamMini_Destroy"
+page = "camera/special.md#mini-mug"
+role = "Cam_Mini destructor."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00136188
+name = "CamMini_Deactivate"
+page = "camera/special.md#mini-mug"
+role = "Mini-game camera vtable `+0x154`: releases itself."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001361a8
+name = "CamMini_Start"
+page = "camera/special.md#mini-mug"
+role = "Mini-game camera start (kind 0 from Player_UpdateMounting via `0x0022d030`, kind 2 from StereoTheft_Start): saves the base camera to return to, copies its fov and near plane, places the shot (`0x00137670`); from a follow camera the follow is turned to the shot's orientation for the hand-back (Cam_Follow_TurnToMatrix, 0.15 s)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001363e8
+name = "CamMini_PlaceKind0"
+page = "camera/special.md#mini-mug"
+role = "Mini-game shot for kind 0: 3 m from the mounting player's feet + 0.5 m on his clearer side, a yaw and a pitch picked at random from five-entry tables ([shot tables](camera/special.md#mini-mug-shots)) (up to 3 tries until `0x001374d8` finds it clear), else a fixed 36° pitch."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00136a88
+name = "CamMini_PlaceKind1"
+page = "camera/special.md#mini-mug"
+role = "Mini-game shot for kind 1: as kind 0 with other yaw and pitch tables (fallback pitch 32°). No caller passes kind 1."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00136f68
+name = "CamMini_PlaceKind2"
+page = "camera/special.md#mini-mug"
+role = "Mini-game shot for kind 2 (the stereo): 3 m from the stereo + 0.3 m, one of eight yaws and three pitches, tried with `0x001374d8` (clear for 2.3 m) ([shot tables](camera/special.md#mini-mug-shots))."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001374d8
+name = "CamMini_TestShot"
+page = "camera/special.md#mini-mug"
+role = "Tests a mini-game shot: a sphere sweep from the look-at point toward the camera; true when the clear distance reaches the wanted one (`+0x254`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00137670
+name = "CamMini_PlaceShot"
+page = "camera/special.md#mini-mug"
+role = "Mini-game shot set-up: a physics bound sphere (near-plane radius) for the tests, then the kind's placement (`0x001363e8` / `0x00136a88` / `0x00136f68`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00137808
+name = "CamMini_Update"
+page = "camera/special.md#mini-mug"
+role = "Mini-game camera update: keeps the humans framed (turns at most 3x the angle error per second); when the done flag `+0x258` is set (`0x0022d1f8`) goes back to the saved camera with a 0.3 s blend."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00137c68
+name = "CamMini_StaticInit"
+page = "camera/special.md#mini-mug"
+role = "Static init of Cam_Mini.cpp."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00137cb0
+name = "CamMini_StaticInitStub"
+page = "camera/special.md#mini-mug"
+role = "Static-init stub of Cam_Mini.cpp."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00137cd0
+name = "CamMug_Construct"
+page = "camera/special.md#mini-mug"
+role = "Cam_Mug (type 7) constructor, 0x250 bytes, vtable `0x00536850`: mugger, victim (`+0x1e0`/`+0x1e4`), intro sound handle `+0x1ec`, look-at offset `+0x200` (0, 0, 1.45), fov ease time `+0x244` 0.33 s."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00137dc0
+name = "CamMug_Destroy"
+page = "camera/special.md#mini-mug"
+role = "Cam_Mug destructor."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00137de8
+name = "CamMug_Deactivate"
+page = "camera/special.md#mini-mug"
+role = "Mugging camera vtable `+0x154`: releases itself."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00137e08
+name = "CamMug_Start"
+page = "camera/special.md#mini-mug"
+role = "Mugging camera start (`0x002729a8`): only from a single-view follow camera; saves it (`+0x230`), copies its fov and near, places the shot (`0x00138078`) and plays vags/misc/mug_intro (2D)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00138078
+name = "CamMug_PlaceShot"
+page = "camera/special.md#mini-mug"
+role = "Mugging shot: about the pair, a random yaw and pitch from small tables, distance 2.5 m (1.8 m when blocked), tested with a physics sphere against vehicles and the collision mesh."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00138b90
+name = "CamMug_Update"
+page = "camera/special.md#mini-mug"
+role = "Mugging camera update: eases the fov to 50 over `+0x244`, turns at most 135°/s to keep both humans framed, keeps 3 m from humans (Camera_PushOutOfHumans); when the mugging ends stops the intro, plays vags/misc/mug_outro, turns the follow camera (Cam_Follow_TurnToQuat) and blends back in 0.3 s."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00139d00
+name = "CamMug_StaticInit"
+page = "camera/special.md#mini-mug"
+role = "Static init of Cam_Mug.cpp: `0x005d91d8` = tan(5°)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00139d48
+name = "CamMug_StaticInitStub"
+page = "camera/special.md#mini-mug"
+role = "Static-init stub of Cam_Mug.cpp."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00139d68
+name = "CamPower_Construct"
+page = "camera/power.md#fn-power"
+role = "Cam_Power (type 6) constructor, 0x340 bytes, vtable `0x00536b10`: no human (`+0x320`), shot count `+0x331` = −99 (none), mode `+0x330` = 2, unplaced `+0x32e` = 1, saved fov `+0x324` = −1. [Fields](camera/power.md#power-fields)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00139df8
+name = "CamPower_Destroy"
+page = "camera/power.md#fn-power"
+role = "Cam_Power destructor."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00139e20
+name = "CamPower_Deactivate"
+page = "camera/power.md#fn-power"
+role = "Power camera vtable `+0x154`, run when another camera becomes current: `Camera_Release(self, 1)` (`0x0011e440`), so the object is freed and `0x005d9188[0]` cleared; the next begin makes a new one."
+level = "confirmed-code"
+note = "confirmed (code), confirmed (runtime)"
+
+[[function]]
+address = 0x00139e40
+name = "CamPower_GetOrientation"
+page = "camera/power.md#fn-power"
+role = "Power camera vtable `+0x22c`: the orientation of the camera it came from (`+0x334`), else its own."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00139e90
+name = "CamPower_StartShake"
+page = "camera/power.md#fn-power"
+role = "Power camera shake (vtable `+0x15c`): only for a human on the target list (`CameraTargets_Contains`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00139ef8
+name = "CamPower_Update"
+page = "camera/power.md#fn-power"
+role = "Each update: ends (`0x0013a3b0`) when the human is gone, down or dead, or out of the paired move; else puts the camera back at the cut's position, pushes it out of nearby humans and keeps the cut's orientation (re-aimed only while a shake moves the view). [Holding a shot](camera/power.md#power-hold)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013a170
+name = "CamPower_Begin"
+page = "camera/power.md#fn-power"
+role = "Event `0x39`: saves the current camera (`+0x334`; when the power camera is already current, keeps the one it saved), copies its near plane and far clip, stores its fov at `+0x324`, takes the human (the event's, or the saved camera's first target when that is a player) and his transform now, count 0, unplaced; mode = the event's `+0x06` (1, else 2)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013a3b0
+name = "CamPower_End"
+page = "camera/power.md#fn-power"
+role = "Event `0x3d` and the update's end: when it is player 0's or player 1's current camera, makes the saved camera current with no blend (`Camera_MakeActive(0 s, saved)`); clears `+0x32f`; count −1."
+level = "confirmed-code"
+note = "confirmed (code), confirmed (runtime)"
+
+[[function]]
+address = 0x0013a448
+name = "CamPower_AddShot"
+page = "camera/power.md#fn-power"
+role = "Event `0x3b`: while begun and unplaced, stores shot `slot` (0-7) in world space from the human's transform at the begin: position `+0x1e0 + 16·slot`, orientation `+0x280 + 16·slot`; count + 1."
+level = "confirmed-code"
+note = "confirmed (code), confirmed (runtime)"
+
+[[function]]
+address = 0x0013a548
+name = "CamPower_CutToShot"
+page = "camera/power.md#fn-power"
+role = "Event `0x3a` (fov = the event's float, 50° when not above 0): the first cut chooses the shots (`0x0013a818`) and makes the camera current with no blend; every cut jumps to the current shot and swaps current and alternate. [The cut](camera/power.md#power-cut)."
+level = "confirmed-code"
+note = "confirmed (code), confirmed (runtime)"
+
+[[function]]
+address = 0x0013a818
+name = "CamPower_PlaceShot"
+page = "camera/power.md#fn-power"
+role = "Tests every stored shot with two swept spheres (from beyond the human's head back to the shot, and from his feet to the shot); keeps the clear ones (mask `+0x32c`) and picks the current and alternate shots from a counter that turns every power move (`0x0050b2a0`). [Choosing the shots](camera/power.md#power-choice)."
+level = "confirmed-code"
+note = "confirmed (code), confirmed (runtime)"
+
+[[function]]
+address = 0x0013b118
+name = "CamRail_Construct"
+page = "camera/scripted.md#rail"
+role = "Cam_Rail (type 9) constructor, 0x3f0 bytes, vtable `0x00536dd0`: no points, mode 0, fov target 60, settings off (-1 / -FLT_MAX), offset `+0x320` zero, `+0x3d0` 1.5, `+0x3d4` 0.5, `+0x3d8` -1."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013b290
+name = "CamRail_Destroy"
+page = "camera/scripted.md#rail"
+role = "Cam_Rail destructor."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0013b2b8
 name = "CamRail_Reset"
-page = "camera.md#fn-rail"
-role = "CamSetupRail's reset: no points, mode 0, settings and ease times off, fov target the current fov, switches 7 and 8 on. [rail](camera.md#rail)."
+page = "camera/scripted.md#rail"
+role = "CamSetupRail's reset: no points, mode 0, settings and ease times off, fov target the current fov, switches 7 and 8 on. [rail](camera/scripted.md#rail)."
 level = "confirmed-code"
 coney = "src/camera/rail_camera.h:RailCamera::setup"
 status = "legacy"
 
 [[function]]
+address = 0x0013b358
+name = "CamRail_CopySettings"
+page = "camera/scripted.md#rail"
+role = "Copies another rail camera's points, offset, settings, lead, mode and fov (Cameras_AddPlayer)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013b508
+name = "CamRail_Activate"
+page = "camera/scripted.md#rail"
+role = "Rail camera activation (vtable `+0x144`): gathers targets, sets the target point, finishes an update, sets the fov and every current setting to its target at once, then resets (vtable `+0x13c`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013b5d8
+name = "CamRail_Deactivate"
+page = "camera/scripted.md#rail"
+role = "Rail camera vtable `+0x154`: re-lays out co-op views when needed (`0x0013ccd8`) and clears the rail flash (`0x0013b6f8`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013b698
+name = "CamRail_Reset"
+page = "camera/scripted.md#rail"
+role = "Rail camera reset (vtable `+0x13c`): arms the split timer, clears the blend `+0x3cc` and, with two or more points, runs one 1/60 s update with `+0x3e8` set (no damping)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013b6f8
+name = "CamRail_ClearFlash"
+page = "camera/scripted.md#rail"
+role = "For both players' rail cameras clears the flash alpha `+0x3eb` and timer `+0x3e0`, and the colour controllers' alpha byte."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013b770
+name = "CamRail_ClearPoints"
+page = "camera/scripted.md#rail"
+role = "Rail point count `+0x350` and current segment `+0x352` to 0."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0013b780
 name = "CamRail_AppendPoint"
-page = "camera.md#fn-rail"
-role = "Appends a rail point (16 bytes at `+0x1e0`, at most 16). [rail](camera.md#rail)."
+page = "camera/scripted.md#rail"
+role = "Appends a rail point (16 bytes at `+0x1e0`, at most 16). [rail](camera/scripted.md#rail)."
 level = "confirmed-code"
 coney = "src/camera/rail_camera.h:RailCamera::addPoint"
 status = "legacy"
 
 [[function]]
+address = 0x0013b7b8
+name = "CamRail_GatherTargets"
+page = "camera/scripted.md#rail"
+role = "The rail camera's targets from the target list, filtered by switches 3, 8, 12 and Camera_HumanCounts. [rail](camera/scripted.md#rail)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013ba68
+name = "CamRail_StartShake"
+page = "camera/scripted.md#rail"
+role = "Rail camera shake (vtable `+0x15c`): only for a human on the target list."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013bad0
+name = "CamRail_UpdateTargetPoint"
+page = "camera/scripted.md#rail"
+role = "The rail camera's target point P and look-at point by mode and settings 3, 4, 9. [rail](camera/scripted.md#rail)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013bfe0
+name = "CamRail_DampTargetPoint"
+page = "camera/scripted.md#rail"
+role = "Damps P and the look-at point toward last update's (the dz / h thresholds). [rail](camera/scripted.md#rail)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013c590
+name = "CamRail_ArmSplitTimer"
+page = "camera/scripted.md#rail"
+role = "Co-op split/merge timer `+0x3dc` = 0.5 s."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013c5a8
+name = "CamRail_Flash"
+page = "camera/scripted.md#rail"
+role = "On a player's current rail camera: small shake and the alpha-225 flash on his colour controller (`+0x3eb`, timer `+0x3e0` 0.2 s), as Cam_Follow_CountdownFlash."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013c710
+name = "CamRail_DecideSplit"
+page = "camera/scripted.md#rail"
+role = "Co-op (2 players) with rail cameras: whether the players share one view or split, as Cam_Follow_DecideSplit (players in frame and close, timer `+0x3dc`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013ccd8
+name = "CamRail_OnViewCountChange"
+page = "camera/scripted.md#rail"
+role = "Co-op: after the view count changed, re-frames and flashes each rail camera (`0x0013c5a8`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013ce78
+name = "CamRail_Prime"
+page = "camera/scripted.md#rail"
+role = "Run when a rail camera is made current (Camera_MakeActive, the view decision): views decided, split timer armed, targets gathered, split step, one 1/60 s update when it is a player's current camera."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013cf20
+name = "CamRail_UpdateSplitScreen"
+page = "camera/scripted.md#rail"
+role = "Split-screen extras (two player cameras only): DecideSplit and OnViewCountChange; on a merge to one view one more update with `+0x3e9` set. [rail](camera/scripted.md#rail)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0013d010
 name = "CamRail_Update"
-page = "camera.md#fn-rail"
-role = "Rail camera update: ease settings and lead, targets, target point, damping, placement by mode, split extras. [rail](camera.md#rail)."
+page = "camera/scripted.md#rail"
+role = "Rail camera update: ease settings and lead, targets, target point, damping, placement by mode, split extras. [rail](camera/scripted.md#rail)."
 level = "confirmed-code"
 coney = "src/camera/rail_camera.h:RailCamera::update"
 status = "legacy"
 
 [[function]]
+address = 0x0013d6b0
+name = "CamRail_UpdatePosition"
+page = "camera/scripted.md#rail"
+role = "Mode 0 placement: segment choice, projection with setting 0, blend, height ceiling, look-at with setting 8, ends hold, collision. [rail](camera/scripted.md#rail)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013dcc8
+name = "CamRail_PlaceMode3"
+page = "camera/scripted.md#rail"
+role = "Mode 3 placement (setting 5 on, the Armies levels 60-64): pushes the targets into frame, then the look-at point chases a goal 2 m in plan from the hindmost target's rail point, forward only, by min(40% of the gap, (his forward speed + 1 m/s) × `dt`); the camera is its projection on the rail; the look-at point 2 m ahead at the pitch setting 5; holds at the ends (`+0x3e4`). [mode 3](camera/scripted.md#rail-mode3)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013e708
+name = "CamRail_PlaceLeading"
+page = "camera/scripted.md#rail"
+role = "Modes 1 and 2 (CamLeadRail): the camera stands the lead ahead of or behind the target's place on the rail, or with switch 7 on off the rail beside it, with a ray back toward the rail and a 0.5 m sphere push of the look-at point. [leading](camera/scripted.md#rail-leading)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x0013f930
 name = "CamRail_EaseValue"
-page = "camera.md#fn-rail"
-role = "Moves one rail setting toward its target by (target - current) × dt / time left. [rail](camera.md#rail)."
+page = "camera/scripted.md#rail"
+role = "Moves one rail setting toward its target by (target - current) × dt / time left. [rail](camera/scripted.md#rail)."
 level = "confirmed-code"
 coney = "src/camera/rail_camera.h:EasedValue::step"
 status = "legacy"
 
 [[function]]
+address = 0x0013f9b0
+name = "CamRail_PitchToPoint"
+page = "camera/scripted.md#rail"
+role = "Signed angle of a direction from the horizontal (negative when the point is below `+0x2f8`'s height), used by the rail update's angle settings."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013fac8
+name = "CamRail_SetMode3Angle"
+page = "camera/scripted.md#rail"
+role = "Setting 5: below -360 turns mode 3 off (back to mode 0), else mode 3 with that angle in°rees (`+0x388`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013fb30
+name = "CamRail_SetFixedPitch"
+page = "camera/scripted.md#rail"
+role = "Setting 8: below -360 off, else the look-at pitch in°rees (0 becomes -0.05) at `+0x394`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x0013fba0
+name = "CamRail_ChooseSegment"
+page = "camera/scripted.md#rail"
+role = "Chooses the rail segment for P (nearest point, then the segment P projects inside). [rail](camera/scripted.md#rail)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00140308
+name = "CamRail_ProjectOnSegment"
+page = "camera/scripted.md#rail"
+role = "Projects P on the segment, clamped, and pulls it toward P by setting 0. [rail](camera/scripted.md#rail)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00140708
+name = "CamRail_CollideTwoTargets"
+page = "camera/scripted.md#rail"
+role = "Collision with two targets and switch 8, or while held: when the targets are not all in frame (`0x00140ad0`, by their radii) and not held, puts back the previous position, orientation and look-at; then pushes the targets into frame (`0x00140d68`). [frame](camera/scripted.md#rail-frame)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00140830
+name = "CamRail_Collide"
+page = "camera/scripted.md#rail"
+role = "Mode 0's last step for the first target, with no world test: with switch 2 off moves the camera along its segment to keep it `max(2, 0.4 × height above P)` from `P` in plan; with switch 2 on keeps the player 2 m from the rail's vertical planes. [collision](camera/scripted.md#rail-collide)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00140ad0
+name = "CamRail_TargetsInFrame"
+page = "camera/scripted.md#rail"
+role = "True when every target, by its radius (player: scale × 0.5; other: capsule radius; or the given margin when the last argument is 0), is inside the left, right and bottom frustum planes (vtable `+0x174`), and with switch 2 (`+0x3e6`) beyond the plane 2 m in front of the camera. [frame](camera/scripted.md#rail-frame)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00140d68
+name = "CamRail_KeepTargetsInFrame"
+page = "camera/scripted.md#rail"
+role = "Moves each target (players and others) back inside the left or right and the bottom frustum planes, out of walls toward the camera and onto the ground below (`Human_SetTransform`); the camera does not move. [frame](camera/scripted.md#rail-frame)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001421b8
+name = "CamScene_Construct"
+page = "camera/index.md#fn-scene"
+role = "Cam_Scene (type 4) constructor, 0x1f0 bytes, vtable `0x00537090`: `+0x1e0` 0, `+0x1e4` -1. Made by the scene start, `0x00354558` and the movie player; the scene sets its view each frame."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00142210
+name = "CamScene_Destroy"
+page = "camera/index.md#fn-scene"
+role = "Cam_Scene destructor."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00142238
+name = "CamScene_Update"
+page = "camera/index.md#fn-scene"
+role = "Scene camera update (vtable `+0x134`): stores dt and finishes a base update; the scene player moves it."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00142260
+name = "CamSpline_Construct"
+page = "camera/scripted.md#path-cameras"
+role = "Cam_Spline (type 3, the path camera) constructor, 0x350 bytes, vtable `0x00537350`: no source camera or callback, fov 45 (`+0x330`), points cleared (`0x00142308`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001422e0
+name = "CamSpline_Destroy"
+page = "camera/scripted.md#path-cameras"
+role = "Cam_Spline destructor."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00142308
+name = "CamSpline_ClearPoints"
+page = "camera/scripted.md#path-cameras"
+role = "Clears the path's 8 points (positions `+0x1e0`, orientations `+0x260`, times `+0x2ec`, callbacks `+0x30c`), the count `+0x334`, the progress `+0x338` and the running flag `+0x33c`."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00142368
+name = "CamSpline_Start"
+page = "camera/scripted.md#path-cameras"
+role = "[`CamSetupPoizo`](../references/bindings/camera.md#camsetuppoizo) core: source camera (`+0x2e0`), fov (0 takes the source's), near, far (0 takes the source's), aspect; the end callback (`+0x2e4`) from the script system; progress cleared; the source's view becomes point 0 with the given time; placed there. [path cameras](camera/scripted.md#path-cameras)."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00142578
 name = "PoizoCam_Reverse"
-page = "camera.md#fn-spline"
+page = "camera/scripted.md#path-cameras"
 role = "[`CamReversePoizo`](../references/bindings/camera.md#camreversepoizo) core: puts the points in reverse order with their times shifted, progress to the start, placed at the new first point, restarted with the new end callback."
 level = "confirmed-code"
 coney = "src/camera/path_camera.h:PathCamera::reverse"
 status = "legacy"
 
 [[function]]
+address = 0x00142690
+name = "CamSpline_Activate"
+page = "camera/scripted.md#path-cameras"
+role = "Path camera activation (vtable `+0x144`): running flag `+0x33c` set, one base update of 1/60 s."
+level = "confirmed-code"
+
+[[function]]
 address = 0x001426c0
 name = "PoizoCam_Update"
-page = "camera.md#fn-spline"
-role = "Path camera update: while it is player 1's current camera, advances along the Catmull-Rom curve through the points (`0x00142db8`), slerping orientations, calling each point's callback and the end callback. [path cameras](camera.md#path-cameras)."
+page = "camera/scripted.md#path-cameras"
+role = "Path camera update: while it is player 1's current camera, advances along the Catmull-Rom curve through the points (`0x00142db8`), slerping orientations, calling each point's callback and the end callback. [path cameras](camera/scripted.md#path-cameras)."
 level = "confirmed-code"
 coney = "src/camera/path_camera.h:PathCamera::update"
 status = "legacy"
@@ -679,7 +2140,7 @@ status = "legacy"
 [[function]]
 address = 0x00142a58
 name = "PoizoCam_AddPoint"
-page = "camera.md#fn-spline"
+page = "camera/scripted.md#path-cameras"
 role = "Appends a path point (position, orientation, time, callback); at most 8."
 level = "confirmed-code"
 coney = "src/camera/path_camera.h:PathCamera::addPoint"
@@ -688,43 +2149,134 @@ status = "legacy"
 [[function]]
 address = 0x00142ac8
 name = "CamSpline_AddPointAngles"
-page = "camera.md#fn-spline"
+page = "camera/scripted.md#path-cameras"
 role = "[`CamAddPoizoPoint`](../references/bindings/camera.md#camaddpoizopoint) core: orientation from heading (about z), pitch (about x) and roll (about y) in°rees, then PoizoCam_AddPoint."
 level = "confirmed-code"
 coney = "src/camera/locked_camera.h:scriptedOrientation"
 status = "legacy"
 
 [[function]]
+address = 0x00142d28
+name = "CamSpline_AddPointFromCamera"
+page = "camera/scripted.md#path-cameras"
+role = "[`CamAddPoizoPointCam`](../references/bindings/camera.md#camaddpoizopointcam) core: a path point from another camera's position (vtable `+0x21c`) and orientation (vtable `+0x224`)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00142db8
+name = "CamSpline_EvalCurve"
+page = "camera/scripted.md#path-cameras"
+role = "Catmull-Rom point at t on segment n of the path (the end points repeated at the ends): -1.5t^3 + 2t^2 + 0.5t and the other three weights."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00142f98
+name = "CamBlend_Construct"
+page = "camera/index.md#fn-blend"
+role = "Cam_Transition (type 5, the blend camera) constructor, 0x240 bytes, vtable `0x00537610`: no source (`+0x210`) or destination (`+0x214`), start orientation identity, fov 60 (`+0x224`, `+0x22c`, `+0x230`), near 0.3 (`+0x228`), `+0x234` 1."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00143050
+name = "CamBlend_Destroy"
+page = "camera/index.md#fn-blend"
+role = "Cam_Transition destructor."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00143078
 name = "CamBlend_Start"
-page = "camera.md#fn-blend"
-role = "Starts a blend: the duration and the cameras. [blends](camera.md#blends)."
+page = "camera/index.md#fn-blend"
+role = "Starts a blend: the duration and the cameras. [blends](camera/index.md#blends)."
 level = "confirmed-code"
 coney = "src/camera/camera_blend.h:CameraBlend::CameraBlend"
 status = "legacy"
 
 [[function]]
+address = 0x00143090
+name = "CamBlend_GetAspect"
+page = "camera/index.md#fn-blend"
+role = "Blend camera vtable `+0x1fc`: the destination's aspect, mixed with the source's by t (`+0x220`) when there is a source."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00143130
+name = "CamBlend_GetLens234"
+page = "camera/index.md#fn-blend"
+role = "Blend camera vtable `+0x234`: the destination's value mixed with the source's by t."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001431d0
+name = "CamBlend_GetLens23c"
+page = "camera/index.md#fn-blend"
+role = "Blend camera vtable `+0x23c`: the destination's value mixed with the source's by t."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00143270
+name = "CamBlend_GetLens244"
+page = "camera/index.md#fn-blend"
+role = "Blend camera vtable `+0x244`: the larger of the source's and destination's values."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00143300
+name = "CamBlend_Activate"
+page = "camera/index.md#fn-blend"
+role = "Blend activation (vtable `+0x144`): snapshots the source's orientation, position, look-at, fov, near, far and draw distance (`+0x1e0`..`+0x230`) as the start, activates the destination (vtable `+0x144`); `+0x234` stays 1 only when the source is a scene or path camera."
+level = "confirmed-code"
+
+[[function]]
+address = 0x00143540
+name = "CamBlend_Deactivate"
+page = "camera/index.md#fn-blend"
+role = "Blend camera vtable `+0x154`: releases itself when it is no longer its player's current camera."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00143590
 name = "CamBlend_Update"
-page = "camera.md#fn-blend"
-role = "Blend update: destination (and source) updated, then a linear blend of look-at and position and a slerp of orientation by t, far clip min'd; at t = 1 the destination becomes current. [blends](camera.md#blends)."
+page = "camera/index.md#fn-blend"
+role = "Blend update: destination (and source) updated, then a linear blend of look-at and position and a slerp of orientation by t, far clip min'd; at t = 1 the destination becomes current. [blends](camera/index.md#blends)."
 level = "confirmed-code"
 coney = "src/camera/camera_blend.h:CameraBlend::step"
 status = "legacy"
 
 [[function]]
+address = 0x00143918
+name = "CamWin_Construct"
+page = "camera/special.md#hood-third"
+role = "Cam_Win (type 13) constructor, 0x200 bytes, vtable `0x005378d0`: no target (`+0x1e0`), distance 1 (`+0x1e4`), angle -10° (`+0x1e8`), height 1.4 (`+0x1ec`), speed 15°/s (`+0x1f0`), direction 1 (`+0x1f4`), orbiting (`+0x1f8`). [Rumble: win camera](rumble.md#win-camera)."
+level = "confirmed-code"
+
+[[function]]
+address = 0x001439b0
+name = "CamWin_Destroy"
+page = "camera/special.md#hood-third"
+role = "Cam_Win destructor."
+level = "confirmed-code"
+
+[[function]]
 address = 0x001439d8
 name = "CamWin_Activate"
-page = "camera.md#fn-win"
+page = "camera/special.md#hood-third"
 role = "Win camera start (vtable `+0x144`): look-at above the target, placed on its circle. [Rumble: win camera](rumble.md#win-camera)."
 level = "confirmed-code"
 coney = "src/camera/win_camera.h:WinCamera::WinCamera"
 status = "legacy"
 
 [[function]]
+address = 0x00143c58
+name = "CamWin_SetDirection"
+page = "camera/special.md#hood-third"
+role = "Win camera: circling direction `+0x1f4` = 1 for a positive argument, else -1."
+level = "confirmed-code"
+
+[[function]]
 address = 0x00143c78
 name = "CamWin_Update"
-page = "camera.md#fn-win"
+page = "camera/special.md#hood-third"
 role = "Win camera update: circles the target. [Rumble: win camera](rumble.md#win-camera)."
 level = "confirmed-code"
 coney = "src/camera/win_camera.h:WinCamera::update"
@@ -733,7 +2285,7 @@ status = "legacy"
 [[function]]
 address = 0x0041ab30
 name = "SlowMotion_On"
-page = "camera.md#original-structure"
+page = "camera/effects.md#slow-motion"
 level = "confirmed-code"
 coney = "src/camera/slow_motion.h:SlowMotion::event"
 status = "legacy"
@@ -741,7 +2293,7 @@ status = "legacy"
 [[function]]
 address = 0x0041ab60
 name = "SlowMotion_Off"
-page = "camera.md#original-structure"
+page = "camera/effects.md#slow-motion"
 level = "confirmed-code"
 coney = "src/camera/slow_motion.h:SlowMotion::event"
 status = "legacy"

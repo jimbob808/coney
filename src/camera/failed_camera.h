@@ -11,7 +11,7 @@ class CollisionMesh;
 
 // The death camera (`Cam_Failed`, type 12): when a mission fails, the gameplay cuts to a top-down shot of the beaten
 // player that turns slowly and sinks toward him until the mission-failed screen opens. Research:
-// docs/research/camera.md#death-camera
+// docs/research/camera/special.md#death-camera
 
 namespace coney::camera {
 

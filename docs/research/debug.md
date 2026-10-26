@@ -195,7 +195,7 @@ have no caller and no data reference: leftovers of a sample shell. Confirmed (co
   retail screen.
 - **Free camera**: the 14 camera classes (`Cam_Scene`, `Cam_Locked`, `Cam_Fixed`, `Cam_3rdPerson`, `Cam_Follow`,
   `Cam_Transition`, `Cam_Rail`, `Cam_Power`, `Cam_Mug`, `Cam_Mini`, `Cam_Hood`, `Cam_Spline`, `Cam_Failed`,
-  `Cam_Win`) are all gameplay cameras ([Camera](camera.md)).
+  `Cam_Win`) are all gameplay cameras ([Camera](camera/index.md)).
 - **Debug pad**: the callers of the pad mask queries (`0x00144b88`, `0x00144bf0`) are the action map, the camera
   input, the HUD, menus and mode 1's frame. None reads a second pad or a SELECT, L3 or R3 combination outside
   gameplay.

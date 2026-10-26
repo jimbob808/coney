@@ -2,7 +2,8 @@
 // The follow camera when its target is moved by a placement (a teleport): it is not cut, its look-at point follows the
 // new place and it resets itself behind the target only when lost (update step 7); a reset or an activation reads where
 // the target stands now, and a scene's end hands the camera back behind the place the scene left the player
-// (docs/research/camera.md#update, docs/research/camera.md#setting-up, docs/research/camera.md#scenes).
+// (docs/research/camera/follow.md#update, docs/research/camera/index.md#setting-up,
+// docs/research/camera/index.md#scenes).
 #include <cmath>
 #include <cstdint>
 #include <numbers>

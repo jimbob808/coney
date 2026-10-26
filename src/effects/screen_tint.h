@@ -57,7 +57,7 @@ class ScreenTint {
     void exitStore();
 
     /// The game-over tint (`0xd0000014` packed as alpha, blue, green, red): a dark red at alpha 0xd0, drawn at 104/128
-    /// (docs/research/rendering.md#tint, docs/research/camera.md#death-camera).
+    /// (docs/research/rendering.md#tint, docs/research/camera/special.md#death-camera).
     static constexpr Colour kGameOver{0x14, 0x00, 0x00, 0xD0};
 
     /// Blends from the colour now to `target` over `seconds`, at once when 0: the game-over shot and

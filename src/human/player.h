@@ -31,7 +31,7 @@
 // Player 1 in a level: the character it plays, the human the pad drives and the follow camera behind it, stepped
 // together in the characters' order (the pad into the human's record, the characters' step, then cameras).
 // Platform-neutral: the play mode draws it, the disc tests drive it headless.
-// Research: docs/research/characters.md#update, docs/research/tasks.md#humans-update, docs/research/camera.md
+// Research: docs/research/characters.md#update, docs/research/tasks.md#humans-update, docs/research/camera/index.md
 
 namespace coney::human {
 
@@ -198,7 +198,7 @@ class Player {
 
     /// Moves the human to `start` as `TeleportToFlag` moves a human (place(), then Human::resetMotion(): his move
     /// stops), so its health, meters and clip stay. The camera is left alone: it follows him by its own rules, gliding
-    /// after a short move and putting itself behind him when lost (docs/research/camera.md#update). The scripts'
+    /// after a short move and putting itself behind him when lost (docs/research/camera/follow.md#update). The scripts'
     /// `TeleportToFlag`, a scene's release and the hand-over use it.
     /// @orig 0x00385db0 Object_TeleportToFlag (unknown)
     void teleport(const raycast::CollisionMesh* mesh, const PlayerStart& start);

@@ -70,7 +70,7 @@ class Humans {
     /// human's actions (the dispatcher from its record, against the passive `targets` and the humans it is opposed to,
     /// as add() and setOpposition() say), the order alternating between first-to-last and last-to-first from one step
     /// to the next. `mesh` is what they stand on (may be null). Every human advances by `stepSeconds`, the characters'
-    /// step, which slow motion shortens (docs/research/camera.md#slow-motion).
+    /// step, which slow motion shortens (docs/research/camera/effects.md#slow-motion).
     /// @orig 0x00249108 Humans_Update (unknown)
     void update(const raycast::CollisionMesh* mesh, std::span<Combatant* const> targets = {},
                 float stepSeconds = kStepSeconds);

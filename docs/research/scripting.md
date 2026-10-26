@@ -695,7 +695,7 @@ described:
 | config | [Config bindings](../references/bindings/config.md) |
 | sound | [Sound](sound.md) |
 | effects | [Particles](particles.md), [The streamed world](world.md#fog) |
-| camera | [Camera](camera.md) |
+| camera | [Camera](camera/index.md) |
 | ai: tactics (`Tactic*`) | [AI](ai-gangs.md#tactic-kinds) |
 | ai: brains and the rest (`Br*`, ...) | [AI](ai.md#brain) |
 | scene | [Scenes](scenes.md) |
@@ -738,7 +738,7 @@ Orphans (`orph_*` models named `Clubhouse1` ...): another gang's (inferred).
 FOLLOWCAM_DEFAULTANGLE, FOLLOWCAM_FOV, FOLLOWCAM_NEARPLANE, {FOLLOWCAM_OFFSET_X, _Y, _Z}, FOLLOWCAM_SLOWMO)` and
 returns the camera's handle. `global.lua` sets these globals to **3, 6.6, 4.8, 13 (degrees), 65, 0.1, (0, 0, 1.4)
 and 0.2**; `CameraNormal()` applies them again to `MainCam`. Inferred from the disassembly; the values are confirmed
-(runtime) in the camera object ([Camera](camera.md#the-follow-camera-object)).
+(runtime) in the camera object ([Camera](camera/follow.md#the-follow-camera-object)).
 
 ### Scenes and movies {#scenes-and-movies}
 
@@ -790,7 +790,7 @@ calls `Main()`:
   `SetupBasicAttacks`, ...), `HUDSetObjective`, `HUDTurnOffRadar` and the training enemies (`AddCombatEnemy`).
 
 The player therefore exists and the follow camera is active before the first frame of mode 1; the intro scene takes
-the camera over and gives it back ([Camera](camera.md#scenes)).
+the camera over and gives it back ([Camera](camera/index.md#scenes)).
 
 **Chapters and checkpoints.** The three chapter scripts run one after another in the same level, without a reload:
 the last step of each calls `SetCheckPoint(n + 1)` and `preLoadFile` on the next chapter's script with its set-up
@@ -2511,7 +2511,7 @@ on [Story coverage](../references/bindings/story.md#level2). Inferred unless mar
 | 4 | `level2_junkyard` | Sully and the junkyard Orphans (suspended), Sully's car spawned; an objective to the gate whose callback removes the street gangs, shuts the dealer factory, drops molotovs and plays `l2_c5`; then a backup spawner, Sully shaking a fence and fleeing the player (trigger sphere 3 m / 6 m), a HUD bar for the car (`HUDEnableBar`, `HUDSetBarPercentage`); every car message 25 (`SetGeneralCarMsgHandler`) about Sully's car with its flag true counts one hit, 15 hits empty the bar | the final scene `l2_c6_b` → `HUDLaunchMissionComplete()` |
 
 Engine behaviour this mission needs beyond its bindings: [kind-2 boxes](#triggers) (the intro cameras) and the
-[rail camera](camera.md#rail), mode 0 and the trailing lead. Open: which car events send message 25 with the flag
+[rail camera](camera/scripted.md#rail), mode 0 and the trailing lead. Open: which car events send message 25 with the flag
 true besides `Car_DoExplode` (`0x0038ab50`, flag 1), since the junkyard needs 15 of them on one car.
 
 ### `level3.lua` (mission 6) {#level3}
@@ -2603,7 +2603,7 @@ goal does not move a brain-dead player, leaves the player standing for good. Con
 behaviour; that Snow's walk crosses `vbStartRail` is inferred from the positions (not seen at runtime).
 
 Engine behaviour this mission needs beyond its bindings: [kind-2 boxes](#triggers), the [rail
-camera](camera.md#rail) mode 0, [GoalDevilRun](ai-scripting.md#devil-run) and [message 6](#triggers) from `vGallery`
+camera](camera/scripted.md#rail) mode 0, [GoalDevilRun](ai-scripting.md#devil-run) and [message 6](#triggers) from `vGallery`
 when a human standing in it damages something.
 
 ### `level5.lua` (mission 7) {#level5}

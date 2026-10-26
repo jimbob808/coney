@@ -1,8 +1,8 @@
 # The running fence climb of level99 checkpoint 3: slot 7 stands Rembrandt in sight of the street fence. A run at the
 # fence (the stick at 100 %, straight ahead) and triangle within reach: the climb (440, 441, 442) and what the follow
-# camera does through it, update by update. Research: docs/research/camera.md#climbs.
+# camera does through it, update by update. Research: docs/research/camera/follow.md#climbs.
 description = "level99 street fence: run at the fence and climb it; the follow camera through the climb"
-research = "docs/research/camera.md#climbs"
+research = "docs/research/camera/follow.md#climbs"
 input = "fence_climb.txt"
 updates = 140
 fields = ["player", "camera", "camera_state"]

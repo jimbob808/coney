@@ -61,7 +61,7 @@ class Brains {
     [[nodiscard]] human::Humans::BrainsHook hook();
 
     /// The distance from `brain`'s human to its nearest enemy with health left, or nothing when it has none: the query
-    /// the camera's sprint zoom asks the player's brain (docs/research/camera.md#sprint-zoom).
+    /// the camera's sprint zoom asks the player's brain (docs/research/camera/follow.md#sprint-zoom).
     [[nodiscard]] static std::optional<float> nearestEnemy(const Brain& brain);
 
     /// The gangs and the formations of the scene.

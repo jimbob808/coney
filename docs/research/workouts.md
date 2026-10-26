@@ -50,7 +50,7 @@ Each station's set-up (`workout.Setup`, by `workFlag`), confirmed (code):
 A time of 0 means no clock (rank 1 of the cycle games). Every station call passes a fourth argument of 1.8 to
 `CfgWorkoutParams` ([Parameters](#parameters)). The three cycle stations also make no camera of their own beyond
 `workout.cam`; the bag makes three ([The heavy bag](#heavy-bag)). Each station has one locked camera `workout.cam`
-(positions in [Camera](camera.md#level95-calls)).
+(positions in [Camera](camera/scripted.md#level95-calls)).
 
 ## Starting a workout {#start}
 

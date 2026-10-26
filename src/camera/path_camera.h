@@ -11,7 +11,7 @@
 // The path camera (`Cam_Spline`, type 3, the scripts' "Poizo" camera): a scripted flight from one camera's view through
 // up to seven more points along a Catmull-Rom curve, turning by slerp between the points' orientations, calling a
 // script function at each point it reaches and at the end. There is one; `CamSetupPoizo` starts it over.
-// Research: docs/research/camera.md#path-cameras, docs/references/bindings/camera.md#camsetuppoizo
+// Research: docs/research/camera/scripted.md#path-cameras, docs/references/bindings/camera.md#camsetuppoizo
 
 namespace coney::camera {
 
@@ -71,7 +71,7 @@ class PathCamera {
 
 /// The orientation of a path point turned `headingDegrees` (0 facing +y, anticlockwise from above), pitched
 /// `pitchDegrees` (positive looking up) and rolled `rollDegrees` (positive tipping the top to the right): the same as
-/// a locked camera's, scriptedOrientation() (docs/research/camera.md#scripted-angles).
+/// a locked camera's, scriptedOrientation() (docs/research/camera/scripted.md#scripted-angles).
 [[nodiscard]] anim::Quat orientationOf(float headingDegrees, float pitchDegrees, float rollDegrees);
 
 } // namespace coney::camera

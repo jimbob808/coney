@@ -345,7 +345,7 @@ the original also takes any object with a box at `+0x10` / `+0x20`.
 
 - **Flag bits 3, 6, 8-10 and 12-15** (bits 2 and 7 mark climbable triangles, bit 4 shadow ground, bit 5 human
   `+0x5b7`), and the masks the callers pass: which other bits mean what (stairs, no-camera, water?). The follow
-  camera's rays use mask `0x200` ([Camera](camera.md#collision)).
+  camera's rays use mask `0x200` ([Camera](camera/collision.md#collision)).
 - **The area byte** (`+0x09`): what the 125 values number.
 - **`level118`'s header**: is that level's grid usable as it is (its `y` scale is 0)?
 - **The cameras' and characters' use** (partly answered): characters stand on the ground by a ray 1.0 m above the

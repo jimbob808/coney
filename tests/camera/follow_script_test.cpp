@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// The follow camera's script calls and its combat camera (docs/research/camera.md#script-calls,
-// docs/research/camera.md#combat-camera): CfgFollowCamera's band at the minimum, CamSetFollowZoom's presets,
+// The follow camera's script calls and its combat camera (docs/research/camera/scripted.md#script-calls,
+// docs/research/camera/follow.md#combat-camera): CfgFollowCamera's band at the minimum, CamSetFollowZoom's presets,
 // CamSetFollowAngle's clamp, CameraReset behind the player, the activation, the combat camera's band, pitch and
 // framing, keep-in-view and the stick switch.
 #include <cmath>

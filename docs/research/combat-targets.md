@@ -513,7 +513,7 @@ Read in Ghidra: confirmed (code) where no other level is given.
   position. `Human_UpdateLedSlots` (`0x0023cd30`) writes it: the human's world transform (vtable `+0xac`) composed with
   the transform at `+0x500` (`Transform_Compose`, the child in the parent's frame). `+0x500` is pose bone 6, the head,
   in the model's frame (x right, y forward, z up, from the feet, already times the human's scale; [Camera: the body
-  point](camera.md#body-point)). So the offset is **turned by the human's full rotation**, not scaled again and **not
+  point](camera/follow.md#body-point)). So the offset is **turned by the human's full rotation**, not scaled again and **not
   flattened**: the point is at head height. It is not a formation offset and not the hips (`+0x4e0` is aim point 2).
 - **Lead.** The target's velocity × (time to the first event + 0.1 s) is added to the head point: in full when it is
   at most 1 m long, or when the led point is nearer the attacker than the head itself; otherwise cut to 0.5 m long.

@@ -42,7 +42,7 @@ second player everywhere a network game needs them to.
 | Player 2 joins when a second pad presses START and joining is allowed (`CfgMultiplayerJoin`): `GameState_SyncPlayers` takes the player gang's next human by hand-over priority, makes him a player and calls the level's multiplayer callback (`GameState_CallMultiplayerCallback`). He drops out only through the pause menu's Player 2 quit; a pulled pad raises the controller error instead (`Player_UnbindPad` `0x0022a980`) | `0x0041a460`, `0x0041b148`, `PauseMenu_QuitPlayerTwo` `0x001df3a8` ([Scripting: player 2](../research/scripting.md#level99-p2-vermin-fence)) | confirmed (code) |
 | Whether player 2 is in play is kept per mode (story, Rumble, Armies) | `GameState_IsTwoPlayerActive` `0x00419a80` ([Front end](../research/frontend.md#warriors-functions)) | confirmed (code) |
 | The level scripts guard player 2's steps with `HuIsAPlayer(player2)` and register `SetPlayer2Callback` to resume, place or hide the second Warrior. Shown for `level99`'s three scripts, the ones disassembled; the other levels are expected to follow the same pattern (not checked) | `level99.lua`, `level99_lesson1.lua`, `level99_lesson2.lua` ([Scripting](../research/scripting.md#level99-p2-vermin-fence)) | inferred (script disassembly) |
-| The cameras split and merge the screen: merged when both players are in view within 11 m, else split, with 0.72 s timers and a flash | `Cam_Follow_DecideSplit` `0x00126c40`, `Cameras_LayoutViews` `0x00122ed0` ([Cameras](../research/camera.md)) | confirmed (code) |
+| The cameras split and merge the screen: merged when both players are in view within 11 m, else split, with 0.72 s timers and a flash | `Cam_Follow_DecideSplit` `0x00126c40`, `Cameras_LayoutViews` `0x00122ed0` ([Cameras](../research/camera/index.md)) | confirmed (code) |
 | The AI knows about two players: Warriors far from player 1 defend player 2, reactions and enemy counting change in co-op | `DefendTactic_GiveGoals` `0x00310288`, `WarriorFollowTactic_GiveGoals` `0x00310f38`, `HideTactic_RegiveMember` `0x00313028` ([AI code](../research/ai-code.md)) | confirmed (code) |
 | Spawners place new humans where no player's camera can see them | `Camera_AnyPlayerCanSeePoint` `0x001202e8` ([AI: spawners](../research/ai-gangs.md#spawner-unseen)) | confirmed (code) |
 | The pause menu offers a co-op quit (player 2 or all) | `PauseMenu_QuitPlayerTwo` `0x001df3a8` ([Pause menu](../research/pause.md)) | confirmed (code) |
@@ -674,10 +674,10 @@ All on NTSC-U `SLUS_212.15`.
 | AI thinking | inside the characters' step; some rules count steps (a think every fifth step) | confirmed (code), [AI](../research/ai.md) |
 | Scheduled objects: doors, props, particles, cars, scene tasks | the timing wheel, one bucket per **60 Hz** tick, each object every `interval` ticks | confirmed (code) and (runtime), [The wheel](../research/tasks.md#wheel) |
 | Physics step | every **60 Hz** tick; it settles landed objects and refreshes a bound, and moves no human | confirmed (code), [Physics: 30 or 60 Hz](../research/physics.md#tick-rate) |
-| Cameras | at the end of each characters' step, **30 Hz** | confirmed (code), [Cameras](../research/camera.md) |
+| Cameras | at the end of each characters' step, **30 Hz** | confirmed (code), [Cameras](../research/camera/index.md) |
 | Game state, spawns, HUD, the level scripts' update and schedule | once per frame, **30 Hz** | confirmed (code), [Tasks](../research/tasks.md#tick), [Level loading](../research/level-loading.md) |
 | Scenes | in 1/30 s frames | confirmed (code), [Scenes: timing](../research/scenes.md#timing) |
-| Slow motion | changes the characters' `dt` (1/60, 1/120 or 1/150 s), not the step rate | confirmed (code), [Cameras](../research/camera.md) |
+| Slow motion | changes the characters' `dt` (1/60, 1/120 or 1/150 s), not the step rate | confirmed (code), [Cameras](../research/camera/index.md) |
 | PAL | the tick counts the CPU's bus clock, not video fields, so at 25 frames a second it would run on average 1.2 pairs a frame and keep the same game speed | inferred from the NTSC-U code; no PAL executable studied, so speculative for PAL itself |
 
 ### Coney's rates today {#coney-rates}

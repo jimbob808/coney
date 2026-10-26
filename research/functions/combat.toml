@@ -346,7 +346,7 @@ address = 0x0023bde8
 name = "Human_GetBoneTransform"
 page = "combat-grabs.md#grab-pose-runtime"
 level = "confirmed-code"
-note = "the level is from [camera.md#body-point](camera.md#body-point)"
+note = "the level is from [camera.md#body-point](camera/follow.md#body-point)"
 coney = "src/human/human.h:Human::bodyPoint"
 status = "legacy"
 

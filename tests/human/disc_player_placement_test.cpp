@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 // Checks against the player's own disc: Rembrandt in level99 moved mid-play by the scripts' Teleport and
-// TeleportToFlag, which leave the follow camera alone (docs/research/teleports.md, docs/research/camera.md#update).
-// They run only when the environment variable CONEY_DISC names the disc and skip otherwise; they print nothing of the
-// data (LEGAL.md).
+// TeleportToFlag, which leave the follow camera alone (docs/research/teleports.md,
+// docs/research/camera/follow.md#update). They run only when the environment variable CONEY_DISC names the disc and
+// skip otherwise; they print nothing of the data (LEGAL.md).
 
 #include <cmath>
 #include <cstdint>

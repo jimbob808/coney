@@ -322,7 +322,7 @@ confirmed (code):
 - `ScreenFx_FinishTintBlend` (`0x0018cb78`, confirmed (code)): once now is past the end, end = start and from =
   target, so the next frame sees no blend running.
 
-The death camera's blend (`0xd0000014`: red 20, alpha 208) is on [Camera](camera.md#death-camera).
+The death camera's blend (`0xd0000014`: red 20, alpha 208) is on [Camera](camera/special.md#death-camera).
 
 #### Fade {#fade}
 
@@ -348,7 +348,7 @@ that.
 So **`+0x1d8` and `+0x1dc` are the fade's level and rate, not the tint's**. `CamFailed_Update` (`0x00123bf0`)
 tests `level ≥ 1` and `rate > 0`: a fade out has fully covered the screen. It then ends the blur pulse at once
 (`0x0018d058` with 0 s, reverse, no delay; [Blur pulse](#blur-pulse)) and stops the death camera's turn
-([Camera](camera.md#death-camera)). Confirmed (code).
+([Camera](camera/special.md#death-camera)). Confirmed (code).
 
 #### Blur pulse {#blur-pulse}
 
@@ -419,7 +419,7 @@ hold ms, *n*, *f1*, *f2*): in **1,250 ms** (`+0x88` = 1.25 s), out **4,000 ms** 
 is confirmed (code) at `0x0018b648`.
 
 **Callers**: queue type 4 (forward over look 5's in time, then auto-end); `CamUseDeathCamera` (`0x0011daa8`:
-forward over its `ms`, delay `ms2`, no auto-end; [Camera](camera.md#death-camera)); `CamFailed_Update`
+forward over its `ms`, delay `ms2`, no auto-end; [Camera](camera/special.md#death-camera)); `CamFailed_Update`
 (off at once, above); `MissionFailed_Toggle` (`0x00155408`: off at once, with the tint put back instantly, on a
 retry); `Gm_Level_Update` (`0x00158928`, `0x00158b1c`; arguments not traced).
 

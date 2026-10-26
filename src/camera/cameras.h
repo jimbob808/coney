@@ -31,11 +31,11 @@
 // one is current and the blend between two, the camera stack a scene pushes and pops, the switches `CamEnable` sets,
 // the shared target list, the human kept in view, the shake and slow motion. The script bindings
 // (scripting/camera_bindings.h) and the scene player drive it; the player steps it after the characters, and the
-// renderer draws view(). Platform-neutral and deterministic. Research: docs/research/camera.md
+// renderer draws view(). Platform-neutral and deterministic. Research: docs/research/camera/index.md
 
 namespace coney::camera {
 
-/// The kinds of camera Coney has (docs/research/camera.md#types).
+/// The kinds of camera Coney has (docs/research/camera/index.md#types).
 enum class CameraKind : std::uint8_t {
     None,   ///< No camera yet.
     Follow, ///< The player's follow camera (type 2).

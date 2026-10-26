@@ -43,7 +43,7 @@ Research:
 
 - [Story order and what loads each level](../research/scripting.md#run-next-mission)
 - [The mission's script](../research/scripting.md#level2)
-- [Rail cameras](../research/camera.md#rail)
+- [Rail cameras](../research/camera/scripted.md#rail)
 
 ## Run it in Coney {#run}
 

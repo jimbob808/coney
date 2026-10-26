@@ -15,7 +15,7 @@
 // (`CamAddRailPoint`) while it frames its target, the chases' camera. In mode 0 it stands at the target point's foot on
 // the rail, within a reach of the target and below a ceiling; `CamLeadRail` puts it a lead ahead of or behind the
 // target along the rail (modes 1 and 2), and `CamModifyRail` eases its settings over time. One per player; Coney has
-// player 1's. Research: docs/research/camera.md#rail, docs/references/bindings/camera.md#camsetuprail
+// player 1's. Research: docs/research/camera/scripted.md#rail, docs/references/bindings/camera.md#camsetuprail
 
 namespace coney::camera {
 
@@ -55,7 +55,7 @@ class RailCamera {
     /// The far clip is at most this.
     static constexpr float kMaxFarClip = 150.0F;
 
-    /// `CamModifyRail`'s settings Coney applies (docs/research/camera.md#rail).
+    /// `CamModifyRail`'s settings Coney applies (docs/research/camera/scripted.md#rail).
     static constexpr std::uint32_t kDistance = 0; ///< The most the camera stays from its target point in plan, 0 off.
     static constexpr std::uint32_t kHeight = 1;   ///< The most it stands above the target's feet; negative off.
     static constexpr std::uint32_t kFieldOfView = 2; ///< Degrees; negative ignored.

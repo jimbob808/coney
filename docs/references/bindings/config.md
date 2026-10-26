@@ -256,7 +256,7 @@ CfgAutoCloseMode(mode)
 
 Sets the close (combat) camera mode (0x00510228): while it holds, player 1's follow camera pulls in to 2.4 m, tilts to
 15 degrees and keeps his fight target 27 degrees off centre, and shakes are weaker
-([Camera](../../research/camera.md#combat-camera)).
+([Camera](../../research/camera/follow.md#combat-camera)).
 
 **Notes.** Read by 0x00233c50 (one player, not riding, with a fight target), used by the follow camera's update and the
 shake code; 0x0051489c + 0x228 is player 1's handle, not a level object. Never called by the scripts.
@@ -983,7 +983,7 @@ CfgFollowCamera(minDist, maxDist, defaultDist, pitchDeg, fov, nearPlane, offset,
 
 Configures player 1's follow camera: distance limits and default, pitch (reached at once), field of view (eased over 1
 s), near plane, look-at offset and the slow-motion factor; then, with one player camera, moves the band to the minimum
-distance as CamSetFollowZoom(0) does ([Camera](../../research/camera.md#setting-up)). Usually called through
+distance as CamSetFollowZoom(0) does ([Camera](../../research/camera/index.md#setting-up)). Usually called through
 global.lua's CameraCreateFollow and CameraNormal.
 
 - **Evidence:** confirmed (code) at `0x0011c0b8`; detail: traced

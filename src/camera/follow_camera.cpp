@@ -31,7 +31,7 @@ constexpr float kHardFarShare = 0.06F;
 constexpr float kHardFarMinimum = 0.35F;
 // A held lock-on button lets the hard band's far edge out to this share of the maximum distance.
 constexpr float kLockHeldFarShare = 1.1F;
-// The auto-centre rule's angles and rates, degrees and degrees a second (docs/research/camera.md#heading).
+// The auto-centre rule's angles and rates, degrees and degrees a second (docs/research/camera/follow.md#heading).
 constexpr float kCentreFrom = 22.5F;
 constexpr float kCentreMid = 45.0F;
 constexpr float kCentreSlope = 2.444F;
@@ -298,7 +298,7 @@ void FollowCamera::activate() {
     // reset of a camera whose player index is not below the player-camera count (the only branch that sets the hard
     // band, from +0x334/+0x338, which player 1's camera with one player camera never takes, so Coney keeps its hard
     // band as it is), its lost test with two player cameras, and the recovered distance it sets (+0x380) are not made
-    // here: Coney has one player camera and no recovered distance (docs/research/camera.md#setting-up).
+    // here: Coney has one player camera and no recovered distance (docs/research/camera/index.md#setting-up).
     // The activation step (0x00125e50), a stand-in without its split timers and collision latches, which Coney does
     // not keep: the look-at point snapped onto where the target stands now (Cam_Follow_RefreshLookAt), so a camera
     // made current right after a teleport looks at the new place.
@@ -779,7 +779,7 @@ void FollowCamera::stepAim(const FollowTarget& target, anim::Vec3 cameraBefore, 
     // 4. The lag, from 0.06: longer the more the target moves across the view and the faster he goes, its speed share
     // coming back after a blocked view clears; 2.5 × when he is fast and the aim point trails, or a script walks him
     // fast; eased 3% an update. The across test and the 2.5 × gate read the 3D velocity (a fall counts), the speed
-    // share the horizontal speed (docs/research/camera.md#aim-point, #long-fall-coney).
+    // share the horizontal speed (docs/research/camera/follow.md#aim-point, #long-fall-coney).
     if (wasBlocked && !m_viewBlocked) {
         m_unblockTimer = kUnblockSeconds;
     }
@@ -801,8 +801,8 @@ void FollowCamera::stepAim(const FollowTarget& target, anim::Vec3 cameraBefore, 
     }
     // The overshoot test: × 2.5 when this update's aim point, moved by the lag built so far, would still end farther
     // from the goal than the look-at point is (squared 3D distances); only when it would not, a target the stick does
-    // not move (`0x00133dcc`-`0x00133ec8`, docs/research/camera.md#aim-point). **Coney's choice** (a stand-in): the
-    // slope latch that also passes the first test (`+0x460`) is not modelled, as Coney has no slope latches yet.
+    // not move (`0x00133dcc`-`0x00133ec8`, docs/research/camera/follow.md#aim-point). **Coney's choice** (a stand-in):
+    // the slope latch that also passes the first test (`+0x460`) is not modelled, as Coney has no slope latches yet.
     if (speed3d > target.walkSpeed + 0.18F * (target.runSpeed - target.walkSpeed)) {
         const anim::Vec3 next = anim::add(m_aim, anim::scale(anim::subtract(goal, m_aim), lag));
         const anim::Vec3 toLookAt3d = anim::subtract(goal, m_lookAt);
@@ -840,9 +840,10 @@ void FollowCamera::stepAim(const FollowTarget& target, anim::Vec3 cameraBefore, 
 
 void FollowCamera::update(const FollowTarget& target, std::uint8_t rawRightX, std::uint8_t rawRightY,
                           const raycast::CollisionMesh* mesh, float seconds) {
-    // **Coney stand-ins** for the parts of Cam_Follow_Update not built (docs/research/camera.md#update): the look-at
-    // offset's 15% ease, the tagging, fight-stance, hidden-in-shadow and aiming states and their look-at heights, the
-    // look-behind, the queued heading (+0x43c), the placed heading (+0x3f0), the heading target and pitch override
+    // **Coney stand-ins** for the parts of Cam_Follow_Update not built (docs/research/camera/follow.md#update): the
+    // look-at offset's 15% ease, the tagging, fight-stance, hidden-in-shadow and aiming states and their look-at
+    // heights, the look-behind, the queued heading (+0x43c), the placed heading (+0x3f0), the heading target and pitch
+    // override
     // (+0x350, +0x354), the height probe, the head look, aiming's and a grapple's lags, the tilt over obstacles, the
     // roll's ease, the split screen, the queued hand-over and the fade timer. The shake is the manager's (Cameras).
     // The camera's view at the start of the update, which the auto-follow rules measure from.

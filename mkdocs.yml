@@ -185,7 +185,15 @@ nav:
           - "AI pathing: holes, claims, jumps and status": research/ai-pathing.md
           - "AI reimplementation plan: units and specifications": research/ai-reimpl.md
           - Cars: research/cars.md
-          - Camera: research/camera.md
+          - Camera:
+              - Overview: research/camera/index.md
+              - Follow: research/camera/follow.md
+              - Look controls: research/camera/look-controls.md
+              - Collision: research/camera/collision.md
+              - Scripted cameras: research/camera/scripted.md
+              - Special cameras: research/camera/special.md
+              - Power moves: research/camera/power.md
+              - Shake and slow motion: research/camera/effects.md
           - "Slow motion: what turns it on and off": research/slow-motion.md
           - Scenes (cutscenes): research/scenes.md
           - Sound: research/sound.md
@@ -222,6 +230,7 @@ nav:
   - "Engine: how Coney works":
       - engine/index.md
       - Combat: engine/combat.md
+      - Camera: engine/camera.md
   - Game references:
       - references/index.md
       - Entities: references/entities.md

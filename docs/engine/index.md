@@ -19,3 +19,4 @@ Add each page to this one; the rules for writing a page, and how they are checke
 | Page | Subsystem |
 | --- | --- |
 | [Combat](combat.md) | The player's attacks, grabs, blocks, meters and reactions (`src/combat/`, the fighter in `src/human/`) |
+| [Camera](camera.md) | Camera ownership, shake and world-shake port boundaries (`src/camera/`) |

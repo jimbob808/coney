@@ -198,7 +198,7 @@ void Fighter::takePending(const FighterInput& input, HumanAnimator& animator) {
         logging::info(logging::Category::Combat, std::format("knock-down: {} by {}", logName(), attacker));
     }
     m_reacting = true;
-    // The reaction shakes the players' cameras at the hit code's strength (docs/research/camera.md#shake).
+    // The reaction shakes the players' cameras at the hit code's strength (docs/research/camera/effects.md#shake).
     m_reactionShake =
         ReactionShake{.level = combat::decodeHitCode(hit.code).strength, .attackerIsPlayer = hit.attackerIsPlayer};
 }

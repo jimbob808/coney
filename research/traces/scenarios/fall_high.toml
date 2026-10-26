@@ -1,9 +1,9 @@
 # A fall from a great height (user checklist item 48): slot 1 stands Rembrandt in level99's street; at frame 5
 # his feet are put 40 m up and he falls with the stick at rest. The trace shows the follow camera on the way
 # down: the aim point the view faces and its lag, the view's pitch, the hard band and the long-fall state flag.
-# Research: docs/research/camera.md#long-fall.
+# Research: docs/research/camera/follow.md#long-fall.
 description = "level99 street: the player put 40 m up falls; the follow camera's aim point, lag and pitch"
-research = "docs/research/camera.md#long-fall"
+research = "docs/research/camera/follow.md#long-fall"
 input = "fall_high.txt"
 updates = 150
 fields = ["player", "camera", "fall"]

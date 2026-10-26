@@ -1025,10 +1025,11 @@ a mug, or an AI in control. Square or cross then throws as above, along the aim.
 `+0x620`, so turning the aim turns him. It starts from the way he faces, with **one exception on the first frame**
 (human `+0x256`, cleared by `Human_SetThrowAimState`, set by the first `Human_MoveThrowAim`): for a player with one
 view per player camera (`0x0050b198` = `0x0050b19c`) whose active camera is of **type 2, the
-[follow camera](camera.md)** (camera vtable `+0x1ec`, [camera types](../references/cameras.md#type)), his heading is
+[follow camera](camera/index.md)** (camera vtable `+0x1ec`, [camera types](../references/cameras.md#type)), his
+heading is
 set once to the follow camera's: the direction from its position (vtable `+0x21c`) to its focus point (`+0x24c`),
 horizontal part only. Under any other camera, such as a script's locked camera, he keeps his own facing. The follow
-camera then frames the aim origin while he aims ([Camera: the follow update](camera.md#update), step 5). Each frame
+camera then frames the aim origin while he aims ([Camera: the follow update](camera/follow.md#update), step 5). Each frame
 after that:
 
 1. `Human_TraceThrowAim` runs (below).

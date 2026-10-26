@@ -126,7 +126,7 @@ TEST_CASE("the step animates every human, then moves every one, then runs their 
 TEST_CASE("the step every human advances by is the one given: slow motion's 1/150 s plays a fifth as far",
           "[human][humans]") {
     // The same attack started on both pairs, then one step at 1/30 s and one at 1/150 s
-    // (docs/research/camera.md#slow-motion).
+    // (docs/research/camera/effects.md#slow-motion).
     Pair normal;
     Pair slow;
     for (Pair* pair : {&normal, &slow}) {
@@ -146,7 +146,7 @@ TEST_CASE("the step every human advances by is the one given: slow motion's 1/15
 
 TEST_CASE("a reaction to a player's hit asks for a shake at the hit code's strength", "[human][humans]") {
     // The other human 1 m in front of the player, facing him; the player's square lands on it
-    // (docs/research/camera.md#shake).
+    // (docs/research/camera/effects.md#shake).
     Pair pair;
     pair.other.spawn(pair.mesh.get(), coney::anim::Vec3{40.0F, 41.0F, 0.0F}, 180.0F);
     std::optional<coney::human::ReactionShake> seen;

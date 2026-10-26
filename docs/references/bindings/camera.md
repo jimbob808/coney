@@ -288,7 +288,7 @@ CameraCreateLocked(name, pos, fov, heading, pitch, roll, near, far) -> number
 **Returns** number: The new camera's handle, or NilHandle when it could not be made.
 
 Creates a locked camera: one at a fixed position looking in a fixed direction. The front end's black camera is one;
-level99's tutorial cut-aways are nine more ([Camera](../../research/camera.md#locked-cameras)).
+level99's tutorial cut-aways are nine more ([Camera](../../research/camera/scripted.md#locked-cameras)).
 
 **Notes.** Argument order checked against the callee's slots: fov through slot +0x194, the three angles stored at
 +0x200, near slot +0x1a4, far slot +0x1ac.
@@ -406,7 +406,7 @@ CameraMakeActive(camera, seconds, name, forHuman, fromHuman)
 Makes a camera the current camera of a player, blending from the previous one over the given time: a linear blend of
 position and look-at point and a slerp of the orientation from the previous view to the new camera's live view, which
 becomes current directly when the time is up. While a scene camera is current it replaces the camera the scene returns
-to instead. See [Camera](../../research/camera.md#blends).
+to instead. See [Camera](../../research/camera/index.md#blends).
 
 - **Evidence:** confirmed (code) at `0x0011b770`; detail: traced
 - **Wrapper** `0x003656a0` (registered by `RegisterBindings`); **calls** `0x0011b770` `Camera_MakeActiveByHandle`
@@ -429,7 +429,7 @@ CameraReset(camera)
 Resets a camera to its starting state (camera vtable slot `+0x13c`). A follow camera is placed behind its target at the
 band's nearest preset distance, its target pitch and field of view set back to the configured ones; the band is not
 moved; the other player's follow camera is reset too. level99 resets its follow camera before every return to it
-([Camera](../../research/camera.md#setting-up)).
+([Camera](../../research/camera/index.md#setting-up)).
 
 - **Evidence:** confirmed (code) at `0x0011bad8`; detail: traced
 - **Wrapper** `0x00365a10` (registered by `RegisterBindings`); **calls** `0x0011bad8` `Camera_ResetByHandle`
@@ -595,8 +595,9 @@ projection counts.
 **Notes.** Placement: CamRail_PlaceLeading 0x0013e708; it raises the camera to target z + the height (CamModifyRail 1)
 when that is above 0 and pulls it back from world collision. Switch 7 (on by default and after every CamSetupRail)
 stands the camera off the rail, exactly the lead from the target in plan, and makes the look-at point the target point
-pushed out of the world; off, the camera stays on the rail ([Camera: leading](../../research/camera.md#rail-leading)).
-Mode 0 (after CamSetupRail, 0x0013d6b0): [Camera: rail cameras](../../research/camera.md#rail). No rail camera: nothing.
+pushed out of the world; off, the camera stays on the rail ([Camera: leading](../../research/camera/scripted.md#rail-leading)).
+Mode 0 (after CamSetupRail, 0x0013d6b0): [Camera: rail cameras](../../research/camera/scripted.md#rail). No rail
+camera: nothing.
 
 - **Evidence:** confirmed (code) at `0x0011cf70`, `0x0013e708`; detail: traced
 - **Wrapper** `0x003666e8` (registered by `RegisterBindings`); **calls** `0x0011cf70` `Camera_SetRailLead`, `0x0013e708`
@@ -667,7 +668,7 @@ the Night (levels 60-64) uses it to hold the side-scrolling view.
 
 **Notes.** A player with no rail camera is skipped (Camera_GetPlayerRail returns none). Modes 1 and 2 ignore the lock;
 mode 3 sets it itself at the rail's ends. Every reader and writer: [Camera: rail
-cameras](../../research/camera.md#rail).
+cameras](../../research/camera/scripted.md#rail).
 
 - **Evidence:** confirmed (code) at `0x0011d180`, `0x0013d6b0`; detail: traced
 - **Wrapper** `0x00366880` (registered by `RegisterBindings`); **calls** `0x0011d180` `Camera_LockRail`, `0x0013d6b0`
@@ -684,7 +685,7 @@ CamModifyRail(param, value, seconds, player)
 
 | # | Argument | Read as | Meaning |
 | --- | --- | --- | --- |
-| 1 | `param` | number, truncated to an unsigned integer | Which setting: 0 the most the camera stays from its target point in plan (m, 0 off), 1 the most it stands above the target's feet (m, negative off), 2 field of view (degrees, negative ignored), 3 the target point's shift along the rail (m), 4 the look-at point's further shift along the rail (m), 5 an angle that switches the rail to mode 3, 8 a fixed look-at pitch (degrees; below -360 switches 5 and 8 off), 9 the look-at offset's height (m); 6 is eased but never read; 7 is mode 3's margin for keeping the targets inside the view's sides (m); others do nothing. Meanings for mode 0: [Camera: rail cameras](../../research/camera.md#rail). |
+| 1 | `param` | number, truncated to an unsigned integer | Which setting: 0 the most the camera stays from its target point in plan (m, 0 off), 1 the most it stands above the target's feet (m, negative off), 2 field of view (degrees, negative ignored), 3 the target point's shift along the rail (m), 4 the look-at point's further shift along the rail (m), 5 an angle that switches the rail to mode 3, 8 a fixed look-at pitch (degrees; below -360 switches 5 and 8 off), 9 the look-at offset's height (m); 6 is eased but never read; 7 is mode 3's margin for keeping the targets inside the view's sides (m); others do nothing. Meanings for mode 0: [Camera: rail cameras](../../research/camera/scripted.md#rail). |
 | 2 | `value` | number (single precision) | The new value, in the setting's unit. |
 | 3 | `seconds` | number (single precision) | Time in seconds to ease linearly from the current value to the new one; 0 for at once. |
 | 4 | `player` | number, truncated to an integer; default -1 | Player index, or -1 (default) for every player's rail camera. |
@@ -741,7 +742,8 @@ CamReversePoizo(onEnd) -> boolean
 **Returns** boolean (1 for true, nil for false): true when the path camera exists (it is created on first use, so false
 only when that allocation fails).
 
-Turns the path camera ([Camera: path cameras](../../research/camera.md#path-cameras)) round: its points' positions and
+Turns the path camera ([Camera: path cameras](../../research/camera/scripted.md#path-cameras)) round: its points'
+positions and
 orientations are put in reverse order, the segment times shifted to match (a point's time is to the next point), the
 progress reset to the start, the camera placed at the new first point and the path started again with the new end
 callback. Scripts use it to fly a path back to where it began.
@@ -770,7 +772,7 @@ CamSetFollowAngle(degrees)
 
 Sets the target pitch of every player's follow camera, clamped to its pitch limits, and turns the view to it at once; it
 lasts until the next CameraReset or CfgFollowCamera. level99's -10 clamps to the lower limit, about -4.3 degrees
-([Camera](../../research/camera.md#script-calls)).
+([Camera](../../research/camera/scripted.md#script-calls)).
 
 - **Evidence:** confirmed (code) at `0x0011c3b8`; detail: traced
 - **Wrapper** `0x00365bb8` (registered by `RegisterBindings`); **calls** `0x0011c3b8` `Camera_SetFollowPitch`
@@ -798,7 +800,7 @@ view.
 **Notes.** Does nothing when player 1 has no follow camera yet (0x0011f9e0(0, 0)). Players 2 and up (count
 `W_GameState+0x224`) are placed without the snap. With no target the heading is measured from the world's forward axis.
 The "from the character's facing" reading is inferred from 0x001250a8; distance rule and pitch reset:
-[Camera](../../research/camera.md#setting-up).
+[Camera](../../research/camera/index.md#setting-up).
 
 - **Evidence:** confirmed (code) at `0x0011c2f0`; detail: traced
 - **Wrapper** `0x00365b80` (registered by `RegisterBindings`); **calls** `0x0011c2f0` `Camera_SetFollowHeading`
@@ -849,7 +851,7 @@ CamSetFollowZoom(preset, player)
 
 Moves the follow camera's distance band (0.5 m deep) to one of its three zoom distances (set by CfgFollowCamera), snaps
 the look-at point and sets the zoom step and upper pitch limit (30, 40 or 50 degrees for presets 0, 1, 2). The camera is
-not moved: the leash drags it into the new band. See [Camera](../../research/camera.md#script-calls).
+not moved: the leash drags it into the new band. See [Camera](../../research/camera/scripted.md#script-calls).
 
 **Notes.** Confirmed (runtime): level99 checkpoint 1 reads band 3.0-3.5, zoom step 4.8, limit 30; after
 CamSetFollowZoom(1) at checkpoint 2, 4.8-5.3, 6.6, 40.
@@ -934,7 +936,7 @@ CamSetSecondary(object, range, player)
 Gives a player's follow camera a secondary target to keep in view alongside the player, in place of auto-follow: the
 camera yaws 35% of the excess per update (at most 270 degrees/s) whenever the target is more than a quarter of the field
 of view off centre (the tutorial points it at Vermin). A range above 0 limits it to targets within the range and in
-sight ([Camera](../../research/camera.md#heading)).
+sight ([Camera](../../research/camera/follow.md#heading)).
 
 **Notes.** Stores the target at follow camera +0x320 and the range at +0x3fc (0 for NilHandle), and the target in the
 player's mugging camera (type 7) too.
@@ -978,7 +980,7 @@ CamSetupFollow(name, target) -> number
 **Returns** number: The follow camera's handle, or NilHandle when the target or camera is missing.
 
 Puts the player's follow camera on a target, places it behind the target and returns its handle; used through
-global.lua's CameraCreateFollow. See [Camera](../../research/camera.md#setting-up).
+global.lua's CameraCreateFollow. See [Camera](../../research/camera/index.md#setting-up).
 
 - **Evidence:** confirmed (code) at `0x0011bfa8`; detail: traced
 - **Wrapper** `0x00365a48` (registered by `RegisterBindings`); **calls** `0x0011bfa8` `Camera_SetupFollow`
@@ -1104,7 +1106,7 @@ human was missing or the list (at most 4) was full.
 
 Edits the shared list of humans the cameras follow (at 0x005d91a8): the players. A follow camera takes its targets from
 the first two entries and keeps its last target when the list is empty, so with one player removing and re-adding him
-(level99_lesson1) changes nothing ([Camera](../../research/camera.md#script-calls)).
+(level99_lesson1) changes nothing ([Camera](../../research/camera/scripted.md#script-calls)).
 
 - **Evidence:** confirmed (code) at `0x0011c270`; detail: traced
 - **Wrapper** `0x00365ad8` (registered by `RegisterBindings`); **calls** `0x0011c270` `Camera_TargetList`

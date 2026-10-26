@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// The camera bindings level99 calls (docs/research/camera.md#script-calls): global.lua's CameraCreateFollow and
-// level99's AddCameras, a tutorial cut-away and the blend back, CamSetFollowZoom, CamSetFollowAngle, CamEnable,
+// The camera bindings level99 calls (docs/research/camera/scripted.md#script-calls): global.lua's CameraCreateFollow
+// and level99's AddCameras, a tutorial cut-away and the blend back, CamSetFollowZoom, CamSetFollowAngle, CamEnable,
 // CamTarget and CamSetSecondary, and the same calls with no cameras.
 #include "scripting/camera_bindings.h"
 

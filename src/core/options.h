@@ -38,7 +38,7 @@ struct StartPlace {
 /// What `--camera` asks for: player 1's view pinned to one place and orientation for the whole run, whatever camera
 /// the game would show, so a frame can be matched with one of the original's
 /// (docs/guides/running-play-level.md#matched-views). The values are the base camera object's
-/// (docs/research/camera.md#the-base-camera-object): Coney's own test aid.
+/// (docs/research/camera/index.md#the-base-camera-object): Coney's own test aid.
 struct CameraPin {
     float x = 0.0F; ///< The eye, game axes (metres, z up): the camera's +0x10.
     float y = 0.0F;

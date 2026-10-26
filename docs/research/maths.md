@@ -56,7 +56,7 @@ Two integer forms differ at the top: `Random_Int(n)` returns 0 to n **inclusive*
 
 A transform is `{position, quaternion at +0x10}` (16 bytes each, w = 1 for points); quaternions are `(x, y, z, w)`;
 matrices are 4 rows of 16 bytes used with row vectors, the translation in the fourth row. Headings are radians
-clockwise from +y (the [Camera](camera.md) convention).
+clockwise from +y (the [Camera](camera/index.md) convention).
 
 | Address | Name | What it does | Evidence |
 | --- | --- | --- | --- |

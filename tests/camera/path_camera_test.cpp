@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// The scripts' path camera (docs/research/camera.md#path-cameras): a flight from a camera's view through the points
-// added, each point's time the time to the next, the points' functions and the end function fired as reached.
+// The scripts' path camera (docs/research/camera/scripted.md#path-cameras): a flight from a camera's view through the
+// points added, each point's time the time to the next, the points' functions and the end function fired as reached.
 #include "camera/path_camera.h"
 
 #include <cmath>
@@ -94,7 +94,7 @@ TEST_CASE("a path point's angles turn the camera as a locked camera's do", "[cam
     const Vec3 forward{0.0F, 1.0F, 0.0F};
     CHECK(near(coney::anim::transformDirection(coney::anim::matrixFromQuat(ahead), forward), forward));
     CHECK(near(coney::anim::transformDirection(coney::anim::matrixFromQuat(left), forward), Vec3{-1.0F, 0.0F, 0.0F}));
-    // A negative pitch looks down, as a locked camera's does (docs/research/camera.md#scripted-angles).
+    // A negative pitch looks down, as a locked camera's does (docs/research/camera/scripted.md#scripted-angles).
     const Quat down = orientationOf(0.0F, -30.0F, 0.0F);
     CHECK(coney::anim::transformDirection(coney::anim::matrixFromQuat(down), forward).z ==
           Approx(-std::sin(30.0F * std::numbers::pi_v<float> / 180.0F)).margin(1e-5));

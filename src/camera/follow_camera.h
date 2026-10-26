@@ -14,13 +14,13 @@
 // auto-follow rules), zooms in while the player sprints, covers a share of its wanted move each update, holds a pitch,
 // turns with the right stick and pulls in or swings away when the world is in the way. Game axes (z up), stepped with
 // the characters at 30 Hz; its clock is the sum of its updates, so a scripted pad gives the same views on every run
-// (test mode). Research: docs/research/camera.md, docs/research/feel.md
+// (test mode). Research: docs/research/camera/index.md, docs/research/feel.md
 
 namespace coney::camera {
 
-/// What `CfgFollowCamera` sets, as read in level99's street (docs/research/camera.md#level99-values,
-/// docs/research/camera.md#street). A camera made with these and no `CfgFollowCamera` call keeps the street's band;
-/// FollowCamera::configure() is the call itself, which leaves the band at the minimum.
+/// What `CfgFollowCamera` sets, as read in level99's street (docs/research/camera/follow.md#level99-values,
+/// docs/research/camera/follow.md#street). A camera made with these and no `CfgFollowCamera` call keeps the street's
+/// band; FollowCamera::configure() is the call itself, which leaves the band at the minimum.
 struct FollowSettings {
     float minDistance = 3.0F;
     float maxDistance = 6.6F;
@@ -91,16 +91,16 @@ struct FollowTarget {
     anim::Vec3 feet;      ///< The target's feet (game axes).
     float heading = 0.0F; ///< The target's facing, radians (0 facing +y).
     /// The stored gait (`+0x1a8`, 0 standing to 5 sprinting): the auto-follow rules run at the walk, run and sprint
-    /// gaits, the sprint zoom at the sprint gait (docs/research/camera.md#heading).
+    /// gaits, the sprint zoom at the sprint gait (docs/research/camera/follow.md#heading).
     std::uint8_t gait = 0;
     bool airborne = false;  ///< Jumping or falling: the look-at point follows the feet without its distance limit.
     bool stickBack = false; ///< The left stick points more than 157.5° from up: no auto-follow (`+0x474`).
     /// The distance to the target's nearest enemy, from its brain (`0x0021d408`), or none when it has no enemies (byte
     /// `+0x152`): a sprint zooms in only with no enemies or the nearest within 12 m
-    /// (docs/research/camera.md#sprint-zoom).
+    /// (docs/research/camera/follow.md#sprint-zoom).
     std::optional<float> nearestEnemy;
     /// The combat camera's test (`0x00233c50`): a pad-controlled player with a fight target, L1 held at it (record
-    /// flags `0x8` and `0x4`), one player, riding nothing (docs/research/camera.md#combat-camera).
+    /// flags `0x8` and `0x4`), one player, riding nothing (docs/research/camera/follow.md#combat-camera).
     bool lockOn = false;
     /// A lock-on button held: the hard band's far edge is doubled, at most 1.1 × the maximum distance.
     bool lockHeld = false;
@@ -111,8 +111,9 @@ struct FollowTarget {
     /// Its range (`+0x3fc`): above 0 the rule acts only within it.
     float secondaryRange = 0.0F;
     /// The body point (`+0x4e0`): the hips' position in the body's own frame (z up, facing +y, not turned by the
-    /// heading), times the body's scale; the aim point rises and falls with it (docs/research/camera.md#body-point).
-    /// None for a target without a pose: taken as 1 m up, where the aim point stays level.
+    /// heading), times the body's scale; the aim point rises and falls with it
+    /// (docs/research/camera/follow.md#body-point). None for a target without a pose: taken as 1 m up, where the aim
+    /// point stays level.
     std::optional<anim::Vec3> bodyPoint;
     /// Grabbing someone from the front or the rear (state flags `0xc0`): the aim point leads by 0.4 as far.
     bool grabbing = false;
@@ -144,7 +145,7 @@ struct FollowPlace {
 /// whenever it places itself (`Cam_Follow_PlaceAtHeading` gathers its targets first, `0x001250a8`).
 using FollowTargetSource = std::function<FollowPlace()>;
 
-/// The zoom presets of `CamSetFollowZoom` (docs/research/camera.md#script-calls).
+/// The zoom presets of `CamSetFollowZoom` (docs/research/camera/scripted.md#script-calls).
 enum class FollowZoom : std::uint8_t {
     Close = 0,   ///< The band's near edge at the minimum distance; the zoom step the default.
     Default = 1, ///< At the default distance; the zoom step the maximum.
@@ -223,9 +224,9 @@ class FollowCamera {
     static constexpr float kKeepInViewFactor = 0.25F;
     static constexpr float kKeepInViewShare = 0.35F;
     static constexpr float kKeepInViewRate = 4.712F;
-    /// The aim point (docs/research/camera.md#aim-point): the eased facing's share of the way an update; the lead's
-    /// least length and its share of the band's near edge; the grab's lead factor; the dead band on the body point's
-    /// height above 1 m, metres; the height's ease; the push's radius; the lag's base and its ease an update.
+    /// The aim point (docs/research/camera/follow.md#aim-point): the eased facing's share of the way an update; the
+    /// lead's least length and its share of the band's near edge; the grab's lead factor; the dead band on the body
+    /// point's height above 1 m, metres; the height's ease; the push's radius; the lag's base and its ease an update.
     static constexpr float kLeadShare = 0.35F;
     static constexpr float kLeadMin = 0.75F;
     static constexpr float kLeadBandShare = 0.15F;
@@ -305,7 +306,7 @@ class FollowCamera {
     /// look-at point snapped. The distance is the preset nearest the current one (the sprint zoom's saved edge while
     /// one is held) clamped to the band: the minimum up to halfway to the default, the default up to halfway to the
     /// maximum, else the maximum − 0.5; the band moves there and the zoom step becomes the preset after it.
-    /// `CamSetFollowHeading(degrees)` (docs/research/camera.md#script-calls).
+    /// `CamSetFollowHeading(degrees)` (docs/research/camera/scripted.md#script-calls).
     /// @orig 0x00124f38 Cam_Follow_PlaceBehind (Cam_Follow.cpp)
     /// @orig 0x001250a8 Cam_Follow_PlaceAtHeading (Cam_Follow.cpp)
     void placeBehind(float degrees);
@@ -356,7 +357,7 @@ class FollowCamera {
     [[nodiscard]] anim::Vec3 forward() const;
     /// The point the view faces (`+0x240`): it leads the look-at point a little along the target's facing and rises
     /// and falls with his body, eased twice, so the view's yaw and pitch lag the look-at point
-    /// (docs/research/camera.md#aim-point).
+    /// (docs/research/camera/follow.md#aim-point).
     [[nodiscard]] anim::Vec3 aimPoint() const { return m_aim; }
     /// The aim point's lag (`+0x418`): the share of the way to its goal it moves an update.
     [[nodiscard]] float aimLag() const { return m_aimLag; }
@@ -408,7 +409,7 @@ class FollowCamera {
     // @orig 0x0012d4e8 Cam_Follow_Pitch (Cam_Follow.cpp)
     void pitchToward(float maxStep);
     // Turns the wanted position's pitch about the look-at point by `delta`, the new pitch kept within the limits, as
-    // the stick's rate does (docs/research/camera.md#pitch).
+    // the stick's rate does (docs/research/camera/follow.md#pitch).
     // @orig 0x0012d4e8 Cam_Follow_Pitch (Cam_Follow.cpp)
     void turnPitch(float delta);
     // Steps the zoom distance (`+0x400`) to `distance`, which sets the upper pitch limit with it.

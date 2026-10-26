@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // The play mode's scene stage handing a scene's camera to player 1's cameras (docs/research/scenes.md,
-// docs/research/camera.md#scenes): the scene's start pushes the camera shown, its keys set the scene camera's view
-// and its end pops the camera back over the scene's blend; and the scene soundtrack
+// docs/research/camera/index.md#scenes): the scene's start pushes the camera shown, its keys set the scene camera's
+// view and its end pops the camera back over the scene's blend; and the scene soundtrack
 // (docs/research/sound.md#scene-sound) kept from its preparation to its event, and stopped only by a skip or a give-up.
 #include "platform/scene_stage.h"
 

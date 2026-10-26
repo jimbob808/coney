@@ -4,7 +4,7 @@
 #include "camera/camera_view.h"
 
 // The blend camera (type 5): `CameraMakeActive(camera, seconds > 0)` runs it from the view the old camera showed to
-// the new camera's live view, linear in time. Research: docs/research/camera.md#blends
+// the new camera's live view, linear in time. Research: docs/research/camera/index.md#blends
 
 namespace coney::camera {
 

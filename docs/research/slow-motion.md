@@ -10,7 +10,8 @@ Verified against: `SLUS_212.15` (NTSC-U), its Ghidra listing, and the disc's cha
 A finishing move (a grab or mount power move, a tandem's end, the bottle smash) slows the characters to a fifth of their
 speed for a moment while the frames, the cameras and game time keep their rate. The step itself, the factor
 `CfgFollowCamera` gives it and the clips that carry the events are on the camera page
-([Slow motion](camera.md#slow-motion)). This page is about the switch: which events and calls turn slow motion on and
+([Slow motion](camera/effects.md#slow-motion)). This page is about the switch: which events and calls turn slow motion
+on and
 off, and why a power move must never be cut short, which is what left Coney's players in slow motion for good after a
 power move that did not kill.
 

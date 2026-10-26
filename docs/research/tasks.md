@@ -205,7 +205,7 @@ Not on the wheel, with pools of their own:
 | world flag | `WorldFlag` pool ([World flags](flags.md#pool)), vtable `0x00545e68` | `CfgSetDatabaseSizes` flags + 4, 0xf0 each | yes |
 | volume, turf and player boxes | `FreeList<VolumeBox>`, `FreeListContainer<TurfBox>`, `FreeList<PlayerBox>`; base constructor `0x004127c0`, vtable `0x00545c48` | per level, `CfgSetDatabaseSizes` | yes |
 | spawn record (a placed object, live or not) | `ObjectTaskRec`, `ObjectTaskManager +0x14` | per level, `CfgSetDatabaseSizes` objects + 500, 0x28 each | serial 0 ([Handles](#handles)) |
-| camera | `Cam_ICamera` base `0x00120868`, vtable `0x00535510` ([Camera](camera.md)) | not traced | yes |
+| camera | `Cam_ICamera` base `0x00120868`, vtable `0x00535510` ([Camera](camera/index.md)) | not traced | yes |
 | object zone | a bit mask in the `ObjectTaskManager`; zone 0 on, 1-254 off at start (`0x00398348` from `0x00397a48`); the zones scripts use: [Object zones](../references/zones.md) | 255 | the zone number |
 | brain, goal, action | [AI](ai.md#brain) | 60, 170, 100 | by human |
 | gang | `0x005e6e30` ([AI](ai-gangs.md#gang-record)) | 32 × 0xb10 | the slot 0-31 |
@@ -1096,8 +1096,8 @@ See [Tasks: The base task object](#task-object).
 | `0x003a4428` | `ScriptObj_GetPoseB` | Object pose getter; exact use not traced. | speculative |
 | `0x003a4478` | `ScriptObj_GetPoseC` | Object pose getter; exact use not traced. | speculative |
 | `0x003a45a0` | `ScriptObj_EmptyStub` | Empty stub. | confirmed (code) |
-| `0x003a4608` | `ScriptObj_SetCameraWorldShakeLevel` | A player camera's shake slot 0 level (camera vtable `+0x1d4`, `+0x1a8`; [Camera](camera.md#world-shake)). | confirmed (code) |
-| `0x003a4668` | `ScriptObj_SetCameraWorldShakeTime` | A player camera's shake slot 0 time (camera vtable `+0x1dc`, `+0x1b4`; [Camera](camera.md#world-shake)). | confirmed (code) |
+| `0x003a4608` | `ScriptObj_SetCameraWorldShakeLevel` | A player camera's shake slot 0 level (camera vtable `+0x1d4`, `+0x1a8`; [Camera](camera/effects.md#world-shake)). | confirmed (code) |
+| `0x003a4668` | `ScriptObj_SetCameraWorldShakeTime` | A player camera's shake slot 0 time (camera vtable `+0x1dc`, `+0x1b4`; [Camera](camera/effects.md#world-shake)). | confirmed (code) |
 | `0x003a4b88` | `ScriptObj_GetUserValue` | Returns a script object's user value. | confirmed (code) |
 | `0x003a4d90` | `Vec_PickConstant` | Returns one of two constant vectors. | speculative |
 | `0x003a50e0` | `Camera_IsPointInPlayerView` | Says whether a point is in a player's view. | confirmed (code) |

@@ -31,7 +31,7 @@ below. This page gathers them and does not repeat them.
 | Piece | In an Armies level | Page |
 | --- | --- | --- |
 | Character models | every human drawn with its type's `_a` model | [Characters: from a type to a model](characters.md#type-to-model) |
-| Camera | the rail's mode 3: trails the hindmost fighter at a fixed downward pitch, forward only | [Camera: mode 3](camera.md#rail-mode3) |
+| Camera | the rail's mode 3: trails the hindmost fighter at a fixed downward pitch, forward only | [Camera: mode 3](camera/scripted.md#rail-mode3) |
 | HUD | two `ANHud` panels (health, power, credits, the boss picture), the GO sign; `HideHud` does nothing while game state `+0x14c` is 1 | [HUD: the Armies panel](hud-functions-panels.md#fn-anhud) |
 | Failure | no mission-failed shot; the Armies game over (mode 0xd, `ANGameOver_Toggle` `0x001557f8`) | [Pause: the game-over screen](pause.md#an-game-over) |
 | Pause | its own pause menu | [Pause: the Armies pause menu](pause.md#an-pause-menu) |
@@ -123,7 +123,7 @@ The minimum to show Armies of the Night instead of a black screen, in order:
    are one choice away. Do the same for the five flashbacks if they are missing.
 3. **The way in:** check that the hub's trophies run `flashback.PlayMission` and that the sixth (`level60`) is offered
    once levels 82, 92, 83, 20 and 11 are complete. That is the player's path, and a playthrough test should take it.
-4. **Make the stage recognisable:** build mode 3 of the rail ([Camera: mode 3](camera.md#rail-mode3)), so the
+4. **Make the stage recognisable:** build mode 3 of the rail ([Camera: mode 3](camera/scripted.md#rail-mode3)), so the
    camera trails the hindmost fighter at the −7° pitch. Take `isArmiesLevel` as 60-69.
 5. **Then the bindings in the list above**, the HUD's credits and GO sign first ([HUD: the Armies
    panel](hud-functions-panels.md#fn-anhud)), then the game over (mode 0xd, [Pause](pause.md#an-game-over)), so that

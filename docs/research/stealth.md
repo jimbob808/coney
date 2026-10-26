@@ -98,7 +98,7 @@ goals for Warriors. While hidden the player does not enter the fight stance by h
 Confirmed (code) at the callers of `0x00230140`.
 
 **What hidden changes for the AI**: [the enemy scan](ai.md#enemy-scan) and the spot test skip him
-([Seen or not](#seen)); the follow camera raises its look-at point to 1.65 m ([Camera](camera.md#update));
+([Seen or not](#seen)); the follow camera raises its look-at point to 1.65 m ([Camera](camera/follow.md#update));
 his footsteps play at half volume ([Characters](characters.md)); the AI's enemy picks drop him
 ([AI: the score](ai.md#enemy-score)).
 

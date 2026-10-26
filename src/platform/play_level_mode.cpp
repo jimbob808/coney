@@ -384,7 +384,7 @@ std::string PlayLevelMode::fightersState() const {
 
 WorldView PlayLevelMode::view(const human::PlayerSnapshot& snapshot, float drawDistance) const {
     // The current camera, in RenderWare's axes, kept upright by its up (a scripted camera's roll tips it,
-    // docs/research/camera.md#locked-cameras).
+    // docs/research/camera/scripted.md#locked-cameras).
     const world::Vec3 position = toRenderWare(snapshot.cameraEye);
     const anim::Vec3 look = anim::subtract(snapshot.cameraTarget, snapshot.cameraEye);
     const anim::Vec3 forwardGame = anim::length(look) > 1e-6F ? anim::normalise(look) : anim::Vec3{0.0F, 1.0F, 0.0F};

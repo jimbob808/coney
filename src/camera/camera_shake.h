@@ -9,11 +9,11 @@
 
 // A camera's shake and the pad rumble it drives: started by a hit reaction, rage and animation events at one of three
 // strengths, eased in over a short time, counted down with the characters' step. Research:
-// docs/research/camera.md#shake
+// docs/research/camera/effects.md#shake
 
 namespace coney::camera {
 
-/// One shake strength (docs/research/camera.md#shake).
+/// One shake strength (docs/research/camera/effects.md#shake).
 struct ShakeLevel {
     float amplitude = 0.0F;
     float seconds = 0.0F;

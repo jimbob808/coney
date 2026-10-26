@@ -120,7 +120,7 @@ Neither function writes the health or a meter. Confirmed (code) at `0x003a00b8` 
 
 Neither teleport calls camera code, nor do the placement and the motion reset they call: confirmed (code) at
 `0x00385bb8`, `0x00385db0`, `0x0023d440` and `0x0023f158`. The follow camera sees only that its target stands
-elsewhere on its next update (`Cam_Follow_Update`, `0x0012ae58`, [the follow update](camera.md#update)):
+elsewhere on its next update (`Cam_Follow_Update`, `0x0012ae58`, [the follow update](camera/follow.md#update)):
 
 1. Its look-at point closes the gap a share at a time: all of a move up to 0.4 m, 20% of one beyond 0.8 m (step 5), so
    after a short teleport the view glides to the new place over a few updates. Confirmed (code) at `0x00127d88`. In
@@ -140,9 +140,9 @@ elsewhere on its next update (`Cam_Follow_Update`, `0x0012ae58`, [the follow upd
    the target stands then (`Cam_Follow_PlaceAtHeading` gathers its targets first, `0x001250a8`). level99's lessons
    do it before handing back from a cut-away (`level99_lesson1.lua`, `level99_lesson2.lua`, after each
    `TeleportToFlag(player, ...)`), and `level95.lua`'s `StartDoorWalk` does it after its teleport when it has no door
-   camera ([The door walks](camera.md#door-walks)). Confirmed (code) at `0x001250a8`.
+   camera ([The door walks](camera/scripted.md#door-walks)). Confirmed (code) at `0x001250a8`.
 4. A scene that had its own camera ends by resetting the follow camera it hands back to, after its humans are let go,
-   so the view starts behind the place the scene left the player ([Scenes take the camera](camera.md#scenes)).
+   so the view starts behind the place the scene left the player ([Scenes take the camera](camera/index.md#scenes)).
    Confirmed (code) at `0x0039f450`.
 
 ### The hand-over {#handover}
@@ -156,7 +156,7 @@ plays no part. Confirmed (code) at `0x00229c40`.
 ### Falling out of the world {#out-of-world}
 
 The original puts no one back: a player more than 20 m below the collision mesh's lowest point fails the mission
-([Characters](characters.md#ground), [Camera](camera.md#death-camera)). Confirmed (code) at `0x002403ec`.
+([Characters](characters.md#ground), [Camera](camera/special.md#death-camera)). Confirmed (code) at `0x002403ec`.
 
 ### The level99 flash lesson {#flash-lesson}
 

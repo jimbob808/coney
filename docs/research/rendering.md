@@ -25,12 +25,12 @@ primitives into runs that share one state. The two frames of each dump agree pas
 A view at any chosen camera, such as a scripted shot played without the script, is drawn by the game itself: over
 PINE, player 1's follow camera object (`0x005d9158`) gets the locked camera's vtable (`0x005362d0`), the shot's
 position at `+0x1e0` and orientation at `+0x1f0`, its field of view, near and far, and is made current
-(`0x005d9150`); the locked update ([Scripted camera angles](camera.md#scripted-angles)) then places it each frame
+(`0x005d9150`); the locked update ([Scripted camera angles](camera/scripted.md#scripted-angles)) then places it each frame
 and the world streams round it. The people and cars stay wherever the save state had them.
 
 ### Reference views {#reference-views}
 
-Camera values are read from the current camera of player 1 (`0x005d9150`, [Camera](camera.md#the-base-camera-object):
+Camera values are read from the current camera of player 1 (`0x005d9150`, [Camera](camera/index.md#the-base-camera-object):
 position `+0x10`, orientation quaternion `+0x20` as (x, y, z, w), field of view `+0x48`, near / far `+0x50` /
 `+0x54`). The orientation is the identity when the camera looks along +y with +z up.
 
@@ -247,7 +247,7 @@ the compiled level scripts). The fog colour and the clear colour are the level s
 
 So in 0-1 terms the wash is `out = dst + (round_down(255 × rgb) / 255 − dst) × As / 128`: the opacity is about the
 script's alpha (0.12 → 15/128 = 0.117), **not** twice it, and the colour is not halved. The game-over tint
-`0xd0000014` ([Camera](camera.md#death-camera)) is red 20, green 0, blue 0 at As 104 (81%).
+`0xd0000014` ([Camera](camera/special.md#death-camera)) is red 20, green 0, blue 0 at As 104 (81%).
 
 ### Motion blur {#screen-overlays}
 

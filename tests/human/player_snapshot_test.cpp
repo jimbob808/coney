@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // What drawing reads from a step (repo:src/human/player.h): the camera's up travels with its eye and target, so a
-// scripted camera's roll (docs/research/camera.md#scripted-angles) reaches the renderer, and a cut is never swept.
+// scripted camera's roll (docs/research/camera/scripted.md#scripted-angles) reaches the renderer, and a cut is never
+// swept.
 #include "human/player.h"
 
 #include <catch2/catch_approx.hpp>

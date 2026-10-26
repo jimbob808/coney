@@ -509,7 +509,7 @@ scene position** (`0x00356188`, target vtable `+0x6c`). Confirmed (code).
 camera's view, the current camera is **pushed** and the scene camera made current with no blend (`0x0011ee08`); its
 lens is the definition's field of view, near and far; each update the track moves it and its own update runs
 (vtable `+0x134`). The details of the push, of `CameraMakeActive` during a scene and of the pop are on
-[Camera](camera.md#scenes). A scene without a camera keeps the current camera. Confirmed (code).
+[Camera](camera/index.md#scenes). A scene without a camera keeps the current camera. Confirmed (code).
 
 **Objects** bound by `SceneAddObject` follow their tracks; at the end they are released to the object manager.
 **Lights** are made from their definitions at the start and released at the end. Confirmed (code).
@@ -799,7 +799,7 @@ State 7 (all clips done, or a part ended with no roles) calls the end (`0x0039f4
    held poses on the ground near the pen, not their spawn poses 2.16 m below it, so storing wrote the objects' last
    places (where the player left them, which may not be the scene's end poses).
 4. **The camera**: popped and made current over `BlendCam` seconds, the scene camera released and the cameras updated
-   once with 0.17 s ([Camera](camera.md#scenes)).
+   once with 0.17 s ([Camera](camera/index.md#scenes)).
 5. Cinematic: **letterbox out** on every player's view (type 3, 1.5 s), which **shows the HUD again** once the bars
    are out ([HUD](hud.md#who-shows-the-hud-again)); when a player was bound (or player 1's
    brain `+0x2e4` is set), player 1's command menu unlocked, **follow** dispatched to his gang, forced and silent, and
@@ -1076,7 +1076,8 @@ starts (1 human holding, 1 held), and finds no human holding, held or grabbed 90
 `SceneHost` the play mode gives the scene system. It draws the scene camera's view (interpolated between steps, cut
 when it jumps more than 1 m), the letterbox (two bars 0.12 of the screen high,
 [Screen effects](graphics.md#screen-effects); the `Display/Cutscene letterbox` setting leaves them out) and the fades
-over the frame. In a level the scene camera is player 1's ([Camera](camera.md#scenes)): the scene's start pushes the camera
+over the frame. In a level the scene camera is player 1's ([Camera](camera/index.md#scenes)): the scene's start pushes
+the camera
 shown, its keys set the scene camera's view and its end pops the camera back over `BlendCam` seconds (in the sandbox,
 with no cameras, the end is a cut). The player and the level's cast (the humans its scripts made) are posed from
 their roles' frames and, when let go, stand where the scene left them (a cast human placed as a spawn places it),

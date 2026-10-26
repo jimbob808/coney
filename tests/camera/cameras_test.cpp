@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// The cameras' manager and the cameras it switches between (docs/research/camera.md#blends,
-// docs/research/camera.md#locked-cameras, docs/research/camera.md#scenes, docs/research/camera.md#shake,
-// docs/research/camera.md#slow-motion): locked views, cuts and linear blends with a slerped orientation, the scene
-// stack, the switches, the target list, the shake and its rumble, and slow motion.
+// The cameras' manager and the cameras it switches between (docs/research/camera/index.md#blends,
+// docs/research/camera/scripted.md#locked-cameras, docs/research/camera/index.md#scenes,
+// docs/research/camera/effects.md#shake, docs/research/camera/effects.md#slow-motion): locked views, cuts and linear
+// blends with a slerped orientation, the scene stack, the switches, the target list, the shake and its rumble, and slow
+// motion.
 #include "camera/cameras.h"
 
 #include <array>
@@ -103,7 +104,7 @@ TEST_CASE("a locked camera looks along its heading and pitch at a point 3 m ahea
 TEST_CASE("a scripted camera's angles turn it as the original's do: heading anticlockwise, pitch up, roll right",
           "[camera]") {
     // level99's fence shot, CameraCreateLocked(..., heading 177.78334, pitch -11.8545, roll 0): the original's
-    // quaternion and forward read at runtime (docs/research/camera.md#scripted-angles).
+    // quaternion and forward read at runtime (docs/research/camera/scripted.md#scripted-angles).
     const coney::anim::Quat q = coney::camera::scriptedOrientation(177.78334F, -11.8545F, 0.0F);
     CHECK(q.x == Approx(-0.00200F).margin(5e-5));
     CHECK(q.y == Approx(-0.10325F).margin(5e-5));
@@ -136,8 +137,8 @@ TEST_CASE("a scripted camera's angles turn it as the original's do: heading anti
 
 TEST_CASE("the story's scripted shots get the original's orientation from their angles", "[camera]") {
     // Heading, pitch and roll of a sample of the story levels' locked cameras and path points, with the quaternion
-    // the original builds from them (docs/research/camera.md#scripted-angles): looking down, looking up, rolled,
-    // turned both ways and nearly straight down.
+    // the original builds from them (docs/research/camera/scripted.md#scripted-angles): looking down, looking up,
+    // rolled, turned both ways and nearly straight down.
     struct Shot {
         float heading, pitch, roll;
         coney::anim::Quat expected;

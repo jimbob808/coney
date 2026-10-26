@@ -64,7 +64,7 @@ struct TuningGuard {
 };
 
 // The sprint zoom's band near edge after each update of the way in from 4.8 m (the timer rule, d × |d| / T × dt; the
-// street's measured 4.569 ... 3.216, 3.0, docs/research/camera.md#street).
+// street's measured 4.569 ... 3.216, 3.0, docs/research/camera/follow.md#street).
 constexpr std::array<float, 15> kBandIn{4.5686F, 4.3793F, 4.2208F, 4.0853F, 3.9675F, 3.8635F, 3.7703F, 3.6855F,
                                         3.6072F, 3.5335F, 3.4623F, 3.3911F, 3.3146F, 3.2156F, 3.0F};
 
@@ -586,7 +586,7 @@ TEST_CASE("the follow camera's aim point leads less in a grab and lags more for 
 
 TEST_CASE("in a long straight fall the aim point's lag climbs past 0.18 and keeps it under 5 m above the look-at point",
           "[camera]") {
-    // The fall_high trace (docs/research/camera.md#long-fall): the player falls straight down from rest, gaining
+    // The fall_high trace (docs/research/camera/follow.md#long-fall): the player falls straight down from rest, gaining
     // 0.52 m/s an update up to 35 m/s, for 70 updates, the stick his. The lag's across test and its 2.5 × read the 3D
     // velocity, so the lag climbs to about 0.19 and the aim point trails 4.7 m above the look-at point, as in the
     // original; built from the horizontal speed alone it stayed 0.06 and the aim point trailed about 18 m above.
@@ -621,7 +621,7 @@ TEST_CASE("in a long straight fall the wanted position keeps the target pitch, s
     // the look-at point (0x0012d908) and turns it all the way to the target pitch every update, after the leash.
     // So in a fall the leash cannot drag the wanted position up its line to the falling look-at point: the original's
     // wanted stays near its pitch and its camera, 22% an update behind, climbs to about 52° above the look-at point
-    // at 40 m (docs/research/camera.md#long-fall). Turned at most 85°/s, Coney's ended 84° up.
+    // at 40 m (docs/research/camera/follow.md#long-fall). Turned at most 85°/s, Coney's ended 84° up.
     FollowCamera camera(Vec3{0.0F, 0.0F, 100.0F}, 0.0F);
     FollowTarget target = standing(Vec3{0.0F, 0.0F, 100.0F});
     for (int i = 0; i < 300; ++i) {

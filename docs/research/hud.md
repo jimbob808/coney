@@ -307,7 +307,8 @@ player). Release is tested before hold:
   (`+0x155c`: `WCEnableCommand`, `HUDShowWarCommand`) and the human is a war chief, it is shown (`+0x1554` = 1), the
   "issued" flag (`+0x1548`) and the after-issue counter are cleared, the eighteen sprites are shown with any fade
   cancelled, and **the camera's right stick is switched off** for that pad (`0x0050b1b0[pad]` = 0, which
-  [Camera](camera.md#right-stick) tests). It does **not pause or slow the game**: neither function touches the game
+  [Camera](camera/look-controls.md#right-stick) tests). It does **not pause or slow the game**: neither function
+  touches the game
   timer, a time scale or the game mode, and the handler returns 0, so the rest of the frame's input (the left stick,
   attacks) still runs. The selection (`+0x1540`) is **not** reset: the menu opens on the last highlighted slot (slot
   0 the first time). For a human who is not a war chief the display is hidden instead.
@@ -703,7 +704,8 @@ second after he lets go. Confirmed (code) at `0x001af010` unless marked.
   raw byte `+0x1a` or `+0x1b` of the pad record outside 64-176) shows the icon and cancels its fade
   (`BaseWidget_CancelFade`, `0x001a25b8`: end time `+0xf4` = 0). Not pushing changes nothing. With any other camera
   and the switch on, the icon is hidden at once. Pad `+0x1a`/`+0x1b` are stored with the right stick's floats
-  `+0x10`/`+0x14` (`0x00149990`) and are what the camera's [right-stick step](camera.md#right-stick) reads, so this is
+  `+0x10`/`+0x14` (`0x00149990`) and are what the camera's [right-stick step](camera/look-controls.md#right-stick)
+  reads, so this is
   the right stick.
 - **The fade**: later in the update a shown icon gets `BaseWidget_StartFade(icon, 1000)` (`0x0050d49c` = 1,000 ms),
   which starts only when no fade runs; `BaseWidget_RenderAlpha` (`0x001a2690`) draws it at its alpha × (time left ÷

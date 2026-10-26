@@ -97,10 +97,6 @@ verified = 1
 evidence = 64
 address-resolve = 8
 
-["docs/research/camera.md"]
-evidence = 55
-length = 1910
-
 ["docs/research/cars.md"]
 front-matter = 1
 verified = 1

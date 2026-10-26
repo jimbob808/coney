@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 // Checks against the player's own disc that the follow camera stays with a player in a long fall as the original's
-// does (issue #111, docs/research/camera.md#long-fall): `level99` checkpoint 3 played in the game session as `coney
+// does (issue #111, docs/research/camera/follow.md#long-fall): `level99` checkpoint 3 played in the game session as
+// `coney
 // --play-level level99 --checkpoint 3` plays it (support/disc_session.h), player 1 put 40 m above the street's end
 // (where the original's `fall_high` trace starts him, the stick at rest) and left to fall. The aim point's lag must
 // climb past 0.18 and the aim point stay under 5 m above the look-at point, as the original's trace shows (0.188 and
@@ -29,8 +30,8 @@
 
 namespace {
 
-// The `fall_high` trace's start (docs/research/camera.md#long-fall): the street's end in checkpoint 3, heading 91.9°,
-// the feet 40 m up.
+// The `fall_high` trace's start (docs/research/camera/follow.md#long-fall): the street's end in checkpoint 3,
+// heading 91.9°, the feet 40 m up.
 constexpr float kStartX = 75.155F;
 constexpr float kStartY = 41.1354F;
 constexpr float kStartHeading = 91.909F;

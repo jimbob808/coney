@@ -24,7 +24,7 @@ inline constexpr std::array<std::string_view, 19> kCameraBindings{
 /// gives each new camera its handle, from the counter the other world objects' handles come from. The cameras' owner
 /// gives them the locator `CamSetSecondary` finds its human with (camera::Cameras::setLocator()).
 ///
-/// Research: docs/research/camera.md#script-calls, docs/references/bindings/camera.md
+/// Research: docs/research/camera/scripted.md#script-calls, docs/references/bindings/camera.md
 void addCameraBindings(LuaVm& vm, const BindingContext& context, std::function<double()> nextHandle);
 
 } // namespace coney::script

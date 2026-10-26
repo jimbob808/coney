@@ -2,9 +2,9 @@
 # held and square (the power strike, anim id 57); power_camera_ext adds cross taps in its window (the extension, 59) and
 # power_camera_rage starts rage first (63, then 65). Read every update: the current camera (0x005d9150), its view, the
 # power camera's state (0x005d9188: shot count, current and alternate shot, valid mask, mode, the human's transform at the
-# begin and the eight stored shots). Research: docs/research/camera.md#power-camera.
+# begin and the eight stored shots). Research: docs/research/camera/power.md#power-camera.
 description = "slot 6: grab PoizoCiv 1.0 m ahead, cross held + square: the power camera's begin, shots, cuts and end"
-research = "docs/research/camera.md#power-camera"
+research = "docs/research/camera/power.md#power-camera"
 input = "power_camera.txt"
 updates = 200
 fields = ["player"]

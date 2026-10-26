@@ -9,7 +9,7 @@ other pages are listed in [the overview](running.md#pages).
 `--play-level NAME` puts you in a level (`level2`, `level99`: any of the 79 with a streamed world, listed on the debug
 menu's [Levels page](debug-menu.md), which also switches between them) as player 1, driven with a gamepad's analog
 sticks, with the follow camera behind him ([Characters](../research/characters.md#coneys-implementation),
-[Camera](../research/camera.md#coneys-implementation)). The level's worlds and level file load and stream as in [the
+[Camera](../engine/camera.md#coneys-implementation)). The level's worlds and level file load and stream as in [the
 world viewer](running-viewers.md#the-world-viewer); he stands where the level's own script creates player 1, as when the
 story reaches the level: Coney runs the scripts the original runs before it (the preloads, then a fresh Lua state with
 `SetCheckPoint`), then `global.lua` and the level's script, and takes the position and heading of its `HuCreate` for
@@ -117,7 +117,7 @@ The columns, positions in metres (game axes, z up), angles in degrees, speeds in
 | `cam_distance`, `cam_pitch`, `cam_yaw` | the camera's distance from its look-at point, its pitch above it and the heading its view faces |
 | `band_near`, `target_pitch`, `auto_turn` | the leash band's near edge (the sprint zoom moves it), the target pitch, and the auto-centre rule's turn this step |
 | `command`, `health`, `power` | the command matched this step (0 for none; [Combat](../research/combat/index.md#commands)), the health and the power meter |
-| `aim_x`, `aim_y`, `aim_z`, `aim_lag` | the aim point the view faces ([Camera](../research/camera.md#aim-point)) and its lag |
+| `aim_x`, `aim_y`, `aim_z`, `aim_lag` | the aim point the view faces ([Camera](../research/camera/follow.md#aim-point)) and its lag |
 
 `--trace-humans FILE` (with `--play-level` or `--rumble`) writes **every** human's state after every step to `FILE`, one
 CSV row per human per step (`step`, then `human`, the human's number), in a Rumble match as well as in a level. It is
@@ -304,7 +304,7 @@ Three options make a frame that can be laid beside a screenshot of the original 
   scene and free cameras. X,Y,Z is the eye in the game's axes (metres, z up) and QX..QW the orientation quaternion,
   both exactly as the original's camera object holds them at `+0x10` and `+0x20`; FOV is the field of view used, in
   degrees (`+0x48`, 60 when not given). The quaternion turns the camera's +y (the view direction) and +z (up) into the
-  world ([The base camera object](../research/camera.md#the-base-camera-object)). The near and far clips are the
+  world ([The base camera object](../research/camera/index.md#the-base-camera-object)). The near and far clips are the
   current camera's, as usual, and the scenery streams round the pinned eye.
 - `--render-size WxH` draws frames of W × H pixels (`640x448` is the original's frame buffer). The 2D screen fills the
   whole frame and the 3D view keeps the 4:3 shape of a television across it, so a 640 × 448 screenshot lines up pixel

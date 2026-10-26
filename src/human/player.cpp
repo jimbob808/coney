@@ -26,7 +26,7 @@ namespace coney::human {
 namespace {
 
 // Whether the left stick points more than 157.5° from up (pulled back toward the camera), which keeps the auto-follow
-// rules off (`+0x474`, docs/research/camera.md#heading).
+// rules off (`+0x474`, docs/research/camera/follow.md#heading).
 bool stickPulledBack(float x, float y) {
     constexpr float kCosBehind = -0.92388F; // cos 157.5°
     const float length = std::hypot(x, y);
@@ -34,16 +34,17 @@ bool stickPulledBack(float x, float y) {
 }
 
 // What the follow camera needs of the human after its update: where it is and faces, its stored gait (which the
-// auto-follow rules and the sprint zoom read, docs/research/camera.md#heading), whether it is in the air, the stick,
-// the nearest enemy's distance (none with no enemies), and for the combat camera whether a pad-controlled player holds
-// L1 at a fight target and where that target will be in half a second (docs/research/camera.md#combat-camera).
+// auto-follow rules and the sprint zoom read, docs/research/camera/follow.md#heading), whether it is in the air, the
+// stick, the nearest enemy's distance (none with no enemies), and for the combat camera whether a pad-controlled player
+// holds L1 at a fight target and where that target will be in half a second
+// (docs/research/camera/follow.md#combat-camera).
 camera::FollowTarget followTargetOf(const Human& human, const Pad& pad, std::optional<float> nearestEnemy,
                                     bool padControlled) {
     // L1 held at the fight target (record flags 0x8 and 0x4), not the stance's own lock-on, which also locks without
     // it.
     const Combatant* lock = padControlled && pad.held(pad::kL1) ? human.fighter().target() : nullptr;
-    // **Coney's reading** of the state flags the aim point reads (docs/research/camera.md#aim-point): holding a victim
-    // in a grab's pair is grabbing (`0xc0`); holding one with no pair (a tackle), lying under a tackle or on the
+    // **Coney's reading** of the state flags the aim point reads (docs/research/camera/follow.md#aim-point): holding a
+    // victim in a grab's pair is grabbing (`0xc0`); holding one with no pair (a tackle), lying under a tackle or on the
     // ground, arrested or knocked out is down (`0xe2c00`).
     const Fighter& fighter = human.fighter();
     const bool holding = fighter.held() != nullptr;
@@ -424,8 +425,8 @@ void Player::update(const Pad& pad, const raycast::CollisionMesh* mesh, std::spa
     }
     // The characters' step: 1/30 s, or slow motion's share of it while a slow-motion event holds it.
     m_humans.update(mesh, targets, m_cameras != nullptr ? m_cameras->slowMotion().stepSeconds() : kStepSeconds);
-    // The step's shakes on player 1's camera (docs/research/camera.md#shake): a reaction to his hit, a reaction of his
-    // own from strength 2, and his rage starting (level 1).
+    // The step's shakes on player 1's camera (docs/research/camera/effects.md#shake): a reaction to his hit, a reaction
+    // of his own from strength 2, and his rage starting (level 1).
     if (m_cameras != nullptr) {
         for (const Human* human : m_humans.humans()) {
             const std::optional<ReactionShake>& shake = human->fighter().reactionShake();

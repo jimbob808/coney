@@ -823,7 +823,7 @@ kept by the track (`UNITS.md`); the "Spec" column links the sections that descri
 | 9 | core | Brain core: `Brain` | 12 | 3,540 | [brain](ai.md#brain), [brain-record](ai-code.md#brain-record), [moving](ai.md#moving) ... |
 | 10 | core | Brain core: `Brain` | 12 | 1,544 | [brain-record](ai-code.md#brain-record), [perception](ai-code.md#perception), [enemy-list](ai-code.md#enemy-list) ... |
 | 11 | core | Brain core: `Brain` | 12 | 2,068 | [brain-events](ai-code.md#brain-events), [attack-slots](ai-code.md#attack-slots), [brain-record](ai-code.md#brain-record) ... |
-| 12 | core | Brain core: `Brain` | 12 | 1,136 | [goal-stack](ai-code.md#goal-stack), [attack-slots](ai-code.md#attack-slots), [update](camera.md#update) ... |
+| 12 | core | Brain core: `Brain` | 12 | 1,136 | [goal-stack](ai-code.md#goal-stack), [attack-slots](ai-code.md#attack-slots), [update](camera/follow.md#update) ... |
 | 13 | core | Brain core: `Brain` | 12 | 1,440 | [enemy-list](ai-code.md#enemy-list), [perception](ai-code.md#perception), [wanted-timers](ai-code.md#wanted-timers) ... |
 | 14 | core | Brain core: `Brain` | 12 | 1,508 | [wanted-timers](ai-code.md#wanted-timers), [attack-slots](ai-code.md#attack-slots), [attack-action](ai.md#attack-action) ... |
 | 15 | core | Brain core: `Brain` | 12 | 1,452 | [brain-events](ai-code.md#brain-events), [brain-record](ai-code.md#brain-record), [script-levers](ai-scripting.md#script-levers) ... |
@@ -940,7 +940,7 @@ kept by the track (`UNITS.md`); the "Spec" column links the sections that descri
 | 126 | boss | Bosses and special fighters: `BossDiegoVargasTactic`, `BossLizziesTactic` | 15 | 1,900 | [t1-boss-diego-vargas](ai-code.md#t1-boss-diego-vargas), [t1-boss-lizzies](ai-code.md#t1-boss-lizzies) |
 | 127 | boss | Bosses and special fighters: `BossMoeTactic` | 11 | 1,964 | [t1-boss-moe](ai-code.md#t1-boss-moe) |
 | 128 | boss | Bosses and special fighters: `BossRoofTactic` | 15 | 2,820 | [t1-boss-roof](ai-code.md#t1-boss-roof) |
-| 129 | boss | Bosses and special fighters: `BossLutherTactic` | 13 | 2,072 | [t1-boss-luther](ai-code.md#t1-boss-luther), [brain-events](ai-code.md#brain-events), [slow-motion](camera.md#slow-motion) |
+| 129 | boss | Bosses and special fighters: `BossLutherTactic` | 13 | 2,072 | [t1-boss-luther](ai-code.md#t1-boss-luther), [brain-events](ai-code.md#brain-events), [slow-motion](camera/effects.md#slow-motion) |
 | 130 | boss | Bosses and special fighters: `BossBirdieTactic` | 11 | 2,548 | [t1-boss-birdie](ai-code.md#t1-boss-birdie) |
 | 131 | boss | Bosses and special fighters: `BossVirgilTactic` | 9 | 2,164 | [t1-boss-virgil](ai-code.md#t1-boss-virgil) |
 | 132 | boss | Bosses and special fighters: `BossChatterboxTactic` | 9 | 1,436 | [t1-boss-chatterbox](ai-code.md#t1-boss-chatterbox) |

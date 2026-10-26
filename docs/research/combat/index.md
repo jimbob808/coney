@@ -440,7 +440,7 @@ classes](../../references/warrior-classes.md), which lists every byte's reader.
    per-player `+0x19` is −1), so **an AI human never starts a block**: command 4 alone does nothing
    ([AI](../ai.md#block)). The fight test fails while the human runs or sprints with record `+0x08` clear (gait 4 or
    5, `0x00223a60`, `0x00223a98`), so **R1 at a run starts no block**: the run goes on and R1 only turns the camera
-   round ([Camera](../camera.md#reverse)); the block starts the update the gait drops below 4. Confirmed (code);
+   round ([Camera](../camera/look-controls.md#reverse)); the block starts the update the gait drops below 4. Confirmed (code);
    confirmed (runtime).
 2. The chain (`0x00280630`), then the sprint (`0x0027d5a0`). Confirmed (code).
 3. The state routes: mugging (`0x100`) → `Player_UpdateMugging`; being mugged (`0x200`) → release; a theft

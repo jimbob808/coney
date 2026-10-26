@@ -265,7 +265,7 @@ class Human final : public Holdable {
     /// @orig 0x00343518 PhysicsCapsule_Pose (unknown)
     [[nodiscard]] PosedShape struckCapsule() const;
     /// The body point (`+0x4e0`): the hips' (pose bone 2) position in the body's own frame, z up and facing +y, not
-    /// turned by the heading, times the scale; none without a skeleton (docs/research/camera.md#body-point).
+    /// turned by the heading, times the scale; none without a skeleton (docs/research/camera/follow.md#body-point).
     /// @orig 0x0023bde8 Human_GetBoneTransform (unknown)
     [[nodiscard]] std::optional<anim::Vec3> bodyPoint() const;
     /// What a human's switched-on strike shapes meet beyond the humans (the level's objects): `shapes`, posed now.
@@ -516,7 +516,7 @@ class Human final : public Holdable {
     /// Where the attacks announced since the last call started, and forgets them (its brain takes them each update).
     [[nodiscard]] std::vector<anim::Vec3> takeAttackAnnouncements() { return std::exchange(m_announced, {}); }
     /// The slow-motion event (type `0x2e` on, `0x2f` off) the clip playing passed in the last update, if any; the
-    /// later of the two when both did (docs/research/camera.md#slow-motion).
+    /// later of the two when both did (docs/research/camera/effects.md#slow-motion).
     [[nodiscard]] std::optional<std::uint16_t> slowMotionEvent() const { return m_slowMotionEvent; }
     /// Knocked out (its health run out, or `HuSetConscious(false)`): its player's slow motion goes off, as a clip's off
     /// event does; takeSlowMotionEnd() hands it to the player (docs/research/slow-motion.md#off).
@@ -532,7 +532,7 @@ class Human final : public Holdable {
     /// ahead opens and for 668 the dealer's goal is served (docs/research/combat-rage.md#flash).
     [[nodiscard]] std::optional<std::uint32_t> actionEvent() const { return m_actionEvent; }
     /// Sets the characters' step its next updates advance by: kStepSeconds, or less in slow motion
-    /// (docs/research/camera.md#slow-motion; Humans::update() sets it for every human).
+    /// (docs/research/camera/effects.md#slow-motion; Humans::update() sets it for every human).
     void setStepSeconds(float seconds) { m_stepSeconds = seconds; }
     /// The characters' step its updates advance by.
     [[nodiscard]] float stepSeconds() const { return m_stepSeconds; }

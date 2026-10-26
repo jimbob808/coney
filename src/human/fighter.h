@@ -122,8 +122,8 @@ struct FighterInput {
     bool padControlled = true; ///< The per-player record's `+0x1b` (HumanRecord::padDriven).
 };
 
-/// The camera shake a reaction asks for (docs/research/camera.md#shake): on the attacker's camera when a player hit,
-/// and from level 2 on the victim's when it is a player.
+/// The camera shake a reaction asks for (docs/research/camera/effects.md#shake): on the attacker's camera when a player
+/// hit, and from level 2 on the victim's when it is a player.
 struct ReactionShake {
     int level = 0;                 ///< The hit code's strength bits, 0-3 (0 stops a shake).
     bool attackerIsPlayer = false; ///< A player's hit.

@@ -9,7 +9,7 @@ class CollisionMesh;
 
 // What a camera shows this update: where it is, which way it faces, the point it looks at and its lens. Every kind of
 // camera (follow, locked, scene, blend) hands one to the cameras' manager, which gives the current one to the renderer.
-// Research: docs/research/camera.md#blends
+// Research: docs/research/camera/index.md#blends
 
 namespace coney::camera {
 
@@ -19,7 +19,7 @@ struct CameraView {
     /// The camera's frame: its +y is the view direction, +z up and +x right, turned into the world.
     anim::Quat orientation;
     /// The point it looks at: on the view direction for most cameras, but a blend lerps it apart from its slerped
-    /// orientation (docs/research/camera.md#blends).
+    /// orientation (docs/research/camera/index.md#blends).
     anim::Vec3 lookAt;
     float fieldOfView = 65.0F; ///< Horizontal, degrees, on a 4:3 picture.
     float nearClip = 0.1F;
@@ -49,8 +49,8 @@ struct CameraView {
                                        float farClip);
 
 /// A view pinned at `position` with the orientation `orientation` as a base camera stores it (+0x10 and +0x20,
-/// docs/research/camera.md#the-base-camera-object; normalised here, as any length but 0 is taken), looking along its
-/// +y with its +z up, the look-at point one metre ahead: `--camera`, Coney's test aid for matching the original's
+/// docs/research/camera/index.md#the-base-camera-object; normalised here, as any length but 0 is taken), looking along
+/// its +y with its +z up, the look-at point one metre ahead: `--camera`, Coney's test aid for matching the original's
 /// frames.
 [[nodiscard]] CameraView pinnedView(anim::Vec3 position, anim::Quat orientation, float fieldOfView, float nearClip,
                                     float farClip);

@@ -1841,7 +1841,7 @@ handle that is not a human.
 Tells whether the human is hidden in a shadow: brain byte `+0x2d4`, set by Brain_SetHiddenInShadow (0x0028ee88) when the
 human enters or leaves a hiding spot (0x0023e6e8, 0x0023eab8) and cleared when the brain resets. While it is set,
 enemies only notice the human's attacks within 2 m ([AI](../../research/ai.md)) and the camera holds a fixed look-at
-height ([Camera](../../research/camera.md#update)).
+height ([Camera](../../research/camera/follow.md#update)).
 
 **Notes.** What makes a spot a hiding spot (the callers at 0x0023e6e8 and 0x0023eab8) was not traced.
 

@@ -916,7 +916,7 @@ in the mount, and PoizoCiv, given a cuff and command `0x31` in the mount, holdin
     - the holder's `+0x134` = start + `Hold_GetParams` `+0x18`, only if the holder is a player;
     - the held's `+0x134` = the same start + `Hold_GetParamsB` `+0x18`, only if the held is a player.
 5. For a **held player** only, starts his mini camera (`CamMini_Start` kind 0 on the held player's view, framing both,
-   [Camera](camera.md)). A player holding an AI keeps his own camera.
+   [Camera](camera/index.md)). A player holding an AI keeps his own camera.
 6. `Pair_StartLoop256` (`0x002613a8`): the holder loops **256** `ANIM_ARRESTING_LOOP` (`arrest_minigame_cycle`) and
    the held **257** `ANIM_ARRESTING_LOOP_REACT`, each after a 0.05 s blend. Both push spheres go off and both anim
    states are set to 0. The pair link (`+0xc4`) is the tackle's own, kept as it was. So the pair leaves the mount

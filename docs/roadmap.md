@@ -118,7 +118,7 @@ gamepad or keyboard.
 
 - Done: research pages for the player character, its model, skeleton and skin, the game's animation format,
   movement, falling and the follow camera ([Characters](research/characters.md),
-  [Animation](research/formats/animation.md), [Cameras](research/camera.md)).
+  [Animation](research/formats/animation.md), [Cameras](research/camera/index.md)).
 - Done: loading and showing a character and its animations from the disc (`--view-character`).
 - Done: the player in the first mission's level under gamepad control, with the follow camera
   (`--play-level level99`): walking, running, turning, start clips, the gait blend, the idle, kerbs, walls and falls,
